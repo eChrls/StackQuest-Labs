@@ -1,0 +1,99 @@
+name: stackquest-lab-06
+
+services:
+  postgres:
+    image: postgres:17.5-alpine
+    environment:
+      POSTGRES_DB: lab6
+      POSTGRES_USER: lab6
+      POSTGRES_PASSWORD: lab6_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab6 -d lab6"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    logging: &jsonlog
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.1.2
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS 'http://localhost:9200/_cluster/health?wait_for_status=yellow' >/dev/null",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    logging: *jsonlog
+
+  app:
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      DATABASE_URL: postgresql+psycopg://lab6:lab6_dev@postgres:5432/lab6
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:18086:8000"
+    command:
+      [
+        "sh",
+        "-c",
+        "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000",
+      ]
+    logging: *jsonlog
+
+  postgres-test:
+    profiles: [test]
+    image: postgres:17.5-alpine
+    environment:
+      POSTGRES_DB: lab6_test
+      POSTGRES_USER: lab6
+      POSTGRES_PASSWORD: lab6_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab6 -d lab6_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    logging: *jsonlog
+
+  test:
+    profiles: [test]
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      DATABASE_URL: postgresql+psycopg://lab6:lab6_test@postgres-test:5432/lab6_test
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    command: ["sh", "-c", "alembic upgrade head && pytest -q"]
+    init: true
+    logging: *jsonlog
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
