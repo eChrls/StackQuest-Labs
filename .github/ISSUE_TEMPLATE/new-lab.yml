@@ -6,6 +6,18 @@ body:
   - type: markdown
     attributes:
       value: "Read the editorial guide and LAB_SPEC first. Describe the challenge, not its solution."
+  - type: dropdown
+    id: roadmap_scope
+    attributes:
+      label: Roadmap scope
+      options: [Official roadmap Lab, Community/Future Lab idea]
+    validations: {required: true}
+  - type: input
+    id: directory
+    attributes:
+      label: Proposed directory
+      description: "Use lab-NN-stack-focus for an official Lab; community ideas need not claim an official number."
+    validations: {required: true}
   - type: input
     id: stack
     attributes:
@@ -49,6 +61,18 @@ body:
     attributes:
       label: Expected tests and acceptance criteria
       description: Describe observable baseline evidence and realistic completion criteria.
+    validations: {required: true}
+  - type: textarea
+    id: external_services
+    attributes:
+      label: External services, costs, and secrets
+      description: State the local/offline path, possible cost, and credential handling.
+    validations: {required: true}
+  - type: textarea
+    id: continuity
+    attributes:
+      label: Agent Continuity context
+      description: Explain what a new agent needs to teach, guide, validate, and fully resolve the Lab.
     validations: {required: true}
   - type: textarea
     id: follow_up

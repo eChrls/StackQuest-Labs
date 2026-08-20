@@ -30,11 +30,11 @@ jobs:
         run: |
           set -euo pipefail
           found=false
-          for lab in Lab-*; do
+          for lab in lab-[0-9][0-9]-*; do
             [[ -d "$lab" ]] || continue
             found=true
             [[ -f "$lab/README.md" ]] || { echo "$lab/README.md is missing"; exit 1; }
-            [[ -f "$lab/compose.yml" ]] || { echo "$lab/compose.yml is missing"; exit 1; }
+            [[ -f "$lab/compose.yml" ]] || continue
             if grep -Eq '(^|[[:space:]])build:' "$lab/compose.yml"; then
               find "$lab" -maxdepth 2 -type f \( -name 'Dockerfile' -o -name 'Dockerfile.*' \) | grep -q . || {
                 echo "$lab declares a build but has no Dockerfile"; exit 1;
@@ -46,7 +46,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for compose in Lab-*/compose.yml; do
+          for compose in lab-[0-9][0-9]-*/compose.yml; do
             [[ -f "$compose" ]] || continue
             docker compose -f "$compose" config -q
           done

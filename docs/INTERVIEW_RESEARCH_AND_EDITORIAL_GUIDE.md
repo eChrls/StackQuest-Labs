@@ -1,6 +1,6 @@
 # Interview Research & Editorial Guide
 
-**Project:** Real-World Technical Interview Labs
+**Project:** StackQuest Labs
 **Status:** Editorial baseline
 **Research date:** 2026-08-20
 **Primary scope:** Spain and Europe, with a small number of international public examples when they reinforce a recurring interview pattern.
@@ -9,7 +9,7 @@
 
 ## 1. Purpose
 
-This document defines the research basis and editorial direction for the `Labs` repository.
+This document defines the research basis and editorial direction for StackQuest Labs.
 
 The project should simulate **realistic technical interview work**, not algorithm-drill platforms. A Lab should feel like receiving an unfamiliar repository from a company and being asked to understand it, run it, investigate a symptom, use tests and debugging evidence, make a safe change, and explain the decision.
 
@@ -59,7 +59,7 @@ Public European hiring material repeatedly emphasizes one or more of:
 - quality over feature completeness;
 - follow-up code review or extension of the submitted work.
 
-This directly supports the core philosophy of Real-World Technical Interview Labs.
+This directly supports the core philosophy of StackQuest Labs.
 
 ---
 
@@ -332,7 +332,53 @@ Sources already reviewed for this direction include the Inato AI Engineer test, 
 - explain experiments, measurements, failures, and trade-offs.
 
 **Editorial consequence:**
-Lab-7 may use these general patterns for original self-learning challenges and interview-inspired practice. It must not copy their exercises, wording, datasets, hidden cases, or business rules, and must not present itself as a challenge used by Inato, Hex, or any other named organization.
+Lab 07 may use these general patterns for original self-learning challenges and interview-inspired practice. It must not copy their exercises, wording, datasets, hidden cases, or business rules, and must not present itself as a challenge used by Inato, Hex, or any other named organization.
+
+### 4.15 Angular technical challenges and real-world learning
+
+**Confirmed source pattern — CrowdComms frontend coding challenge**
+**Evidence:** A — public repository under the CrowdComms organization
+**URL:** https://github.com/crowdcomms/frontend-coding-challenge
+
+The repository explicitly presents an Angular frontend-role challenge with a paginated API list, search/filtering, detail navigation, unit tests, performance and Angular best-practice expectations, and a four-hour timebox.
+
+**Confirmed source pattern — IT Academy BCN / Barcelona Activa**
+**Evidence:** A — official public learning project
+**URL:** https://github.com/IT-Academy-BCN/ita-challenges-frontend
+
+The project uses Angular and reactive programming in a real-world learning environment involving new features, legacy code, bugs, teamwork, and practical learning.
+
+**Editorial inference / project design decision:** Lab 04 combines those Angular skill patterns with separately established Spring Boot evidence from Crewmeister, GetYourGuide backend, Personio, and George, plus the relevance of Angular and Spring in enterprise applications. The sources do **not** establish that CrowdComms, Barcelona Activa, or those backend companies use Angular + Spring Boot together in one assessment.
+
+### 4.16 Cloud / DevOps technical assessments
+
+**Confirmed source pattern — MoonPay DevOps Challenge**
+**Evidence:** A — official MoonPay organization repository, archived by its owner on 2026-05-26
+**URL:** https://github.com/moonpay/devops-challenge
+
+The challenge supplies an application and evaluates containerization, local verification, deployment, CI/CD and Infrastructure as Code knowledge, production readiness, security, scalability, reliability, and walkthrough/defense of decisions. AI-assisted work must remain explainable. Its concrete orchestration target is Kubernetes/GKE or local Kubernetes, so it is **not an AWS-only assessment**; its editorial value is the recurring DevOps assessment shape.
+
+### 4.17 AWS official technical references and cost snapshot
+
+These are **official technical references**, not company interview tests:
+
+- https://github.com/aws-samples/amazon-ecs-fullstack-app-terraform — full-stack ECS deployment, Terraform IaC, CI/CD, reproducibility, cleanup, and production-risk reduction.
+- https://github.com/aws-samples/aws-do-docker — Docker-first local workflow and reuse of a container across EC2, ECS, and other AWS execution targets.
+
+**Research snapshot date: 2026-08-20**
+
+Official AWS references:
+
+- https://aws.amazon.com/free/ — Free plan and current credit/duration terms.
+- https://aws.amazon.com/free/compute/ — eligible compute offers, including EC2 options.
+- https://aws.amazon.com/free/database/ — eligible database offers, including RDS PostgreSQL configurations.
+- https://aws.amazon.com/rds/free/ — RDS Free Tier reference.
+
+At the snapshot date, AWS documents $100 in credits at signup, up to $100 more, and a Free plan lasting up to six months; EC2 has eligible options, and RDS lists eligible `db.t3.micro`/`db.t4g.micro` instances including PostgreSQL. These details are temporary, account- and configuration-dependent.
+
+> Pricing, credits and Free Tier eligibility are time-sensitive and MUST be re-verified before running Lab 08 live.
+
+Lab 08 therefore requires an explicit Cost Gate, optional live mode, least privilege, environment-based credentials, and mandatory teardown verification. StackQuest Labs must not require payment for its principal learning path.
 
 ---
 
@@ -346,20 +392,20 @@ Lab-7 may use these general patterns for original self-learning challenges and i
 | Add/extend a product feature                 |                     Very high | All                               |
 | Explain design decisions / trade-offs        |                     Very high | All                               |
 | Follow-up discussion / code review / pairing |                     Very high | All                               |
-| Refactoring / improve messy code             |                          High | Lab-1, Lab-2, Lab-3               |
-| Debugging with IDE/logs                      |                          High | Lab-1, Lab-2, Lab-3               |
-| REST/API behaviour                           |                          High | Lab-1, Lab-3, Lab-4, Lab-5, Lab-6 |
-| Persistence and data modelling               |                          High | Lab-1, Lab-2, Lab-3, Lab-5, Lab-6 |
-| Loading/error/empty/retry frontend states    |       High in frontend sample | Lab-3, Lab-4, Lab-5               |
-| Async UI mutation / rollback                 |                   Medium-high | Lab-3, Lab-4, Lab-5               |
-| Incremental ingestion / repeated jobs        |           High in data sample | Lab-6                             |
-| Data quality / scale discussion              |           High in data sample | Lab-6                             |
-| Transactions / atomicity                     |                   Medium-high | Lab-1, Lab-2, Lab-3, Lab-6        |
-| Time zones / scheduling                      |                        Medium | Lab-1, Lab-6                      |
+| Refactoring / improve messy code             |                          High | Lab 01, Lab 02, Lab 03               |
+| Debugging with IDE/logs                      |                          High | Lab 01, Lab 02, Lab 03               |
+| REST/API behaviour                           |                          High | Lab 01, Lab 03, Lab 04, Lab 05, Lab 06 |
+| Persistence and data modelling               |                          High | Lab 01, Lab 02, Lab 03, Lab 05, Lab 06 |
+| Loading/error/empty/retry frontend states    |       High in frontend sample | Lab 03, Lab 04, Lab 05               |
+| Async UI mutation / rollback                 |                   Medium-high | Lab 03, Lab 04, Lab 05               |
+| Incremental ingestion / repeated jobs        |           High in data sample | Lab 06                             |
+| Data quality / scale discussion              |           High in data sample | Lab 06                             |
+| Transactions / atomicity                     |                   Medium-high | Lab 01, Lab 02, Lab 03, Lab 06        |
+| Time zones / scheduling                      |                        Medium | Lab 01, Lab 06                      |
 | Production-readiness notes                   |                          High | All                               |
 | Algorithm puzzles as main assessment         |   Not dominant in this sample | Optional only                     |
-| Baseline plus measurable AI evaluation       | High in AI Engineering sample | Lab-7                             |
-| Document extraction / RAG / tool use         | High in AI Engineering sample | Lab-7                             |
+| Baseline plus measurable AI evaluation       | High in AI Engineering sample | Lab 07                             |
+| Document extraction / RAG / tool use         | High in AI Engineering sample | Lab 07                             |
 
 ---
 
@@ -442,12 +488,12 @@ Examples:
 
 Mandatory in the most strategically important areas:
 
-- **Lab-1: Java/Spring Boot**
-- **Lab-2: Java legacy/backend**
-- **Lab-3: Java/Spring + PostgreSQL/full stack**
-- **Lab-6: Python/Data + PostgreSQL/Elasticsearch**
+- **Lab 01: Java/Spring Boot**
+- **Lab 02: Java legacy/backend**
+- **Lab 03: Java/Spring + PostgreSQL/full stack**
+- **Lab 06: Python/Data + PostgreSQL/Elasticsearch**
 
-Optional/community expansion for Lab-4 and Lab-5.
+Optional/community expansion for Lab 04 and Lab 05.
 
 Characteristics:
 
@@ -603,7 +649,7 @@ This follows the recurring “quality over quantity / production-minded” patte
 
 ## 11. Lab-specific editorial plan
 
-### Lab-1 — Java/Spring Boot Debugging
+### Lab 01 — Java/Spring Boot Debugging
 
 **Tracks:** Easy + Intermediate + Advanced
 
@@ -640,7 +686,7 @@ GetYourGuide backend, Personio, Crewmeister, George, Flipdish.
 
 ---
 
-### Lab-2 — Java Legacy + Refactoring + TDD
+### Lab 02 — Java Legacy + Refactoring + TDD
 
 **Tracks:** Easy + Intermediate + Advanced
 
@@ -672,7 +718,7 @@ George, Flipdish, European take-home + code-review patterns.
 
 ---
 
-### Lab-3 — React/TypeScript + Java/Spring + PostgreSQL
+### Lab 03 — React/TypeScript + Java/Spring + PostgreSQL
 
 **Tracks:** Easy + Intermediate + Advanced
 
@@ -706,26 +752,16 @@ GetYourGuide frontend/backend, FACEIT, Personio, Mimo.
 
 ---
 
-### Lab-4 — Angular + NestJS
+### Lab 04 — Angular + Spring Enterprise
 
 **Tracks:** Easy + Intermediate
 **Advanced:** optional later/community-driven.
 
-Easy:
+Planned stack: Angular, TypeScript, Java, Spring Boot, and PostgreSQL.
 
-- DI/service wiring;
-- observable/async data;
-- validation;
-- HTTP error/loading state;
-- route/component bug.
+Easy: Reactive Forms, RxJS/services, HttpClient, validation, HTTP/error/loading states, and route/component defects.
 
-Intermediate:
-
-- existing app feature;
-- server-side filtering/pagination;
-- async race;
-- frontend/backend contract;
-- tests and code organization.
+Intermediate: interceptors, guards, REST/DTO contracts, Spring services, transactions, JPA, PostgreSQL, integration debugging, and authorization boundaries.
 
 Potential advanced extension:
 
@@ -733,12 +769,11 @@ Potential advanced extension:
 - concurrent writes;
 - performance.
 
-Primary inspiration:
-European frontend take-home patterns, FACEIT-style API tasks, GetYourGuide generalist approach.
+Primary inspiration: the separately evidenced Angular and Spring families described above. Advanced remains optional/community-driven. NestJS moves to an unnumbered Future / Community idea.
 
 ---
 
-### Lab-5 — Vue 3 + TypeScript + Laravel
+### Lab 05 — Vue 3 + TypeScript + Laravel
 
 **Tracks:** Easy + Intermediate
 **Advanced:** optional later/community-driven.
@@ -770,7 +805,7 @@ general European take-home + code-review patterns and realistic product-feature 
 
 ---
 
-### Lab-6 — Python/FastAPI + PostgreSQL + ETL + Elasticsearch
+### Lab 06 — Python/FastAPI + PostgreSQL + ETL + Elasticsearch
 
 **Tracks:** Easy + Intermediate + Advanced
 
@@ -812,7 +847,7 @@ Equal Experts, Primer, production data-quality patterns, realistic PostgreSQL ca
 
 ---
 
-### Lab-7 — Applied AI Engineering
+### Lab 07 — Applied AI Engineering
 
 **Tracks:** Easy + Intermediate
 
@@ -840,6 +875,19 @@ The provider abstraction must support deterministic fake/mock, optional external
 
 Primary inspiration:
 High-level public patterns from the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide. Never copy exercises or datasets.
+
+---
+
+### Lab 08 — AWS Cloud Deployment & DevOps
+
+**Tracks:** Easy + Intermediate
+**Advanced:** `🚫 NOT PLANNED`
+
+The future Lab starts with a working local Docker/Compose baseline and only then offers an optional AWS live path. Easy covers EC2 foundations, networking/exposure, configuration, logs, and “works locally, fails in cloud” debugging. Intermediate covers ECR, private RDS PostgreSQL, GitHub Actions CI/CD, Terraform, observability, and rollback reasoning.
+
+The Cost Gate and teardown verification are mandatory. Credentials stay outside Git, least privilege applies, live assumptions are explicit, and current pricing/eligibility must be checked before deployment. Local/static learning remains available without AWS or payment.
+
+Primary inspiration: the MoonPay assessment pattern plus AWS official technical references, correctly classified above.
 
 ---
 
@@ -1054,7 +1102,7 @@ A Lab is 100% complete only when a new agent, using the global sources and the L
 - explain the root cause and review alternatives; and
 - provide a complete resolution when the learner is blocked.
 
-Lab-1 is the first Reference Lab for this standard. Lab-2 and Lab-3 will be adapted differentially after that reference is established.
+Lab 01 is the first Reference Lab for this standard. Lab 02 and Lab 03 will be adapted differentially after that reference is established.
 
 ## 20. Bibliography
 
@@ -1115,7 +1163,7 @@ Use source 15 only for general pattern triangulation. Do not reproduce the task/
 
 ## 20. Canonical editorial rule for future agents
 
-When creating or modifying any `Lab-*`, agents should be instructed to read this document first.
+When creating or modifying any `lab-NN-*`, agents should be instructed to read this document first.
 
 Recommended prompt prefix:
 

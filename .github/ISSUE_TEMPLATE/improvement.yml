@@ -5,7 +5,7 @@ labels: [lab-improvement]
 body:
   - type: dropdown
     id: lab
-    attributes: {label: Lab, options: [Lab-1, Lab-2, Lab-3, Lab-4, Lab-5, Lab-6]}
+    attributes: {label: Lab, options: [Lab 01, Lab 02, Lab 03, Lab 04, Lab 05, Lab 06, Lab 07, Lab 08, Lab 09+ / Community]}
     validations: {required: true}
   - type: textarea
     id: problem

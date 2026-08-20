@@ -1,4 +1,4 @@
-# Lab-3 — Full Stack Integration Challenge
+# Lab 03 — React + Spring Full-Stack
 
 ## Purpose
 
@@ -112,7 +112,7 @@ El navegador llama a `http://localhost:18083`, nunca al hostname Docker `backend
 
 ## Commands
 
-Ejecutar desde `Lab-3/` o anteponer `-f Lab-3/compose.yml`.
+Ejecutar desde `lab-03-react-spring-fullstack/` o anteponer `-f lab-03-react-spring-fullstack/compose.yml`.
 
 ```bash
 docker compose up --build
@@ -258,4 +258,4 @@ Están disponibles logs Docker, healthchecks, Spring logs, debugger Java con JDW
 
 ## Continuity context
 
-Lab-3 es un laboratorio independiente de integración Full Stack. Usa React 19/TypeScript/Vite en `localhost:13003`, Spring Boot 3.5.4/Java 21 en `localhost:18083`, PostgreSQL 17 interno y JDWP en `localhost:15007`. El baseline es 32 tests: 26 pass y 6 fallan deliberadamente, repartidos en tres tickets frontend y tres backend. Los seis tickets iniciales describen síntomas sin soluciones. Ticket 7 añade Merchant Summary de extremo a extremo y cuatro tests mínimos. Los comandos principales son `docker compose up --build`, `docker compose --profile test run --rm backend-test`, `docker compose --profile test run --rm frontend-test` y `docker compose --profile debug up --build backend-debug postgres`.
+Lab 03 es un laboratorio independiente de integración Full Stack. Usa React 19/TypeScript/Vite en `localhost:13003`, Spring Boot 3.5.4/Java 21 en `localhost:18083`, PostgreSQL 17 interno y JDWP en `localhost:15007`. El baseline es 32 tests: 26 pass y 6 fallan deliberadamente, repartidos en tres tickets frontend y tres backend. Los seis tickets iniciales describen síntomas sin soluciones. Ticket 7 añade Merchant Summary de extremo a extremo y cuatro tests mínimos. Los comandos principales son `docker compose up --build`, `docker compose --profile test run --rm backend-test`, `docker compose --profile test run --rm frontend-test` y `docker compose --profile debug up --build backend-debug postgres`.

@@ -1,14 +1,14 @@
-# Real-World Technical Interview Labs
+# StackQuest Labs
 
 **Debug • Test • Refactor • Learn**
 
 [English](README.md) | [Español](README.es.md)
 
-[![License: MIT](https://img.shields.io/github/license/eChrls/Labs)](LICENSE) [![Stars](https://img.shields.io/github/stars/eChrls/Labs)](https://github.com/eChrls/Labs/stargazers) [![Forks](https://img.shields.io/github/forks/eChrls/Labs)](https://github.com/eChrls/Labs/forks) [![Workspace integrity](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml/badge.svg?branch=main)](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml)
+[![License: MIT](https://img.shields.io/github/license/eChrls/StackQuest-Labs)](LICENSE) [![Stars](https://img.shields.io/github/stars/eChrls/StackQuest-Labs)](https://github.com/eChrls/StackQuest-Labs/stargazers) [![Forks](https://img.shields.io/github/forks/eChrls/StackQuest-Labs)](https://github.com/eChrls/StackQuest-Labs/forks) [![Workspace integrity](https://github.com/eChrls/StackQuest-Labs/actions/workflows/workspace-integrity.yml/badge.svg?branch=main)](https://github.com/eChrls/StackQuest-Labs/actions/workflows/workspace-integrity.yml)
 
-![Real-World Technical Interview Labs social preview](docs/assets/social-preview.png)
+![StackQuest Labs social preview](docs/assets/social-preview.png)
 
-An open-source collection of deliberately imperfect, reproducible projects that simulate real work and realistic technical assessments.
+Real-world Dockerized labs for technical interviews and applied learning. StackQuest Labs develops debugging, testing, refactoring, unfamiliar-codebase, backend, frontend, database, data, AI, and cloud/DevOps skills through reproducible projects.
 
 This is not LeetCode, isolated algorithms, a syntax tutorial, or a kata collection. It is practice with unfamiliar codebases, debugging, failing tests, legacy code, refactoring, REST, databases, frontend/backend integration, data work, production-minded reasoning, and technical interviews.
 
@@ -52,23 +52,24 @@ Creating files or writing code is not enough to mark an item `✅ DONE`. A Lab n
 
 ## Lab catalog
 
-The seven Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
+All eight official Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
 
 | Lab                      | Stack                                                                   | Focus                                                                       | Easy         | Intermediate    | Advanced                          | Status       |
 | ------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------ | --------------- | --------------------------------- | ------------ |
-| [Lab-1](Lab-1/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
-| [Lab-2](Lab-2/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
-| [Lab-3](Lab-3/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING`                      | `✅ DONE`    |
-| Lab-4                    | Angular, TypeScript, Node.js, NestJS                                    | Frontend/backend contracts and async behavior                               | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
-| Lab-5                    | Vue 3, TypeScript, PHP, Laravel, MySQL                                  | Product features, validation, persistence and integration                   | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
-| Lab-6                    | Python, FastAPI, PostgreSQL, Elasticsearch                              | Backend, ETL, reporting, data quality, SQL, synchronization, search         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `⏳ PENDING` |
-| Lab-7                    | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING` |
+| [Lab 01 — Java/Spring Debugging](lab-01-java-spring-debugging/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
+| [Lab 02 — Java Legacy & Refactoring](lab-02-java-legacy-refactoring/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
+| [Lab 03 — React + Spring Full-Stack](lab-03-react-spring-fullstack/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING`                      | `✅ DONE`    |
+| Lab 04 — Angular + Spring Enterprise | Angular, TypeScript, Java, Spring Boot, PostgreSQL                      | Enterprise full-stack, validation, authorization and integration            | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
+| Lab 05 — Vue + Laravel/PHP Full-Stack | Vue 3, TypeScript, PHP, Laravel, MySQL                                  | Product features, validation, persistence and integration                   | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
+| Lab 06 — Python Data Engineering | Python, FastAPI, PostgreSQL, Elasticsearch                              | Backend, ETL, reporting, data quality, SQL, synchronization, search         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `⏳ PENDING` |
+| Lab 07 — Applied AI Engineering | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING` |
+| [Lab 08 — AWS Cloud & DevOps](lab-08-aws-cloud-devops/README.md) | Docker, AWS, Terraform, GitHub Actions, PostgreSQL | Cloud deployment, CI/CD, IaC, security, observability and teardown | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` |
 
-Lab-1 and Lab-2 are validated base Labs, not claims that their full three-track expansions exist. Lab-3 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab-3 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
+Lab 01 and Lab 02 are validated base Labs, not claims that their full three-track expansions exist. Lab 03 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab 03 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
 
 ## Real-world assessment patterns
 
-The challenges are original but shaped by recurring patterns in publicly available technical assessments. Research includes GetYourGuide, Personio, Crewmeister, George, FACEIT, Mimo, Equal Experts, Primer, Flipdish, and Wise. Lab-7 may also draw on public patterns documented from the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide: baseline plus evaluation, document extraction, RAG, tool use, Text-to-SQL, held-out evals, and explaining experiments and trade-offs.
+The challenges are original but shaped by recurring patterns in publicly available technical assessments. Research includes GetYourGuide, Personio, Crewmeister, George, FACEIT, Mimo, Equal Experts, Primer, Flipdish, and Wise. Lab 07 may also draw on public patterns documented from the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide: baseline plus evaluation, document extraction, RAG, tool use, Text-to-SQL, held-out evals, and explaining experiments and trade-offs.
 
 > Inspired by recurring patterns observed in publicly available European technical assessments.
 
@@ -86,7 +87,7 @@ Eventually available in every Lab: multiple files/layers, debugging, DB/API inte
 
 ### Advanced
 
-Mandatory eventually for Lab-1, Lab-2, Lab-3, and Lab-6; optional future/community expansion for Lab-4 and Lab-5. Lab-7 Advanced is `🚫 NOT PLANNED` for its initial scope. Advanced work elsewhere must involve genuinely advanced concerns: concurrency, locking, transaction boundaries, performance, SQL/query plans, idempotency, data consistency, production incidents, Elasticsearch synchronization, or scalability trade-offs.
+Mandatory eventually for Lab 01, Lab 02, Lab 03, and Lab 06; optional future/community expansion for Lab 04 and Lab 05. Lab 07 Advanced is `🚫 NOT PLANNED` for its initial scope. Advanced work elsewhere must involve genuinely advanced concerns: concurrency, locking, transaction boundaries, performance, SQL/query plans, idempotency, data consistency, production incidents, Elasticsearch synchronization, or scalability trade-offs.
 
 Docker does not increase challenge difficulty; it provides infrastructure.
 
@@ -147,7 +148,7 @@ build isolated environment
 
 Java/Maven, Node/npm, PHP/Composer, Python, PostgreSQL, MySQL, and Elasticsearch do not need global installation. Each Lab defines its environment. Every Lab must rebuild on another computer using essentially Git, Docker, and Docker Compose. Initial databases come from versioned migrations, seeds, or fixtures—not copied personal volumes. Current portability: `✅ DONE` for existing Lab baselines, supported by versioned setup and validated Compose.
 
-## Lab-7 — Applied AI Engineering
+## Lab 07 — Applied AI Engineering
 
 **Prompting • RAG • Evals • Tools • Debugging**
 
@@ -184,23 +185,31 @@ The Lab must run reasonably on Linux and Windows through Docker Desktop/WSL2 or 
 | Intermediate | Text-to-SQL                    | Natural language → safe SQL → PostgreSQL → answer, with destructive SQL blocked                                                                                | `⏳ PENDING`     |
 | Intermediate | Basic AI security              | Prompt injection, tool permissions, sensitive-data boundaries, output validation                                                                               | `⏳ PENDING`     |
 | Integrated   | Final applied challenge        | Combine foundations, retrieval, evals, tools, debugging, and justified trade-offs                                                                              | `⏳ PENDING`     |
-| Advanced     | Initial Lab-7 scope            | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
+| Advanced     | Initial Lab 07 scope            | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
 
 The governing principle is: establish a baseline, measure it, and introduce AI only when it demonstrably improves the result. Future community extensions may revisit excluded areas if there is demand.
 
-### Lab-6 and Lab-7 are different
+### Lab 06 and Lab 07 are different
 
-- **Lab-6 — Data Engineering/backend:** ETL, PostgreSQL, Elasticsearch, data quality, pipelines, and reporting.
-- **Lab-7 — AI Engineering:** prompts, extraction, embeddings, RAG, evals, tools, and AI debugging.
+- **Lab 06 — Data Engineering/backend:** ETL, PostgreSQL, Elasticsearch, data quality, pipelines, and reporting.
+- **Lab 07 — AI Engineering:** prompts, extraction, embeddings, RAG, evals, tools, and AI debugging.
 
 They may share technologies, but they do not share learning objectives.
+
+## Lab 08 — AWS Cloud & DevOps
+
+**Docker • AWS • CI/CD • Terraform • Debugging**
+
+Status: `⏳ PENDING`. The [planning scaffold](lab-08-aws-cloud-devops/README.md) defines a Docker-first local baseline, optional AWS live mode, Cost Gate, EC2/networking/RDS/ECR/CI/CD/Terraform/observability progression, and mandatory teardown. The main learning path has no paid requirement.
+
+AWS credits, pricing, and Free Tier/Free Plan eligibility are time-sensitive. Re-check official AWS documentation before every live deployment; the research snapshot is in the [editorial guide](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md).
 
 ## Documentation hierarchy
 
 - **[README.md](README.md):** global identity, vision, catalog, status, summary roadmap, objectives, tracks, and milestones.
 - **[docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md):** authoritative source for realism, research, difficulty, challenge design, hints, editorial criteria, originality, and follow-up discussion.
 - **[docs/LAB_SPEC.md](docs/LAB_SPEC.md):** mandatory technical contract for creating a Lab.
-- **`Lab-N/README.md`:** Lab-specific context, operation, baseline, and tickets.
+- **`lab-NN-stack-focus/README.md`:** Lab-specific context, operation, baseline, and tickets.
 - **[docs/ROADMAP.md](docs/ROADMAP.md):** detailed roadmap and future evolution.
 
 ## Open-source contributions
@@ -254,20 +263,22 @@ No metric is inferred or manufactured; a milestone moves only with public eviden
 | Foundation           | Global documentation             | `✅ DONE`        |
 | Foundation           | Community infrastructure         | `✅ DONE`        |
 | Foundation           | Editorial research               | `✅ DONE`        |
-| Core Labs            | Lab-1                            | `✅ DONE`        |
-| Core Labs            | Lab-2                            | `✅ DONE`        |
-| Core Labs            | Lab-3 base challenge             | `✅ DONE`        |
-| Core Labs            | Lab-4                            | `⏳ PENDING`     |
-| Core Labs            | Lab-5                            | `⏳ PENDING`     |
-| Core Labs            | Lab-6                            | `⏳ PENDING`     |
-| Core Labs            | Lab-7                            | `⏳ PENDING`     |
-| Difficulty expansion | Easy in all seven Labs           | `⏳ PENDING`     |
-| Difficulty expansion | Intermediate in all seven Labs   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab-1                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab-2                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab-3                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab-6                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab-7                   | `🚫 NOT PLANNED` |
+| Core Labs            | Lab 01                            | `✅ DONE`        |
+| Core Labs            | Lab 02                            | `✅ DONE`        |
+| Core Labs            | Lab 03 base challenge             | `✅ DONE`        |
+| Core Labs            | Lab 04 — Angular + Spring Enterprise | `⏳ PENDING`     |
+| Core Labs            | Lab 05 — Vue + Laravel/PHP Full-Stack | `⏳ PENDING`     |
+| Core Labs            | Lab 06 — Python Data Engineering | `⏳ PENDING`     |
+| Core Labs            | Lab 07 — Applied AI Engineering | `⏳ PENDING`     |
+| Core Labs            | Lab 08                            | `⏳ PENDING`     |
+| Difficulty expansion | Easy in all eight Labs           | `⏳ PENDING`     |
+| Difficulty expansion | Intermediate in all eight Labs   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 01                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 02                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 03                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 06                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 07                   | `🚫 NOT PLANNED` |
+| Difficulty expansion | Advanced Lab 08                   | `🚫 NOT PLANNED` |
 | Learning experience  | Progressive hints                | `⏳ PENDING`     |
 | Learning experience  | Learning Mode                    | `⏳ PENDING`     |
 | Learning experience  | Interview Mode                   | `⏳ PENDING`     |
@@ -290,14 +301,14 @@ Any agent that completes a milestone must update this README in the same PR/comm
 
 ## Temporary construction order
 
-The current build strategy is temporary: Lab-1 -> Reference Lab at 100%, Lab-2 -> adapt to the Reference Lab standard, Lab-3 -> adapt to the Reference Lab standard, then Lab-6, Lab-7, Lab-4 and Lab-5. Once all Labs are complete, these internal sequencing notes may be simplified or removed.
+The temporary build order is Lab 01 → Lab 02 → Lab 03 → Lab 06 → Lab 07 → Lab 04 → Lab 05 → Lab 08. It stabilizes the Reference Lab pattern before eight implementations diverge and may be removed once all Labs are complete.
 
 ## Agent Continuity standard
 
-A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can understand the challenge, guide the learner, provide progressive hints, teach the related concept, distinguish challenge defects from infrastructure failures, validate a solution, explain root causes and alternatives, and provide a complete resolution when the learner is blocked. Lab-1 is the first Reference Lab for this standard; Lab-2 and Lab-3 will be adapted differentially afterward.
+A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can understand the challenge, guide the learner, provide progressive hints, teach the related concept, distinguish challenge defects from infrastructure failures, validate a solution, explain root causes and alternatives, and provide a complete resolution when the learner is blocked. Lab 01 is the first Reference Lab for this standard; Lab 02 and Lab 03 will be adapted differentially afterward.
 
 ## Project continuity context
 
-This is an open-source, Docker-first collection of original, realistic Labs. The [editorial guide](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md) governs research and challenge quality; [LAB_SPEC](docs/LAB_SPEC.md) governs technical construction. Seven Labs are planned: Labs 1–6 focus on technical interview practice, while Lab-7 prioritizes Applied AI self-learning with interview-inspired practice. Easy and Intermediate must eventually exist in all seven; Advanced is mandatory for Labs 1, 2, 3, and 6, optional/community-driven for Labs 4 and 5, and `🚫 NOT PLANNED` initially for Lab-7. Lab-1 and Lab-2 base Labs are done; Lab-3 is in progress; Labs 4–7, track expansion, usage modes, community milestones, releases, and Pages remain pending. Preserve every planned item and use only the canonical statuses above.
+This is an open-source, Docker-first collection of eight original, realistic Labs for technical interviews and applied learning. Labs 01–06 emphasize assessment practice, Lab 07 prioritizes Applied AI learning, and Lab 08 adds optional, cost-gated cloud/DevOps learning. Easy and Intermediate are planned across all eight; Advanced is mandatory for Labs 01, 02, 03, and 06, optional/community-driven for Labs 04 and 05, and initially not planned for Labs 07 and 08.
 
 Released under the [MIT License](LICENSE).

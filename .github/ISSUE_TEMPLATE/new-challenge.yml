@@ -5,7 +5,7 @@ labels: [lab-improvement]
 body:
   - type: input
     id: lab
-    attributes: {label: Lab, placeholder: "Lab-1"}
+    attributes: {label: Lab, placeholder: "lab-01-java-spring-debugging or Community/Future idea"}
     validations: {required: true}
   - type: dropdown
     id: difficulty

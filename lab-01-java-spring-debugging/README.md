@@ -1,6 +1,6 @@
-# Lab-1 — Reference Lab: Java/Spring Payments
+# Lab 01 — Reference Lab: Java/Spring Payments
 
-Lab-1 is the reference implementation for Real-World Technical Interview Labs. It is an intentionally imperfect payments backend. The candidate receives an unfamiliar but runnable service, reproduces observable symptoms, follows evidence through the layers, makes the smallest justified change, and explains the result.
+Lab 01 is the reference implementation for StackQuest Labs. It is an intentionally imperfect payments backend. The candidate receives an unfamiliar but runnable service, reproduces observable symptoms, follows evidence through the layers, makes the smallest justified change, and explains the result.
 
 The normal material is candidate-first. Root causes and complete resolution guidance are in the collapsed Mentor / AI Support section.
 
@@ -55,7 +55,7 @@ The databases are recreated from versioned Flyway migrations and seed data. Java
 
 From the repository root:
 
-    cd Lab-1
+    cd lab-01-java-spring-debugging
     docker compose config
     docker compose up --build postgres app
 

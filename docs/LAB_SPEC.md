@@ -1,60 +1,39 @@
 # Lab Specification
 
-> **Authoritative prerequisite:** Before designing or modifying a challenge, read [INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md](INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md). It is the editorial source of truth for realism, research, difficulty, hints, Definition of Done, originality, copyright, interview modes, and follow-up discussion.
+> Read the [Interview Research & Editorial Guide](INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md) before designing or modifying a challenge.
 
-This is the technical contract for future Labs. Stack-specific exceptions are allowed only when justified in the Lab README and when isolation and reproducibility remain intact.
+## Canonical structure
 
-## Minimum structure
+Official Labs use `lab-NN-stack-focus`: lowercase, two-digit number, concise stack/focus slug. Deviations require an explicit editorial decision. Labs remain independent.
 
-```text
-Lab-N/
-├── README.md
-├── compose.yml
-├── Dockerfile(s)
-├── .dockerignore
-├── .env.example
-├── source...
-└── tests...
-```
+Each Lab includes a complete README, Compose definition, Dockerfile(s) where needed, safe `.env.example`, source, and tests. Docker-first setup must rebuild from versioned files on a clean machine; isolate networks, volumes, ports, caches, and test data. Use deterministic migrations, seeds, and fixtures—not copied volumes or mutable external state.
 
-Use the next available `Lab-N` name and never couple Labs together.
+## External services and cloud
 
-## Environment
+If a Lab uses an external provider, everything reasonably testable without it needs a reproducible/local path. Keep secrets outside Git, state possible costs, and distinguish provider failures from challenge failures.
 
-- Docker-first: no stack runtime should be required globally.
-- Compose must rebuild from versioned files on a clean machine.
-- Pin meaningful versions and document them.
-- Scope networks, volumes, ports, and caches to the Lab; bind ports locally unless justified.
-- Use profiles for optional test/debug services when appropriate.
-- Separate development and test databases when state could interfere.
-- `.env.example` contains safe placeholders only; never secrets.
+Cloud Labs additionally require:
 
-AI Labs must keep their essential tests and evals deterministic and reproducible through fakes, mocks, fixtures, or equivalent test doubles. Any external model/provider integration must have an offline fallback or test double, be configured through environment variables, and work without versioned secrets. A paid API, Internet connection, nondeterministic model response, local model runtime, or GPU must not be required for baseline verification.
+- a reproducible local baseline and no paid requirement for the main learning path;
+- a Cost Gate before resource creation;
+- environment-based credentials that are never versioned;
+- least privilege and explicit live-provider assumptions;
+- revalidation of current pricing and free-tier eligibility;
+- tests/static validation when live cloud is unnecessary;
+- mandatory teardown and post-teardown resource verification.
 
-## Documentation
+These cloud requirements do not apply to Labs without cloud providers. AI integrations likewise require deterministic offline tests/evals; Internet, paid APIs, nondeterministic models, local runtimes, GPUs, or specialized hardware cannot be baseline requirements.
 
-Each README describes purpose, learning objectives, difficulty (`Easy`, `Intermediate`, or `Advanced`), effective stack, architecture, profiles, commands, domain, baseline, tests, debugging approach, and completion criteria. Document justified exceptions.
+## Documentation and Agent Continuity Test
 
-## Challenge design
+Each README documents purpose, outcomes, difficulty, stack, architecture, profiles, commands, domain, baseline, tests, debugging, challenge/infrastructure boundaries, completion criteria, mentor context, root cause, validation, and reasonable alternatives.
 
-Intentional bugs must be reproducible, scoped, pedagogically useful, and observable through tests, logs, behavior, or debugging. Documentation may reveal symptoms, expected behavior, and learning goals, never root cause, file, line, fix, or corrected code. Pending features need boundaries, acceptance criteria, and test expectations. Prefer realistic failures over tricks.
+A Lab is not 100% unless a new agent can understand its design, give Hint 1/2/3, teach, guide debugging, distinguish challenge from infrastructure failures, know the root cause, validate, review alternatives, and fully resolve it when requested without rediscovering it. This is the **Agent Continuity Test**.
 
-Every ticket follows the standard structure in the editorial guide: context, observed and expected behavior, reproduction, constraints, acceptance criteria, difficulty-appropriate starting point/hints, and follow-up discussion. Easy requires a visible starting point; Intermediate uses progressive hints; Advanced provides minimal help. Code comments must remain production-plausible, never artificial markers such as `// BUG HERE`.
+## Challenge design, tests, and security
 
-Every proposal declares its difficulty, target skill, challenge type, realism, and original nature. Public assessments may inspire recurring patterns, but confidential material and substantial copies of wording, datasets, or business rules are prohibited.
+Intentional defects must be independent, reproducible, scoped, pedagogically useful, and observable. Candidate-facing text may reveal symptoms and expected behavior, never root cause or fix. Tickets include context, observed/expected behavior, reproduction, constraints, acceptance criteria, appropriate hints, and follow-up discussion.
 
-Seeds and migrations must deterministically recreate required data. Never depend on copied volumes or mutable external state.
+Deliberate baseline failures are allowed only when documented and free of accidental failures. Temporarily prove a valid solution, verify it, restore the challenge baseline, and re-verify. Record evidence without publishing the solution.
 
-## Tests and baseline
-
-Tests provide evidence and protect contracts. Deliberate baseline failures are allowed but must be documented without leaking solutions. Test services must be reproducible and isolated.
-
-Before submission, the author must temporarily demonstrate a valid solution, run verification, then restore and re-verify the intended challenge baseline. Record the evidence in the PR without publishing the solution. Only the challenge state is committed.
-
-## Security and hygiene
-
-Use least-privilege containers where practical and avoid unnecessary mounts or exposure. Never commit secrets, private data, generated dependencies, dumps, or host state. Solutions, solved copies, answer files, backups, `.bak` files, and solution patches are prohibited.
-
-## Acceptance
-
-A Lab is ready when its clean build is reproducible; Compose is valid; documentation is complete; tests match the documented baseline; seeds are deterministic; challenge bugs and pending features meet this contract; every ticket has realistic and observable acceptance criteria plus a follow-up discussion; hints match difficulty; originality is confirmed; a solution has been privately validated; and no solution leaks into the baseline.
+Use least privilege and never commit secrets, private data, generated dependencies, dumps, host state, solutions, solved copies, backups, or patches.

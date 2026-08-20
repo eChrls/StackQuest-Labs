@@ -1,4 +1,4 @@
-# Lab-2 - Java Legacy Challenge
+# Lab 02 — Java Legacy & Refactoring
 
 ## Objetivo
 
@@ -43,7 +43,7 @@ El `LegacyPaymentProcessor` concentra deliberadamente reglas, validaciones, pers
 ## Estructura
 
 ```text
-Lab-2/
+lab-02-java-legacy-refactoring/
 |- compose.yml, Dockerfile, .dockerignore, .env.example
 |- pom.xml
 |- README.md
@@ -89,7 +89,7 @@ La base de desarrollo persiste en `postgres_data`; la base de tests no comparte 
 
 ## Comandos operativos
 
-Ejecutados desde `Lab-2`:
+Ejecutados desde `lab-02-java-legacy-refactoring`:
 
 ```bash
 docker compose config
@@ -209,4 +209,4 @@ El laboratorio se considera resuelto cuando Tickets 1-4 estan corregidos, los 20
 
 ## Contexto de continuidad
 
-Lab-2 es un backend monolitico Spring Boot 3.5.4, Java 21, Maven 3.9.9 y PostgreSQL 17-alpine. Docker Compose ofrece `postgres`, `app`, `postgres-test`, `test` y `debug`; HTTP usa `localhost:18082`, JDWP `localhost:15006`, y PostgreSQL nunca se publica al host. Flyway crea un seed de merchants y payments. El baseline tiene exactamente 20 tests, 16 passing y 4 failing deliberados, cuatro tickets de debugging, un refactoring incremental pendiente y un Partial Refund que debe nacer mediante RED/GREEN/REFACTOR. Los comandos principales son `docker compose config`, `docker compose up --build postgres app`, `docker compose --profile test run --rm test` y `docker compose --profile debug up --build postgres debug`.
+Lab 02 es un backend monolitico Spring Boot 3.5.4, Java 21, Maven 3.9.9 y PostgreSQL 17-alpine. Docker Compose ofrece `postgres`, `app`, `postgres-test`, `test` y `debug`; HTTP usa `localhost:18082`, JDWP `localhost:15006`, y PostgreSQL nunca se publica al host. Flyway crea un seed de merchants y payments. El baseline tiene exactamente 20 tests, 16 passing y 4 failing deliberados, cuatro tickets de debugging, un refactoring incremental pendiente y un Partial Refund que debe nacer mediante RED/GREEN/REFACTOR. Los comandos principales son `docker compose config`, `docker compose up --build postgres app`, `docker compose --profile test run --rm test` y `docker compose --profile debug up --build postgres debug`.
