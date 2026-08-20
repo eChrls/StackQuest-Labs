@@ -40,6 +40,8 @@ Root causes are intentionally hidden from candidates: E1 service state transitio
 | Baseline | 4 independent deliberate failures, no accidental failures |
 | Green proof | temporary fixes pass focused and full suites |
 
+Validation evidence (2026-08-20): Maven dependencies downloaded normally in the official `maven:3.9.9-eclipse-temurin-21` image. Backend compile and Spring Boot startup passed; PostgreSQL 17.11 and Flyway V1 completed successfully; the API returned HTTP 200 with the seeded request. Baseline backend tests are 2 FAIL (E1/I contract assertions), and frontend build is green with 2 deliberate test failures. Temporary backend correction produced 2/2 PASS; temporary frontend correction produced 2/2 PASS. `mvn clean test` is used in the isolated test profile so stale compiled resources cannot mask configuration changes.
+
 ## Agent Continuity
 
 Work only inside this directory. Start with Compose and the isolated test profile. Keep tickets independent and restore the red baseline after temporary green validation. Distinguish Angular/node dependency or PostgreSQL health failures from challenge failures. Advanced interceptor refresh/idempotency or isolation work is intentionally deferred.

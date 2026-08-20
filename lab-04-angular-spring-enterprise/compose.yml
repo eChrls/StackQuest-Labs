@@ -32,5 +32,5 @@ services:
       SPRING_DATASOURCE_USERNAME: lab4
       SPRING_DATASOURCE_PASSWORD: lab4_test
     depends_on: { postgres-test: { condition: service_healthy } }
-    command: ["mvn", "test", "-q"]
+    command: ["mvn", "clean", "test", "-q"]
 volumes: { lab4_pg: {} }
