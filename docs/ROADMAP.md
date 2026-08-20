@@ -9,7 +9,7 @@ The root [README](../README.md) is the public status board. Editorial decisions 
 | Lab 01 — Java/Spring Debugging | `lab-01-java-spring-debugging` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` |
 | Lab 02 — Java Legacy & Refactoring | `lab-02-java-legacy-refactoring` | `✅ DONE` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
 | Lab 03 — React + Spring Full-Stack | `lab-03-react-spring-fullstack` | `✅ DONE` | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 04 — Angular + Spring Enterprise | `lab-04-angular-spring-enterprise` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 04 — Angular + Spring Enterprise | `lab-04-angular-spring-enterprise` | `✅ DONE` | `✅ DONE` | `✅ DONE` | optional/community | `✅ DONE` | `✅ DONE` |
 | Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community | `⏳ PENDING` | `⏳ PENDING` |
 | Lab 06 — Python Data Engineering | `lab-06-python-data-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
 | Lab 07 — Applied AI Engineering | `lab-07-applied-ai-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` | `⏳ PENDING` |
