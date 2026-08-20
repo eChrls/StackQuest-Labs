@@ -29,6 +29,8 @@ Use the next available `Lab-N` name and never couple Labs together.
 - Separate development and test databases when state could interfere.
 - `.env.example` contains safe placeholders only; never secrets.
 
+AI Labs must keep their essential tests and evals deterministic and reproducible through fakes, mocks, fixtures, or equivalent test doubles. Any external model/provider integration must have an offline fallback or test double, be configured through environment variables, and work without versioned secrets. A paid API, Internet connection, nondeterministic model response, local model runtime, or GPU must not be required for baseline verification.
+
 ## Documentation
 
 Each README describes purpose, learning objectives, difficulty (`Easy`, `Intermediate`, or `Advanced`), effective stack, architecture, profiles, commands, domain, baseline, tests, debugging approach, and completion criteria. Document justified exceptions.

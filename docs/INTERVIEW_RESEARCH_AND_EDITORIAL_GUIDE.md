@@ -305,6 +305,24 @@ Community lists can become outdated. Use them to identify patterns, not to claim
 
 ---
 
+### 4.14 Applied AI Engineering assessment patterns
+
+**Evidence:** public AI Engineering assessment and field-guide patterns
+
+Sources already reviewed for this direction include the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide. Their recurring high-level signals include:
+
+- establish a non-LLM baseline before adding complexity;
+- use explicit evaluation data, including held-out cases where appropriate;
+- extract structured information from documents;
+- build and assess retrieval-augmented generation;
+- use constrained tools and safe Text-to-SQL;
+- explain experiments, measurements, failures, and trade-offs.
+
+**Editorial consequence:**
+Lab-7 may use these general patterns for original self-learning challenges and interview-inspired practice. It must not copy their exercises, wording, datasets, hidden cases, or business rules, and must not present itself as a challenge used by Inato, Hex, or any other named organization.
+
+---
+
 ## 5. Observed interview patterns
 
 | Pattern | Strength in researched sample | Labs |
@@ -327,6 +345,8 @@ Community lists can become outdated. Use them to identify patterns, not to claim
 | Time zones / scheduling | Medium | Lab-1, Lab-6 |
 | Production-readiness notes | High | All |
 | Algorithm puzzles as main assessment | Not dominant in this sample | Optional only |
+| Baseline plus measurable AI evaluation | High in AI Engineering sample | Lab-7 |
+| Document extraction / RAG / tool use | High in AI Engineering sample | Lab-7 |
 
 ---
 
@@ -767,6 +787,37 @@ Advanced:
 
 Primary inspiration:
 Equal Experts, Primer, production data-quality patterns, realistic PostgreSQL case studies.
+
+---
+
+### Lab-7 — Applied AI Engineering
+
+**Tracks:** Easy + Intermediate
+
+**Advanced:** `🚫 NOT PLANNED` for the initial scope.
+
+Its primary objective is self-learning; realistic AI Engineer interview practice is secondary. Challenges must be original, progressive, Docker-reproducible, portable to a standard CPU-only development computer, and measurable through deterministic tests/evals.
+
+Easy progression:
+
+- prompt engineering and structured output;
+- original fictional-CV information extraction;
+- baseline search, regex/keywords, or deterministic fake before an LLM;
+- visible datasets, expected outputs, precision, false positives, and false negatives.
+
+Intermediate progression:
+
+- RAG, chunking, embeddings, retrieval, grounding, citations, and no-answer cases;
+- debugging across input, parsing, chunking, embedding, retrieval, context, prompt, generation, and validation;
+- regression, retrieval, answer, and citation evals;
+- controlled tools, read-only Text-to-SQL, and output validation;
+- prompt injection, permissions, and sensitive-data boundaries;
+- a final integrated applied challenge.
+
+The provider abstraction must support deterministic fake/mock, optional external API, and optional local model paths. Baseline verification cannot require Internet, paid APIs, nondeterministic behavior, Ollama, GPU/CUDA, large local models, or specialized hardware. External providers use environment configuration and no committed secrets.
+
+Primary inspiration:
+High-level public patterns from the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide. Never copy exercises or datasets.
 
 ---
 

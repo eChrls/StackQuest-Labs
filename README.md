@@ -6,6 +6,8 @@
 
 [![License: MIT](https://img.shields.io/github/license/eChrls/Labs)](LICENSE) [![Stars](https://img.shields.io/github/stars/eChrls/Labs)](https://github.com/eChrls/Labs/stargazers) [![Forks](https://img.shields.io/github/forks/eChrls/Labs)](https://github.com/eChrls/Labs/forks) [![Workspace integrity](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml/badge.svg?branch=main)](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml)
 
+![Real-World Technical Interview Labs social preview](docs/assets/social-preview.png)
+
 An open-source collection of deliberately imperfect, reproducible projects that simulate real work and realistic technical assessments.
 
 This is not LeetCode, isolated algorithms, a syntax tutorial, or a kata collection. It is practice with unfamiliar codebases, debugging, failing tests, legacy code, refactoring, REST, databases, frontend/backend integration, data work, production-minded reasoning, and technical interviews.
@@ -50,7 +52,7 @@ Creating files or writing code is not enough to mark an item `✅ DONE`. A Lab n
 
 ## Lab catalog
 
-The six Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
+The seven Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
 
 | Lab | Stack | Focus | Easy | Intermediate | Advanced | Status |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -60,12 +62,13 @@ The six Labs remain visible regardless of implementation status. A Lab being ava
 | Lab-4 | Angular, TypeScript, Node.js, NestJS | Frontend/backend contracts and async behavior | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
 | Lab-5 | Vue 3, TypeScript, PHP, Laravel, MySQL | Product features, validation, persistence and integration | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
 | Lab-6 | Python, FastAPI, PostgreSQL, Elasticsearch | Backend, ETL, reporting, data quality, SQL, synchronization, search | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab-7 | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` |
 
 Lab-1 and Lab-2 are validated base Labs, not claims that their full three-track expansions exist. Lab-3 has a published challenge baseline, but its planned track model and global experience requirements are incomplete. See the detailed [roadmap](docs/ROADMAP.md).
 
 ## Real-world assessment patterns
 
-The challenges are original but shaped by recurring patterns in publicly available European technical assessments. Research includes GetYourGuide, Personio, Crewmeister, George, FACEIT, Mimo, Equal Experts, Primer, Flipdish, and Wise.
+The challenges are original but shaped by recurring patterns in publicly available technical assessments. Research includes GetYourGuide, Personio, Crewmeister, George, FACEIT, Mimo, Equal Experts, Primer, Flipdish, and Wise. Lab-7 may also draw on public patterns documented from the Inato AI Engineer test, Hex AI Engineering take-home, and AI Engineering Field Guide: baseline plus evaluation, document extraction, RAG, tool use, Text-to-SQL, held-out evals, and explaining experiments and trade-offs.
 
 > Inspired by recurring patterns observed in publicly available European technical assessments.
 
@@ -83,7 +86,7 @@ Eventually available in every Lab: multiple files/layers, debugging, DB/API inte
 
 ### Advanced
 
-Mandatory eventually for Lab-1, Lab-2, Lab-3, and Lab-6; optional future/community expansion for Lab-4 and Lab-5. It must involve genuinely advanced concerns: concurrency, locking, transaction boundaries, performance, SQL/query plans, idempotency, data consistency, production incidents, Elasticsearch synchronization, or scalability trade-offs.
+Mandatory eventually for Lab-1, Lab-2, Lab-3, and Lab-6; optional future/community expansion for Lab-4 and Lab-5. Lab-7 Advanced is `🚫 NOT PLANNED` for its initial scope. Advanced work elsewhere must involve genuinely advanced concerns: concurrency, locking, transaction boundaries, performance, SQL/query plans, idempotency, data consistency, production incidents, Elasticsearch synchronization, or scalability trade-offs.
 
 Docker does not increase challenge difficulty; it provides infrastructure.
 
@@ -143,6 +146,54 @@ build isolated environment
 ```
 
 Java/Maven, Node/npm, PHP/Composer, Python, PostgreSQL, MySQL, and Elasticsearch do not need global installation. Each Lab defines its environment. Every Lab must rebuild on another computer using essentially Git, Docker, and Docker Compose. Initial databases come from versioned migrations, seeds, or fixtures—not copied personal volumes. Current portability: `✅ DONE` for existing Lab baselines, supported by versioned setup and validated Compose.
+
+## Lab-7 — Applied AI Engineering
+
+**Prompting • RAG • Evals • Tools • Debugging**
+
+Status: `⏳ PENDING` · Primary objective: **Self-learning** · Secondary objective: **Realistic AI Engineer interview practice**.
+
+Unlike Labs 1–6, its main purpose is not exclusively to simulate technical assessments. It will teach practical AI Engineering through progressive, original, measurable problems while incorporating patterns from public assessments when useful. It remains Docker-first, reproducible, portable, realistic, debugging-oriented, and evidence-driven: tests and evals must demonstrate behavior.
+
+### Planned stack and provider policy
+
+The provisional stack is Python, FastAPI, Pydantic, PostgreSQL, pgvector when RAG is introduced, pytest, Docker, Docker Compose, embeddings, RAG, evals, and tool calling. Exact versions will be selected during implementation.
+
+```text
+AI Provider
+├── deterministic fake/mock
+├── external API
+└── optional local model
+```
+
+Fundamental tests and evals must run without a paid API, Internet access, or nondeterministic LLM behavior. A real provider may be configured through `.env`; a small local model may be offered optionally. Ollama is optional and never the baseline.
+
+The Lab must run reasonably on Linux and Windows through Docker Desktop/WSL2 or equivalent, on a modern standard CPU and reasonable consumer RAM. A dedicated GPU, NVIDIA hardware, CUDA, Apple Silicon, high-end hardware, large local models, or specialized hardware must never be required. Lack of a GPU cannot prevent completion.
+
+### Planned progression
+
+| Track | Stage | Learning outcomes | Status |
+| --- | --- | --- | --- |
+| Easy | E1 — Prompt engineering | System/user instructions, precision, constraints, structured output, valid JSON, iteration | `⏳ PENDING` |
+| Easy | E2 — CV information extraction | Original fictional CVs; technology, periods, experience, terms, missing data; baseline search/regex/fake first | `⏳ PENDING` |
+| Easy | E3 — Evaluation basics | Dataset, expected output, precision, false positives/negatives; “looks good” is not reliable evidence | `⏳ PENDING` |
+| Intermediate | RAG | Documents, chunking, embeddings, retrieval, top-k, citations, grounding, no-answer cases | `⏳ PENDING` |
+| Intermediate | AI debugging | Trace input → parsing → chunking → embedding → retrieval → context → prompt → generation → validation | `⏳ PENDING` |
+| Intermediate | Evals | Visible dataset, regressions, retrieval quality, answer and citation correctness | `⏳ PENDING` |
+| Intermediate | Tool calling | Controlled document search, read-only SQL, calculator, structured lookup | `⏳ PENDING` |
+| Intermediate | Text-to-SQL | Natural language → safe SQL → PostgreSQL → answer, with destructive SQL blocked | `⏳ PENDING` |
+| Intermediate | Basic AI security | Prompt injection, tool permissions, sensitive-data boundaries, output validation | `⏳ PENDING` |
+| Integrated | Final applied challenge | Combine foundations, retrieval, evals, tools, debugging, and justified trade-offs | `⏳ PENDING` |
+| Advanced | Initial Lab-7 scope | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
+
+The governing principle is: establish a baseline, measure it, and introduce AI only when it demonstrably improves the result. Future community extensions may revisit excluded areas if there is demand.
+
+### Lab-6 and Lab-7 are different
+
+- **Lab-6 — Data Engineering/backend:** ETL, PostgreSQL, Elasticsearch, data quality, pipelines, and reporting.
+- **Lab-7 — AI Engineering:** prompts, extraction, embeddings, RAG, evals, tools, and AI debugging.
+
+They may share technologies, but they do not share learning objectives.
 
 ## Documentation hierarchy
 
@@ -209,12 +260,14 @@ No metric is inferred or manufactured; a milestone moves only with public eviden
 | Core Labs | Lab-4 | `⏳ PENDING` |
 | Core Labs | Lab-5 | `⏳ PENDING` |
 | Core Labs | Lab-6 | `⏳ PENDING` |
-| Difficulty expansion | Easy in all Labs | `⏳ PENDING` |
-| Difficulty expansion | Intermediate in all Labs | `⏳ PENDING` |
+| Core Labs | Lab-7 | `⏳ PENDING` |
+| Difficulty expansion | Easy in all seven Labs | `⏳ PENDING` |
+| Difficulty expansion | Intermediate in all seven Labs | `⏳ PENDING` |
 | Difficulty expansion | Advanced Lab-1 | `⏳ PENDING` |
 | Difficulty expansion | Advanced Lab-2 | `⏳ PENDING` |
 | Difficulty expansion | Advanced Lab-3 | `⏳ PENDING` |
 | Difficulty expansion | Advanced Lab-6 | `⏳ PENDING` |
+| Difficulty expansion | Advanced Lab-7 | `🚫 NOT PLANNED` |
 | Learning experience | Progressive hints | `⏳ PENDING` |
 | Learning experience | Learning Mode | `⏳ PENDING` |
 | Learning experience | Interview Mode | `⏳ PENDING` |
@@ -237,6 +290,6 @@ Any agent that completes a milestone must update this README in the same PR/comm
 
 ## Project continuity context
 
-This is an open-source, Docker-first collection of original, realistic interview Labs. The [editorial guide](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md) governs research and challenge quality; [LAB_SPEC](docs/LAB_SPEC.md) governs technical construction. Six Labs are planned; Easy and Intermediate must eventually exist in all six, and Advanced is mandatory for Labs 1, 2, 3, and 6. Lab-1 and Lab-2 base Labs are done; Lab-3 and broader tracks are in progress; Labs 4–6, track expansion, usage modes, community milestones, releases, and Pages remain pending. Preserve every planned item and use only the canonical statuses above.
+This is an open-source, Docker-first collection of original, realistic Labs. The [editorial guide](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md) governs research and challenge quality; [LAB_SPEC](docs/LAB_SPEC.md) governs technical construction. Seven Labs are planned: Labs 1–6 focus on technical interview practice, while Lab-7 prioritizes Applied AI self-learning with interview-inspired practice. Easy and Intermediate must eventually exist in all seven; Advanced is mandatory for Labs 1, 2, 3, and 6, optional/community-driven for Labs 4 and 5, and `🚫 NOT PLANNED` initially for Lab-7. Lab-1 and Lab-2 base Labs are done; Lab-3 is in progress; Labs 4–7, track expansion, usage modes, community milestones, releases, and Pages remain pending. Preserve every planned item and use only the canonical statuses above.
 
 Released under the [MIT License](LICENSE).

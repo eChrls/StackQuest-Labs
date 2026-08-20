@@ -16,6 +16,7 @@ Only `✅ DONE`, `🟡 IN PROGRESS`, `🧪 VALIDATION`, `⏳ PENDING`, and `🚫
 | Lab-4 — Angular + NestJS | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | Existing-app integration with DI, async behavior, validation, errors, contracts, and tests. |
 | Lab-5 — Vue + Laravel | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | Product features, validation, permissions, persistence, transactions, and performance. |
 | Lab-6 — Python/Data | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | FastAPI, PostgreSQL, ETL/reporting, quality, idempotency, SQL, Elasticsearch sync, and scale. |
+| Lab-7 — Applied AI Engineering | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | Self-learning first; interview-inspired prompting, extraction, RAG, evals, tools, and AI debugging. |
 
 Base availability and track completion are separate. Lab-1 and Lab-2 being `✅ DONE` does not make their track expansions complete.
 
@@ -23,15 +24,45 @@ Base availability and track completion are separate. Lab-1 and Lab-2 being `✅ 
 
 | Milestone | Status |
 | --- | --- |
-| Easy in all six Labs | `⏳ PENDING` |
-| Intermediate in all six Labs | `⏳ PENDING` |
+| Easy in all seven Labs | `⏳ PENDING` |
+| Intermediate in all seven Labs | `⏳ PENDING` |
 | Advanced Lab-1 | `⏳ PENDING` |
 | Advanced Lab-2 | `⏳ PENDING` |
 | Advanced Lab-3 | `⏳ PENDING` |
 | Advanced Lab-6 | `⏳ PENDING` |
 | Optional Advanced Lab-4/Lab-5 | `⏳ PENDING` |
+| Advanced Lab-7 initial scope | `🚫 NOT PLANNED` |
 
 Advanced means difficult engineering reasoning—concurrency, locking, transaction boundaries, performance/query plans, idempotency, consistency, incidents, synchronization, or scale—not Docker usage.
+
+## Lab-7 — Applied AI Engineering plan
+
+**Prompting • RAG • Evals • Tools • Debugging**
+
+Lab-7 is `⏳ PENDING`. Its primary objective is self-learning; realistic AI Engineer interview practice is secondary. It shares the repository's Docker-first, reproducible, portable, evidence-driven philosophy, but it is not exclusively an interview simulation.
+
+| Milestone | Track | Status |
+| --- | --- | --- |
+| AI foundations and prompt engineering | Easy | `⏳ PENDING` |
+| Original fictional CV extraction challenge | Easy | `⏳ PENDING` |
+| Deterministic evaluation baseline | Easy | `⏳ PENDING` |
+| RAG: chunking, embeddings, retrieval, grounding, citations | Intermediate | `⏳ PENDING` |
+| AI pipeline debugging | Intermediate | `⏳ PENDING` |
+| Regression, retrieval, answer, and citation eval suite | Intermediate | `⏳ PENDING` |
+| Controlled tool calling | Intermediate | `⏳ PENDING` |
+| Safe read-only Text-to-SQL | Intermediate | `⏳ PENDING` |
+| Basic AI security | Intermediate | `⏳ PENDING` |
+| Final integrated applied challenge | Easy + Intermediate | `⏳ PENDING` |
+
+The future stack is Python, FastAPI, Pydantic, PostgreSQL, pgvector when RAG arrives, pytest, Docker/Compose, a provider abstraction, embeddings, RAG, evals, and tool calling. Versions remain undecided until implementation.
+
+The provider boundary must support a deterministic fake/mock, an optional external API configured through environment variables, and an optional small local model. Fundamental tests/evals cannot require Internet, paid APIs, secrets, or nondeterministic model behavior. Ollama is optional, never baseline.
+
+The Lab must run on a standard development computer under Linux or Windows with Docker Desktop/WSL2 or equivalent, modern CPU, and reasonable consumer RAM. GPU, NVIDIA/CUDA, Apple Silicon, high-end or specialized hardware, and large local models are not required. No GPU may be a completion blocker.
+
+`Advanced track — 🚫 NOT PLANNED for the initial Lab-7 scope.` Large transformer training/fine-tuning, CUDA, distributed ML, heavy model serving, deep transformer internals, large local models, and complex multi-agent architectures are excluded initially; community extensions may revisit them if demand exists.
+
+Lab-6 remains Data Engineering/backend—ETL, data quality, pipelines, reporting, PostgreSQL, and Elasticsearch. Lab-7 is AI Engineering—prompts, extraction, embeddings, RAG, evals, tools, and AI debugging. Shared technology does not imply shared objectives.
 
 ## Learning experience
 
@@ -69,7 +100,7 @@ Existing Lab baselines have `✅ DONE` portability: versioned Docker/Compose con
 | --- | --- | --- |
 | GitHub Pages | `⏳ PENDING` | Re-evaluate when core Labs are stable, documentation is mature, and a clear use exists. Do not create it now. |
 | Custom domain | `🚫 NOT PLANNED` | GitHub is primary and the repository is usable without another website. |
-| Additional stacks/community Labs | `⏳ PENDING` | Consider after the six-Lab core and contribution process are stable. |
+| Additional stacks/community Labs | `⏳ PENDING` | Consider after the seven-Lab core and contribution process are stable. |
 
 ## Maintenance rule
 
