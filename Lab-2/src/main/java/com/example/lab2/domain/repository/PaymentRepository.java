@@ -1,0 +1,1 @@
+package com.example.lab2.domain.repository; import com.example.lab2.domain.Payment; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; public interface PaymentRepository extends JpaRepository<Payment,UUID>{List<Payment> findByMerchantId(String merchantId);}

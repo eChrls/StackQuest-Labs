@@ -1,0 +1,2 @@
+package com.example.lab2.notification; import com.example.lab2.domain.Payment; import org.slf4j.*; import org.springframework.stereotype.Service;
+@Service public class MerchantNotificationService { private static final Logger log=LoggerFactory.getLogger(MerchantNotificationService.class); public void notifyProcessed(Payment payment){log.info("Merchant {} notified for payment {}",payment.getMerchant().getId(),payment.getId());} }

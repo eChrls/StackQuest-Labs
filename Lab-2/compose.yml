@@ -1,0 +1,47 @@
+name: lab-2
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment: {POSTGRES_DB: lab2, POSTGRES_USER: lab2, POSTGRES_PASSWORD: lab2_dev}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U lab2 -d lab2"], interval: 5s, timeout: 5s, retries: 10}
+    logging: &jsonlog {driver: json-file, options: {max-size: 10m, max-file: "3"}}
+  app:
+    build: .
+    working_dir: /workspace
+    volumes: [.:/workspace, maven_cache:/root/.m2]
+    environment: {SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab2, SPRING_DATASOURCE_USERNAME: lab2, SPRING_DATASOURCE_PASSWORD: lab2_dev}
+    depends_on: {postgres: {condition: service_healthy}}
+    ports: ["127.0.0.1:18082:8080"]
+    logging: *jsonlog
+  postgres-test:
+    profiles: [test]
+    image: postgres:17-alpine
+    environment: {POSTGRES_DB: lab2_test, POSTGRES_USER: lab2, POSTGRES_PASSWORD: lab2_test}
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U lab2 -d lab2_test"], interval: 5s, timeout: 5s, retries: 10}
+    logging: *jsonlog
+  test:
+    profiles: [test]
+    build: .
+    working_dir: /workspace
+    volumes: [.:/workspace, maven_cache:/root/.m2]
+    environment: {SPRING_PROFILES_ACTIVE: test, SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-test:5432/lab2_test, SPRING_DATASOURCE_USERNAME: lab2, SPRING_DATASOURCE_PASSWORD: lab2_test}
+    depends_on: {postgres-test: {condition: service_healthy}}
+    command: ["mvn", "test", "-Dspring-boot.run.skip=true"]
+    init: true
+    logging: *jsonlog
+  debug:
+    profiles: [debug]
+    build: .
+    working_dir: /workspace
+    volumes: [.:/workspace, maven_cache:/root/.m2]
+    environment: {SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab2, SPRING_DATASOURCE_USERNAME: lab2, SPRING_DATASOURCE_PASSWORD: lab2_dev, MAVEN_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"}
+    depends_on: {postgres: {condition: service_healthy}}
+    ports: ["127.0.0.1:18082:8080", "127.0.0.1:15006:5005"]
+    command: ["mvn", "spring-boot:run"]
+    logging: *jsonlog
+
+volumes:
+  postgres_data:
+  maven_cache:

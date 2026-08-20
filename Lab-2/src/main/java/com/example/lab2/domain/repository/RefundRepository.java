@@ -1,0 +1,1 @@
+package com.example.lab2.domain.repository; import com.example.lab2.domain.Refund; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; public interface RefundRepository extends JpaRepository<Refund,UUID>{}

@@ -1,0 +1,1 @@
+package com.example.lab2.domain.repository; import com.example.lab2.domain.ProcessingAudit; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; public interface ProcessingAuditRepository extends JpaRepository<ProcessingAudit,UUID>{List<ProcessingAudit> findByPaymentId(UUID paymentId);}

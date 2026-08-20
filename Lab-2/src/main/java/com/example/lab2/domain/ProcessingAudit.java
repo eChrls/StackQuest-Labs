@@ -1,0 +1,3 @@
+package com.example.lab2.domain;
+import jakarta.persistence.*; import java.time.Instant; import java.util.UUID;
+@Entity public class ProcessingAudit { @Id private UUID id; private UUID paymentId; private String action; private Instant createdAt; protected ProcessingAudit(){} public ProcessingAudit(UUID id,UUID paymentId,String action,Instant createdAt){this.id=id;this.paymentId=paymentId;this.action=action;this.createdAt=createdAt;} public UUID getId(){return id;} public UUID getPaymentId(){return paymentId;} public String getAction(){return action;} public Instant getCreatedAt(){return createdAt;} }
