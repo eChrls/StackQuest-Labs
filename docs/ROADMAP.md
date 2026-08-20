@@ -4,18 +4,18 @@ The root [README](../README.md) is the public status board. Editorial decisions 
 
 ## Product roadmap — eight official Labs
 
-| Lab | Canonical directory | Base | Easy | Intermediate | Advanced | Agent Continuity | Full experience |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Lab 01 — Java/Spring Debugging | `lab-01-java-spring-debugging` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` |
-| Lab 02 — Java Legacy & Refactoring | `lab-02-java-legacy-refactoring` | `✅ DONE` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 03 — React + Spring Full-Stack | `lab-03-react-spring-fullstack` | `✅ DONE` | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 04 — Angular + Spring Enterprise | `lab-04-angular-spring-enterprise` | `✅ DONE` | `✅ DONE` | `✅ DONE` | optional/community | `✅ DONE` | `✅ DONE` |
-| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 06 — Python Data Engineering | `lab-06-python-data-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 07 — Applied AI Engineering | `lab-07-applied-ai-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 08 — AWS Cloud & DevOps | `lab-08-aws-cloud-devops` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab                                   | Canonical directory                | Base         | Easy         | Intermediate    | Advanced           | Agent Continuity | Full experience |
+| ------------------------------------- | ---------------------------------- | ------------ | ------------ | --------------- | ------------------ | ---------------- | --------------- |
+| Lab 01 — Java/Spring Debugging        | `lab-01-java-spring-debugging`     | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
+| Lab 02 — Java Legacy & Refactoring    | `lab-02-java-legacy-refactoring`   | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
+| Lab 03 — React + Spring Full-Stack    | `lab-03-react-spring-fullstack`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
+| Lab 04 — Angular + Spring Enterprise  | `lab-04-angular-spring-enterprise` | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community | `✅ DONE`        | `✅ DONE`       |
+| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php`           | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community | `✅ DONE`        | `✅ DONE`       |
+| Lab 06 — Python Data Engineering      | `lab-06-python-data-engineering`   | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
+| Lab 07 — Applied AI Engineering       | `lab-07-applied-ai-engineering`    | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
+| Lab 08 — AWS Cloud & DevOps           | `lab-08-aws-cloud-devops`          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
 
-Base and track completion are separate. Lab 01 is the completed Reference Lab and has passed the Agent Continuity Test. Lab 02's expansion to the Reference Standard remains pending. Lab 03 Intermediate remains under validation; its Agent Continuity Test remains pending.
+Base and track completion are separate. Lab 01 and Lab 02 are complete at 100%. Lab 03 Advanced remains pending because A1/A2 still require technical validation. Lab 04 and Lab 05 have completed their initial scopes, with Advanced optional/community. Lab 06 has Foundation and Easy validated; Intermediate and Advanced remain pending.
 
 ## Lab 04 — Angular + Spring Enterprise
 
@@ -69,6 +69,8 @@ The sequence stabilizes and reuses the Reference Lab pattern before eight implem
 A Lab reaches 100% only when a new agent can understand it, teach it, give Hint 1/2/3, guide debugging, separate challenge and infrastructure failures, know the root cause, validate and review alternatives, and fully resolve it when requested without rediscovery.
 
 Planned capabilities remain visible while pending. Update status only with evidence.
+
+When closing or promoting a Lab track, reconcile in the same closeout: the local Lab README, `README.md`, `README.es.md`, and `docs/ROADMAP.md`.
 
 ## Repository presentation
 

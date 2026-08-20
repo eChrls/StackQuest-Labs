@@ -54,18 +54,18 @@ Creating files or writing code is not enough to mark an item `✅ DONE`. A Lab n
 
 All eight official Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
 
-| Lab                      | Stack                                                                   | Focus                                                                       | Easy         | Intermediate    | Advanced                          |
-| ------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------ | --------------- | --------------------------------- |
-| [Lab 01 — Java/Spring Debugging](lab-01-java-spring-debugging/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `✅ DONE`    | `✅ DONE`       | `✅ DONE`                         |
-| [Lab 02 — Java Legacy & Refactoring](lab-02-java-legacy-refactoring/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      |
-| [Lab 03 — React + Spring Full-Stack](lab-03-react-spring-fullstack/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING`                      |
-| Lab 04 — Angular + Spring Enterprise | Angular, TypeScript, Java, Spring Boot, PostgreSQL                      | Enterprise full-stack, validation, authorization and integration            | `✅ DONE`    | `✅ DONE`       | optional/community                |
-| Lab 05 — Vue + Laravel/PHP Full-Stack | Vue 3, TypeScript, PHP, Laravel, MySQL                                  | Product features, validation, persistence and integration                   | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) |
-| Lab 06 — Python Data Engineering | Python, FastAPI, PostgreSQL, Elasticsearch                              | Backend, ETL, reporting, data quality, SQL, synchronization, search         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      |
-| Lab 07 — Applied AI Engineering | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  |
-| [Lab 08 — AWS Cloud & DevOps](lab-08-aws-cloud-devops/README.md) | Docker, AWS, Terraform, GitHub Actions, PostgreSQL | Cloud deployment, CI/CD, IaC, security, observability and teardown | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` |
+| Lab                                                                                 | Stack                                                                   | Focus                                                                       | Base         | Easy         | Intermediate    | Advanced                          | Agent Continuity | Full experience |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------ | ------------ | --------------- | --------------------------------- | ---------------- | --------------- |
+| [Lab 01 — Java/Spring Debugging](./lab-01-java-spring-debugging/)                   | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`                         | `✅ DONE`        | `✅ DONE`       |
+| [Lab 02 — Java Legacy & Refactoring](./lab-02-java-legacy-refactoring/)             | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`                         | `✅ DONE`        | `✅ DONE`       |
+| [Lab 03 — React + Spring Full-Stack](./lab-03-react-spring-fullstack/)              | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `⏳ PENDING`                      | `✅ DONE`        | `⏳ PENDING`    |
+| [Lab 04 — Angular + Spring Enterprise](./lab-04-angular-spring-enterprise/)         | Angular, TypeScript, Java, Spring Boot, PostgreSQL                      | Enterprise full-stack, validation, authorization and integration            | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community                | `✅ DONE`        | `✅ DONE`       |
+| [Lab 05 — Vue + Laravel/PHP Full-Stack](./lab-05-vue-laravel-php/)                  | Vue 3, TypeScript, PHP, Laravel, MySQL                                  | Product features, validation, persistence and integration                   | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community                | `✅ DONE`        | `✅ DONE`       |
+| [Lab 06 — Python Data Engineering](./lab-06-python-data-engineering/)              | Python, FastAPI, PostgreSQL, Elasticsearch                              | Backend, ETL, reporting, data quality, SQL, synchronization, search         | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`        | `⏳ PENDING`    |
+| [Lab 07 — Applied AI Engineering](./lab-07-applied-ai-engineering/)                | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING`     | `⏳ PENDING`    |
+| [Lab 08 — AWS Cloud & DevOps](./lab-08-aws-cloud-devops/)                          | Docker, AWS, Terraform, GitHub Actions, PostgreSQL                      | Cloud deployment, CI/CD, IaC, security, observability and teardown          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING`     | `⏳ PENDING`    |
 
-Lab 01 is the completed Reference Lab: its Base, Easy, Intermediate, Advanced, Agent Continuity Test, and full experience are `✅ DONE`. Lab 02 has a validated base challenge, while its Reference Standard expansion remains `⏳ PENDING`. Lab 03 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab 03 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
+Lab 01 and Lab 02 are complete at 100%. Lab 03 has Easy and Intermediate validated, while Advanced A1/A2 still require technical validation. Lab 04 and Lab 05 have completed their initial scopes; Advanced remains optional/community. Lab 06 has its Foundation and Easy track validated, with Intermediate and Advanced pending. See the detailed [roadmap](docs/ROADMAP.md).
 
 ## Real-world assessment patterns
 
@@ -185,7 +185,7 @@ The Lab must run reasonably on Linux and Windows through Docker Desktop/WSL2 or 
 | Intermediate | Text-to-SQL                    | Natural language → safe SQL → PostgreSQL → answer, with destructive SQL blocked                                                                                | `⏳ PENDING`     |
 | Intermediate | Basic AI security              | Prompt injection, tool permissions, sensitive-data boundaries, output validation                                                                               | `⏳ PENDING`     |
 | Integrated   | Final applied challenge        | Combine foundations, retrieval, evals, tools, debugging, and justified trade-offs                                                                              | `⏳ PENDING`     |
-| Advanced     | Initial Lab 07 scope            | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
+| Advanced     | Initial Lab 07 scope           | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
 
 The governing principle is: establish a baseline, measure it, and introduce AI only when it demonstrably improves the result. Future community extensions may revisit excluded areas if there is demand.
 
@@ -257,41 +257,41 @@ No metric is inferred or manufactured; a milestone moves only with public eviden
 
 ## Master roadmap
 
-| Area                 | Capability                       | Status           |
-| -------------------- | -------------------------------- | ---------------- |
-| Foundation           | Open-source foundation           | `✅ DONE`        |
-| Foundation           | Global documentation             | `✅ DONE`        |
-| Foundation           | Community infrastructure         | `✅ DONE`        |
-| Foundation           | Editorial research               | `✅ DONE`        |
-| Core Labs            | Lab 01                            | `✅ DONE`        |
-| Core Labs            | Lab 02                            | `✅ DONE`        |
-| Core Labs            | Lab 03 base challenge             | `✅ DONE`        |
-| Core Labs            | Lab 04 — Angular + Spring Enterprise | `⏳ PENDING`     |
-| Core Labs            | Lab 05 — Vue + Laravel/PHP Full-Stack | `⏳ PENDING`     |
-| Core Labs            | Lab 06 — Python Data Engineering | `⏳ PENDING`     |
-| Core Labs            | Lab 07 — Applied AI Engineering | `⏳ PENDING`     |
-| Core Labs            | Lab 08                            | `⏳ PENDING`     |
-| Difficulty expansion | Easy in all eight Labs           | `⏳ PENDING`     |
-| Difficulty expansion | Intermediate in all eight Labs   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab 01                   | `✅ DONE`        |
-| Difficulty expansion | Advanced Lab 02                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab 03                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab 06                   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab 07                   | `🚫 NOT PLANNED` |
-| Difficulty expansion | Advanced Lab 08                   | `🚫 NOT PLANNED` |
-| Learning experience  | Progressive hints                | `⏳ PENDING`     |
-| Learning experience  | Learning Mode                    | `⏳ PENDING`     |
-| Learning experience  | Interview Mode                   | `⏳ PENDING`     |
-| Learning experience  | Review Mode                      | `⏳ PENDING`     |
-| Learning experience  | Time estimates                   | `⏳ PENDING`     |
-| Learning experience  | Follow-up questions              | `⏳ PENDING`     |
-| Community            | Good first issues                | `⏳ PENDING`     |
-| Community            | First external contribution      | `⏳ PENDING`     |
-| Community            | First community Lab              | `⏳ PENDING`     |
-| Community            | Release/versioning               | `⏳ PENDING`     |
-| Future               | GitHub Pages                     | `⏳ PENDING`     |
-| Future               | Additional stacks/community Labs | `⏳ PENDING`     |
-| Future               | Custom domain                    | `🚫 NOT PLANNED` |
+| Area                 | Capability                            | Status           |
+| -------------------- | ------------------------------------- | ---------------- |
+| Foundation           | Open-source foundation                | `✅ DONE`        |
+| Foundation           | Global documentation                  | `✅ DONE`        |
+| Foundation           | Community infrastructure              | `✅ DONE`        |
+| Foundation           | Editorial research                    | `✅ DONE`        |
+| Core Labs            | Lab 01                                | `✅ DONE`        |
+| Core Labs            | Lab 02                                | `✅ DONE`        |
+| Core Labs            | Lab 03 base challenge                 | `✅ DONE`        |
+| Core Labs            | Lab 04 — Angular + Spring Enterprise  | `✅ DONE`        |
+| Core Labs            | Lab 05 — Vue + Laravel/PHP Full-Stack | `✅ DONE`        |
+| Core Labs            | Lab 06 — Python Data Engineering      | `🟡 IN PROGRESS` |
+| Core Labs            | Lab 07 — Applied AI Engineering       | `⏳ PENDING`     |
+| Core Labs            | Lab 08                                | `⏳ PENDING`     |
+| Difficulty expansion | Easy in all eight Labs                | `⏳ PENDING`     |
+| Difficulty expansion | Intermediate in all eight Labs        | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 01                       | `✅ DONE`        |
+| Difficulty expansion | Advanced Lab 02                       | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 03                       | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 06                       | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 07                       | `🚫 NOT PLANNED` |
+| Difficulty expansion | Advanced Lab 08                       | `🚫 NOT PLANNED` |
+| Learning experience  | Progressive hints                     | `⏳ PENDING`     |
+| Learning experience  | Learning Mode                         | `⏳ PENDING`     |
+| Learning experience  | Interview Mode                        | `⏳ PENDING`     |
+| Learning experience  | Review Mode                           | `⏳ PENDING`     |
+| Learning experience  | Time estimates                        | `⏳ PENDING`     |
+| Learning experience  | Follow-up questions                   | `⏳ PENDING`     |
+| Community            | Good first issues                     | `⏳ PENDING`     |
+| Community            | First external contribution           | `⏳ PENDING`     |
+| Community            | First community Lab                   | `⏳ PENDING`     |
+| Community            | Release/versioning                    | `⏳ PENDING`     |
+| Future               | GitHub Pages                          | `⏳ PENDING`     |
+| Future               | Additional stacks/community Labs      | `⏳ PENDING`     |
+| Future               | Custom domain                         | `🚫 NOT PLANNED` |
 
 ## Maintaining this roadmap
 
