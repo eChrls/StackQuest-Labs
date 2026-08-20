@@ -27,6 +27,8 @@ Baseline deliberado: **20 tests, 16 PASS, 4 FAIL**, solo T1–T4.
 
 Starting point: ejecuta suite, sigue controller→processor→repository y reproduce con seed/tests. Hints: 1) stack trace/valores, 2) breakpoint en cada `if`, 3) verifica interacciones y estado persistido. Error común: editar el test deliberado.
 
+Guided debugging: reproduce un ticket focalizado, captura stack trace y estado persistido, sigue una llamada completa con el debugger, formula una hipótesis, cambia una sola regla y ejecuta el test focalizado antes de la suite.
+
 ## Intermediate — characterization/refactoring
 
 Añade characterization tests para estados, amount, merchant, provider reference, auditoría y notificación antes de mover código. Flujo obligatorio **RED → GREEN → REFACTOR**: cambio mínimo, suite tras cada paso, diff reversible. Extrae validación/decisión/side-effects sin cambiar contratos. Hints: 1) extrae una regla, 2) protege cada extracción, 3) compara HTTP, auditorías, estado e interacciones. No mezcles corrección y reescritura.
@@ -63,8 +65,8 @@ Revisa healthcheck/puertos ante fallos Compose; el warning Byte Buddy dynamic-ag
 
 Alcance exclusivo de este directorio. Mantener baseline 16/20. T1–T4 deliberados; T5 characterization + refactor incremental; T6 Partial Refund TDD; Advanced puede explorar concurrencia/aislamiento. Antes de entregar: suite Docker, `git diff -- lab-02-java-legacy-refactoring` y ausencia de soluciones temporales.
 
-## Criterio Full / 100%
+## Acceptance and continuity
 
-Easy, Intermediate, Advanced y Agent Continuity documentados. Validación temporal ejecutada el 2026-08-20: con una implementación mínima de `RefundService` y siete tests adicionales (seis de negocio y uno concurrente), la suite alcanzó **27/27 PASS**. La secuencia TDD quedó evidenciada como RED (los cuatro defectos base seguían fallando), GREEN (T1–T4 corregidos temporalmente + refund), y REFACTOR (validación sincronizada de suma/refund y prueba concurrente). Casos verificados: parcial válido, segundo hasta completar, over-refund, no CAPTURED, cero y negativo.
+Acceptance requires four independently reproducible red tests, characterization coverage for existing behaviour, refund rules covered by tests, and an explainable repeatable Docker suite. Reproduce with the commands above, inspect controller → processor → repository, and run focused before full tests. If Compose or Maven fails, inspect health, dependencies and Flyway separately from challenge failures.
 
-El Advanced validado fue la carrera de dos refunds de 60 sobre un payment CAPTURED de 100: exactamente uno prospera y la suma persistida queda en 60, mediante sección crítica transaccional en la implementación temporal. No se conserva esa solución: el baseline vuelve a ser 20 tests, 16 PASS y 4 FAIL deliberados T1–T4.
+Agent Continuity: work only in this directory; preserve the deliberate tests; use RED → GREEN → REFACTOR with reversible edits; review HTTP/schema, persisted state, side effects, transaction boundaries and concurrency. Contributors may add further specialised challenges without changing existing contracts.

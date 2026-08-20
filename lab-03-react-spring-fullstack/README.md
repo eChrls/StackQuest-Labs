@@ -477,7 +477,7 @@ Observed behaviour: The repository does not currently include a technically vali
 
 Expected behaviour: The summary remains exact, and the query plan is evaluated with evidence rather than with a local stopwatch or guesswork.
 
-Reproduction: this track is a follow-on once T7 is complete; it is not a baseline implementation and is not treated as done in this repository.
+Reproduction: run the prerequisite summary flow, then inspect the query path and database plan.
 
 Constraints: do not invent result evidence; no millisecond threshold is required; no index is added without plan evidence.
 
@@ -513,7 +513,7 @@ Requirement: provide a durable contract for a provider callback or retried event
 
 Context: A capture callback may be retried or delivered concurrently. The implementation must preserve one business effect.
 
-Observed behaviour: There is no technically validated A2 implementation in the current repository, and it should not be described as done.
+Observed behaviour: repeated or concurrent callback delivery can apply the business effect more than once.
 
 Expected behaviour: The first valid callback succeeds, retries are idempotent, concurrent duplicates do not create two business effects, and the state remains consistent.
 
@@ -574,7 +574,7 @@ The practical loop is reproduce → breakpoint → inspect → step → compare 
 
 Tests are reproduction, acceptance criteria, debugging evidence and regression protection. A documented red test is intentional; it is not an infrastructure failure. Do not change an expected value just to make the build green, hard-code data, or bypass the relevant layer.
 
-The baseline is intentionally `26 PASS / 6 FAIL` in a deliberate challenge state. A temporary corrected state can reach `32/32 PASS`, and the T7 feature has been validated in the local challenge flow with `36/36 PASS`. Those values are part of the challenge evidence, but they must not be confused with the delivered baseline state of the challenge repository.
+The baseline is intentionally `26 PASS / 6 FAIL` in a deliberate challenge state. The six red assertions are independent and remain candidate-facing evidence; acceptance is defined by the ticket criteria and preserved contracts below.
 
 ## Modes
 
@@ -584,7 +584,7 @@ Interview Mode: use the suggested timebox, start with the public brief, ask for 
 
 Review Mode: explain the root cause, walk through the diff, justify the design, discuss an alternative, identify a production risk, and answer follow-up questions.
 
-## Definition of Done
+## Acceptance criteria
 
 A ticket is complete only when the applicable criteria are met: relevant tests pass, existing behaviour does not regress, startup remains valid, contracts are compatible, edge cases are covered, data remains consistent, and the solution is explainable. A single visible assertion must not be passed with a shortcut.
 
@@ -644,21 +644,21 @@ The T7 feature has been validated as a full-stack flow with a backend summary en
 7. Add the T7 summary DTO, endpoint, UI and regression tests.
 8. Review alternatives and production concerns.
 
+## Troubleshooting
+
+Separate PostgreSQL/Flyway, frontend dependency and Docker health failures from the six challenge assertions. Inspect browser Network/Console, backend logs and database state, then run the focused test before the full suite.
+
 ### Validation matrix
 
-| Ticket | Baseline evidence | Temporary corrected state | Accepted result |
+| Ticket | Baseline evidence | Acceptance |
 | --- | --- | --- | --- |
-| T1 | frontend pagination bug | 32/32 pass | page contract aligned |
-| T2 | fetch JSON on 204 | 32/32 pass | success path handled correctly |
-| T3 | stale detail state | 32/32 pass | immediate UI reflection |
-| T4 | mapper mismatch | 32/32 pass | correct merchant identity |
-| T5 | audit failure scenario | 32/32 pass | atomic payment + audit |
-| T6 | invalid transition | 32/32 pass | `409 Conflict` on invalid moves |
-| T7 | feature specification | 36/36 pass | summary contract and UI proven |
-
-### A1 / A2 status
-
-A1 and A2 are advanced follow-on tracks that are documented here as pending technical validation. They are not treated as done in the repository baseline, and no claim of verified implementation is made in this README.
+| T1 | frontend pagination bug | page contract aligned |
+| T2 | fetch JSON on 204 | success path handled correctly |
+| T3 | stale detail state | immediate UI reflection |
+| T4 | mapper mismatch | correct merchant identity |
+| T5 | audit failure scenario | atomic payment + audit |
+| T6 | invalid transition | `409 Conflict` on invalid moves |
+| T7 | feature specification | summary contract and UI proven |
 
 ### Agent continuity context
 
@@ -667,8 +667,6 @@ A new agent can immediately identify the baseline, the six deliberate defect tic
 </details>
 
 ## Final baseline contract
-
-The committed challenge state contains six deliberate defects and no implemented T7 feature. A temporary corrected state can reach `32/32 PASS`, and the T7 feature can be validated at `36/36 PASS`, but those states are not the same as the delivered baseline.
 
 This README is the Lab-specific continuity source. It is intentionally candidate-first in the public section and contains the real root-cause and resolution guidance only in the collapsed Mentor / AI Support section.
 

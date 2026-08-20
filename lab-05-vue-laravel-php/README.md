@@ -26,6 +26,8 @@ Starting Point: load the task desk, inspect the Vue `ref`/computed flow and repr
 
 **I2 — inactive customer can complete a task.** Expected: authorization/business rules are enforced in Laravel service code, not only in the UI. Hints: (1) replay the POST directly, (2) inspect customer state inside the transaction, (3) reject before mutation and verify rollback.
 
+Guided debugging: reproduce through the UI, replay the same request with the API, inspect Vue state and the Laravel service, query MySQL before and after the transaction, then run the focused test and the complete profile.
+
 ## Learning / Interview / Review
 
 Learning follows network traces, PHP breakpoints/logs and focused tests. Interview mode requires explaining Vue reactivity, API error states, Eloquent/SQL choices, authorization and transaction boundaries. Review mode checks strict TypeScript, nullable DTOs, idempotency, least privilege, rollback and small diffs.
@@ -51,8 +53,8 @@ Troubleshooting: recreate only the Lab‑05 MySQL volume if schema state is stal
 
 Work only inside this directory. Preserve the four-ticket baseline, run backend and frontend independently, and verify a temporary green state before restoring defects. Future community Advanced work may explore authorization policy caching or transaction isolation, but it is not required here. A new agent should be able to reproduce every ticket, give Hint 1/2/3, explain root cause in mentor mode, review alternatives and identify infrastructure versus challenge failures without rediscovering the design.
 
-## Completion criteria
+## Acceptance and continuity
 
-Easy and Intermediate are complete when each ticket has an independent red test, a reproducible Docker-first path, validated temporary solution and restored baseline. Advanced remains optional/community.
+Acceptance requires five independent red checks, a reproducible Docker-first path, focused and full validation, and a solution that preserves the HTTP contract, authorization rule and transaction boundary. Compose config, PHP syntax, Laravel tests, Vite build and Vue tests form the validation matrix.
 
-Validation evidence: Compose config passed; PHP 8.3 installs `pdo_mysql` and ZIP support, Composer installs Laravel 12, MySQL 8.4 becomes healthy, and `/health` returns HTTP 200. Backend temporary correction passed 4/4 checks; restored baseline is 3 backend failures. Frontend Vite typecheck/build passed; its restored baseline has 2 deliberate failures and temporary flags produced 2/2 PASS. The temporary matrix reaches 7/7 PASS; final baseline has 5 deliberate failures and no accidental failures.
+Agent Continuity: work only in this directory, run backend and frontend independently, preserve the baseline, and use the documented hints and mentor roots. Contributors may add further Easy, Intermediate, Advanced or specialised task-desk challenges.

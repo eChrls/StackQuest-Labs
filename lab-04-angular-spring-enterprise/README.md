@@ -22,6 +22,8 @@ Starting Point: run Compose, inspect `SupportRequestController` → `SupportRequ
 
 **I2 — validation and authorization boundary.** The endpoint must enforce DTO validation, inactive-customer rejection and stable 4xx errors while controllers stay thin. Hints: (1) separate transport/domain rules, (2) test inactive customers, (3) use a transaction and explicit exception handler.
 
+Guided debugging: reproduce one backend or frontend failure, inspect the browser network/request DTO, follow the controller and service boundary, observe the RxJS state or transaction, then rerun the focused test before the full profile.
+
 ## Learning / Interview / Review
 
 Learning follows breakpoints and focused tests. Interview mode requires explaining evidence, DTO choices, RxJS lifecycle and transaction boundaries. Review mode checks strict typing, accessibility, test isolation, security defaults, rollback and minimal diffs.
@@ -40,10 +42,10 @@ Root causes are intentionally hidden from candidates: E1 service state transitio
 | Baseline | 4 independent deliberate failures, no accidental failures |
 | Green proof | temporary fixes pass focused and full suites |
 
-Validation evidence (2026-08-20): Maven dependencies downloaded normally in the official `maven:3.9.9-eclipse-temurin-21` image. Backend compile and Spring Boot startup passed; PostgreSQL 17.11 and Flyway V1 completed successfully; the API returned HTTP 200 with the seeded request. Baseline backend tests are 2 FAIL (E1/I contract assertions), and frontend build is green with 2 deliberate test failures. Temporary backend correction produced 2/2 PASS; temporary frontend correction produced 2/2 PASS. `mvn clean test` is used in the isolated test profile so stale compiled resources cannot mask configuration changes.
+Troubleshooting: if the API is unavailable, inspect PostgreSQL health, Flyway logs and the backend container before debugging Angular. If the frontend cannot install dependencies, separate npm/network failures from focused browser tests. Use `mvn clean test` in the isolated profile so stale compiled resources cannot mask configuration changes.
 
 ## Agent Continuity
 
-Work only inside this directory. Start with Compose and the isolated test profile. Keep tickets independent and restore the red baseline after temporary green validation. Distinguish Angular/node dependency or PostgreSQL health failures from challenge failures. Advanced interceptor refresh/idempotency or isolation work is intentionally deferred.
+Work only inside this directory. Start with Compose and the isolated test profile. Keep tickets independent and restore the red baseline after temporary green validation. Distinguish Angular/node dependency or PostgreSQL health failures from challenge failures. Optional extensions can explore interceptor refresh/idempotency or isolation without weakening assertions.
 
-Completion requires reproducible Easy/Intermediate tickets, Hint 1/2/3, Learning/Interview/Review guidance, mentor context and evidence separating infrastructure from challenge failures.
+Acceptance requires reproducible Easy/Intermediate tickets, Hint 1/2/3, Learning/Interview/Review guidance, mentor context and evidence separating infrastructure from challenge failures.

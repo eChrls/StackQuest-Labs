@@ -382,68 +382,10 @@ GET  /api/search?source_event_id=evt-102 -> {"count": 1, "payments": [{"status":
 
 ## Agent Continuity
 
-El alcance es exclusivamente `lab-06-python-data-engineering/**`. El siguiente agente debe conservar PostgreSQL sin puerto host, API en `127.0.0.1:18086`, Elasticsearch sin puerto host y el baseline de 17 tests con 9 PASS y E1/E2/E3/I1/I2/I3/A1/A2 rojos. Para resolver un ticket, abrir su test focalizado, validar temporalmente, ejecutar la suite verde y restaurar los defects (incluyendo eliminar cualquier migracion Alembic temporal creada solo para validar A1: la migracion `0002` con el indice compuesto NO debe existir en el repositorio, es evidencia temporal, no una solucion permanente). Elasticsearch no se limpia entre ejecuciones de pytest: los tests que dependen de ids fijos (A2) deben borrar sus propios documentos al inicio para seguir siendo reproducibles sobre contenedores calientes. Lab-06 esta completo: Easy, Intermediate y Advanced tienen baseline rojo documentado, correccion temporal verificada y evidencia real capturada.
+El alcance es exclusivamente `lab-06-python-data-engineering/**`. El siguiente agente debe conservar PostgreSQL sin puerto host, API en `127.0.0.1:18086`, Elasticsearch sin puerto host y el baseline de 17 tests con 9 PASS y E1/E2/E3/I1/I2/I3/A1/A2 rojos. Para resolver un ticket, abrir su test focalizado, validar temporalmente, ejecutar la suite verde y restaurar los defects (incluyendo eliminar cualquier migracion Alembic temporal creada solo para validar A1: la migracion `0002` con el indice compuesto NO debe existir en el repositorio, es evidencia temporal, no una solucion permanente). Elasticsearch no se limpia entre ejecuciones de pytest: los tests que dependen de ids fijos (A2) deben borrar sus propios documentos al inicio para seguir siendo reproducibles sobre contenedores calientes.
 
-## Checkpoint
+## Acceptance and continuity
 
-**LAB-06 ADVANCED - COMPLETE**
+Acceptance is the matrix above: the 17-test local suite, reproducible ingestion and search flows, reporting evidence, and reconcile/repair behaviour must remain deterministic. Run focused pytest tests before the complete profile; distinguish PostgreSQL/Elasticsearch health and dependency failures from challenge assertions.
 
-- STACK
-  - Python/FastAPI: Python 3.12.11, FastAPI 0.116.1, Pydantic 2.11.7.
-  - PostgreSQL/Alembic: PostgreSQL 17.5-alpine, SQLAlchemy 2.0.43, Alembic 1.16.4.
-  - Elasticsearch: 9.1.2 single-node, heap 256 MB, healthcheck validado.
-  - Docker: Compose v5.5.0, imagen Python fijada.
-- EASY
-  - E1: validacion de fila sin amount, deliberadamente FAIL.
-  - E2: replay duplica source_event_id, deliberadamente FAIL.
-  - E3: agregacion ignora status, deliberadamente FAIL.
-- INTERMEDIATE
-  - I1: replay mixto informa inserts incorrectos, deliberadamente FAIL.
-  - I2: reconciliacion omite un status persistido, deliberadamente FAIL.
-  - I3: Elasticsearch queda stale/no visible para un pago FAILED, deliberadamente FAIL.
-- ADVANCED
-  - A1
-    - scenario: leaderboard de merchants por importe capturado sobre ~200.000 filas; resultado correcto pero N+1 (una query por merchant) y sin indice para el filtro `status`+rango de fechas.
-    - baseline evidence: `test_a1_leaderboard_report_scales_with_index_and_single_query` FAIL deliberado (401 queries en vez de 1; plan usa `Seq Scan`).
-    - EXPLAIN/ANALYZE before: `Parallel Seq Scan on payments`, `Buffers: shared hit=2062`, `Execution Time: 31.493 ms`, `Rows Removed by Filter: 99370` (x2 workers).
-    - temporary solution: endpoint reescrito a una unica query `GROUP BY merchant_id` + migracion Alembic temporal con indice compuesto `(status, created_at)`.
-    - EXPLAIN/ANALYZE after: `Bitmap Heap Scan on payments` sobre `Bitmap Index Scan on ix_payments_status_created_at`, `Buffers: shared hit=537 read=4`, `Execution Time: 16.490 ms`.
-    - acceptance: 1 query por peticion (verificado con contador de queries reales) + plan sin `Seq Scan` sobre `payments`; mismo resultado (merchant, count, total) en ambas versiones.
-  - A2
-    - failure scenario: sync que confirma en PostgreSQL, indexa dos pagos en Elasticsearch (uno correcto, uno con snapshot antiguo tras una correccion posterior en PostgreSQL) y deja tres pagos sin indexar (crash a mitad de camino).
-    - inconsistent state reproduced: `reconcile` baseline solo detecta los 3 `missing`; el pago `stale` (status desactualizado) nunca se reporta ni se repara.
-    - recovery strategy: `reconcile` compara documento existente vs `payment_document(payment)` (no solo existencia) para clasificar `missing`/`stale`; `repair` reindexa `missing | stale` con `refresh=wait_for`, dejando el resto intacto (idempotente: repetir sobre estado sano da `repaired=0`).
-    - recovery evidence: `reconcile` -> `{"checked":5,"missing":["evt-101","evt-103","evt-104"],"stale":["evt-102"]}`; `repair` -> `{"repaired":4,"skipped":1}`; `reconcile` tras repair -> `{"missing":[],"stale":[]}`; `repair` de nuevo -> `{"repaired":0,"skipped":5}`; `search evt-102` -> `status=FAILED, amount=30.00, count=1` (sin duplicados).
-    - final consistency: PostgreSQL y Elasticsearch coinciden campo a campo tras un unico ciclo reconcile+repair; el replay es un no-op seguro.
-- SUITE
-  - total tests: 17.
-  - PASS: 9.
-  - deliberate FAIL: 8 (E1, E2, E3, I1, I2, I3, A1, A2).
-  - accidental FAIL: 0.
-  - temporary green: 17 PASS, verificado en 2 ejecuciones consecutivas sobre los mismos contenedores (sin recrear volumenes) para confirmar reproducibilidad.
-- RUNTIME
-  - API: contenedor arrancado y startup complete; endpoint `/health` probado por suite.
-  - ingestion: dataset versionado y endpoint reproducible.
-  - PostgreSQL: healthy y migrado (revision `0001`; la migracion temporal `0002` del indice se creo, valido y elimino, no queda en el repositorio).
-  - Elasticsearch: healthy, sin puerto publicado y consultado tras sync/reconcile/repair real.
-  - PostgreSQL reconciliation: expected/persisted por status y total verificados.
-  - PostgreSQL reporting a escala: 200.000 filas sembradas por SQL, `EXPLAIN (ANALYZE, BUFFERS)` capturado antes y despues del indice.
-  - Elasticsearch recovery: fallo parcial simulado y recuperado con evidencia real de las 5 llamadas HTTP.
-  - end-to-end: dataset -> FastAPI -> PostgreSQL -> Elasticsearch -> search/report/leaderboard/reconcile/repair verificado.
-- README / CONTINUITY
-  - hints: 1/2/3 por ticket, incluyendo A1/A2.
-  - modes: Learning, Interview, Review.
-  - mentor context: spoilers con causas, soluciones temporales y evidencia real (SQL plans, HTTP responses) verificadas.
-  - validation matrix: incluida con filas A1/A2.
-  - Agent Continuity: incluida y actualizada para Advanced.
-- FINAL
-  - baseline restored: si, verificado en 2 ejecuciones consecutivas (`8 failed, 9 passed` ambas veces).
-  - Easy: E1/E2/E3 deliberadamente FAIL.
-  - Intermediate: I1/I2/I3 deliberadamente FAIL.
-  - Advanced: A1/A2 deliberadamente FAIL.
-  - Agent Continuity: incluida.
-  - Lab-06 100%: si, si toda la evidencia de este README se reproduce.
-- GIT
-  - files: `app/main.py`, `app/schemas.py` modificados; `tests/test_advanced_a1_reporting_performance.py`, `tests/test_advanced_a2_recovery.py` nuevos; `README.md` actualizado.
-  - commit: `feat(lab-06): add advanced data engineering challenges`.
-  - owned paths clean: si; no se tocaron README raiz, docs globales ni otros Labs.
+Agent Continuity: preserve the versioned dataset, isolated services and deliberate Easy, Intermediate and Advanced failures. Do not keep temporary migrations or generated search data in Git. Contributors may add further data quality, scale, recovery or specialised challenges.

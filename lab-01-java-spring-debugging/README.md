@@ -410,7 +410,7 @@ Interview Mode: use the suggested timebox, start with the public brief, ask for 
 
 Review Mode: explain root cause, walk through the diff, justify the design, discuss an alternative, identify a production risk, and answer follow-up questions.
 
-## Definition of Done
+## Acceptance criteria
 
 A ticket is complete only when applicable criteria are met: relevant tests pass; existing behaviour does not regress; Docker and application startup remain valid; contracts are compatible; edge cases are covered; data is consistent; the solution is explainable; and one production concern is identified. A single visible assertion must not be passed with a shortcut.
 
@@ -472,6 +472,10 @@ A2 was temporarily validated with POST /api/payments/{paymentId}/capture-callbac
 6. Evolve I2 to database aggregation and inspect EXPLAIN for A1.
 7. Add durable unique event recording, transaction and concurrency proof for A2.
 8. Review alternatives, constraints and observability.
+
+## Troubleshooting
+
+If Compose, PostgreSQL or Maven fails, inspect container health, Flyway output, ports and dependency downloads before counting a challenge assertion. Use focused tests and request/log evidence to distinguish infrastructure faults from application defects.
 
 ### Validation matrix
 

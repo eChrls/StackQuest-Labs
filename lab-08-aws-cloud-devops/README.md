@@ -2,7 +2,7 @@
 
 ## Foundation
 
-Small Python HTTP application for cloud/DevOps practice only. Docker is the only prerequisite: no AWS account, credentials, Terraform binary or paid service is required for Easy. Compose provides `api` and an isolated `checks` profile. The API exposes `/health` and `/config`, logs requests to stdout, reads `APP_PORT`, `APP_BIND` and `APP_GREETING`, and has a local healthcheck. Terraform in `infra/` is static AWS preparation; never run `apply` in this phase.
+Small Python HTTP application for cloud/DevOps practice only. Docker is the only prerequisite: no AWS account, credentials, Terraform binary or paid service is required for the local path. Compose provides `api` and an isolated `checks` profile. The API exposes `/health` and `/config`, logs requests to stdout, reads `APP_PORT`, `APP_BIND` and `APP_GREETING`, and has a local healthcheck. Terraform in `infra/` is static AWS preparation; never run `apply` for the local challenge.
 
 Run from the repository root: `docker compose -f lab-08-aws-cloud-devops/compose.yml config`, `docker compose -f lab-08-aws-cloud-devops/compose.yml up --build api`, and `docker compose -f lab-08-aws-cloud-devops/compose.yml --profile test run --rm checks`. The app is intended for `127.0.0.1:18088` in local mode. Terraform can be run without credentials in a Terraform container for `fmt` and syntax checks; provider download/validate is optional and documented separately.
 
@@ -47,11 +47,11 @@ Terraform provider validation may require downloading a provider; that is distin
 
 ## Agent Continuity
 
-Work only inside this directory. Preserve the three Easy defects and three Intermediate defects, each with an independent check. Temporary green proof reached 6/6; all defects were then restored. Intermediate uses only local/static validation.
+Work only inside this directory. Preserve the three Easy defects and three Intermediate defects, each with an independent check. The main path uses only local/static validation; no AWS account is needed.
 
-## Completion
+## Acceptance
 
-Easy and Intermediate are complete when a new agent can reproduce all six red checks, give Hint 1/2/3, explain Docker versus cloud evidence, validate temporary corrections without AWS, restore the baseline and avoid billable resources. Advanced is not planned.
+Acceptance requires a new agent to reproduce all six red checks, give Hint 1/2/3, explain Docker versus cloud evidence, validate temporary corrections without AWS, restore the baseline and avoid billable resources.
 
 ## Intermediate
 
@@ -118,4 +118,4 @@ Teardown is mandatory: empty/delete ECR images as required, destroy every Terraf
 
 ## Agent Continuity — Intermediate
 
-A new agent should first run Compose config and the six-check baseline, then isolate I1, I2 and I3 using the tickets above. Challenge failures are the six named assertions; Docker daemon/image download/provider download failures are infrastructure failures and do not count. The verified temporary state was 6/6 PASS after changing only: container bind, greeting, app CIDR, immutable CI tag, private RDS flag, and health/retention observability values. Those six defects were restored afterward. Advanced remains **not planned**.
+A new agent should first run Compose config and the six-check baseline, then isolate I1, I2 and I3 using the tickets above. Challenge failures are the six named assertions; Docker daemon/image download/provider download failures are infrastructure failures and do not count. Contributors may add further Easy, Intermediate, Advanced or specialised cloud challenges.

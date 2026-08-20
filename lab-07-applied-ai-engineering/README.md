@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Offline, deterministic foundation for structured extraction from CV/document text. Python 3.12, FastAPI, Pydantic, pytest and a provider abstraction run in Docker without GPU, Ollama, internet at test time or paid APIs. The deterministic fake provider is the reference test double; no RAG or agent framework is part of this phase.
+Offline, deterministic lab for structured extraction from CV/document text. Python 3.12, FastAPI, Pydantic, pytest and a provider abstraction run in Docker without GPU, Ollama, internet at test time or paid APIs. The deterministic fake provider is the reference test double.
 
 ## Run and architecture
 
@@ -48,6 +48,10 @@ Verified roots: E1 trusts malformed provider shape without normalization; E2 tre
 
 Work only in this directory. Preserve the three Easy defects and their independent tests. Dataset ground truth is versioned and original. The next agent can reproduce symptoms, provide Hint 1/2/3, explain structured outputs/evals from zero, review alternatives and separate infrastructure from challenge failures without inspecting unrelated Labs.
 
+## Troubleshooting
+
+If Docker or dependency installation fails, inspect service logs and the environment before changing extraction logic. Provider, fixture and pytest failures are challenge evidence; network, image and host-runtime failures are infrastructure evidence.
+
 ## Intermediate track
 
 ### I1 — Retrieval, grounding and citations
@@ -64,4 +68,4 @@ Document text is untrusted data, not policy. Tool permissions are explicit (`ana
 
 Guided debugging for all Intermediate tickets: reproduce a focused red eval, capture raw chunks/SQL/authorization decision, state the invariant, make the smallest boundary fix, run focused and full pytest, then review false positives and denial behavior.
 
-Intermediate validation evidence: the complete offline suite reached **7/7 PASS** with temporary corrections for E1–E3 and I1–I3. After restoration, the baseline is **1 PASS + 6 deliberate FAIL**, with no accidental failures. The API exposes `/search` and `/tool/check` in addition to `/extract`.
+Acceptance and continuity: the offline suite keeps one health check green and six independent deliberate challenge failures until the learner fixes them. Reproduce with the commands above, capture raw provider/chunk/SQL/authorization evidence, run focused then full pytest, and keep ground truth and permissions unchanged. Troubleshoot Docker or dependency failures separately from eval failures. Contributors may add further Easy, Intermediate, Advanced or specialised offline AI challenges.
