@@ -1,0 +1,19 @@
+{
+  "health_path": "/status",
+  "health_interval_seconds": 30,
+  "health_timeout_seconds": 5,
+  "log_group": "/stackquest/lab08/api",
+  "log_retention_days": 0,
+  "metric_filter": {
+    "name": "request_errors",
+    "pattern": "{ $.event = \"http_request\" && $.status >= 500 }",
+    "value": 1
+  },
+  "alarm": {
+    "metric": "request_errors",
+    "threshold": 5,
+    "period_seconds": 300,
+    "evaluation_periods": 1,
+    "treat_missing_data": "notBreaching"
+  }
+}

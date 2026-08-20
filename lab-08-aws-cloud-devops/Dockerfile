@@ -3,4 +3,5 @@ WORKDIR /workspace
 COPY app app
 COPY tests tests
 COPY infra infra
+COPY . .
 CMD ["python","app/main.py"]

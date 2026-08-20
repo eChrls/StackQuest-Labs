@@ -8,7 +8,8 @@ variable "region" {
   default = "eu-west-1"
 }
 resource "aws_security_group" "app" {
-  name = "lab08-app"
+  name   = "lab08-app"
+  vpc_id = aws_vpc.lab08.id
   ingress {
     from_port   = 8080
     to_port     = 8080
