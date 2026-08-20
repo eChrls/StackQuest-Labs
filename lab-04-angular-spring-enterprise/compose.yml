@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: lab4
+      POSTGRES_USER: lab4
+      POSTGRES_PASSWORD: lab4_dev
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U lab4 -d lab4"], interval: 3s, timeout: 3s, retries: 20 }
+    volumes: [lab4_pg:/var/lib/postgresql/data]
+  backend:
+    build: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab4
+      SPRING_DATASOURCE_USERNAME: lab4
+      SPRING_DATASOURCE_PASSWORD: lab4_dev
+    depends_on: { postgres: { condition: service_healthy } }
+    ports: ["127.0.0.1:18084:8080"]
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["127.0.0.1:14204:4200"]
+  postgres-test:
+    image: postgres:17-alpine
+    profiles: [test]
+    environment: { POSTGRES_DB: lab4_test, POSTGRES_USER: lab4, POSTGRES_PASSWORD: lab4_test }
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U lab4 -d lab4_test"], interval: 3s, timeout: 3s, retries: 20 }
+  backend-test:
+    build: ./backend
+    profiles: [test]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-test:5432/lab4_test
+      SPRING_DATASOURCE_USERNAME: lab4
+      SPRING_DATASOURCE_PASSWORD: lab4_test
+    depends_on: { postgres-test: { condition: service_healthy } }
+    command: ["mvn", "test", "-q"]
+volumes: { lab4_pg: {} }

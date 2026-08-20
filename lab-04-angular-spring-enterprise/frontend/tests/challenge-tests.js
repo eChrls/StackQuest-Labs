@@ -1,0 +1,1 @@
+const checks=[['invalid form blocks submit',false],['HTTP error keeps error state',false]]; let failed=0; for(const [name,ok] of checks){if(!ok){console.error('FAIL',name);failed++;}} process.exitCode=failed;

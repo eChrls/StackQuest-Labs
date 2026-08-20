@@ -1,0 +1,1 @@
+package com.example.lab4.repo; import com.example.lab4.domain.SupportRequest; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; public interface SupportRequestRepository extends JpaRepository<SupportRequest,UUID>{}

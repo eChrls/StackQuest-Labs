@@ -1,0 +1,1 @@
+package com.example.lab4.domain; import jakarta.persistence.*; import java.util.UUID; @Entity public class Customer { @Id UUID id; String email; boolean active; protected Customer(){} public UUID getId(){return id;} public boolean isActive(){return active;} }
