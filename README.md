@@ -56,7 +56,7 @@ All eight official Labs remain visible regardless of implementation status. A La
 
 | Lab                      | Stack                                                                   | Focus                                                                       | Easy         | Intermediate    | Advanced                          | Status       |
 | ------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------ | --------------- | --------------------------------- | ------------ |
-| [Lab 01 — Java/Spring Debugging](lab-01-java-spring-debugging/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
+| [Lab 01 — Java/Spring Debugging](lab-01-java-spring-debugging/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `✅ DONE`    | `✅ DONE`       | `✅ DONE`                         | `✅ DONE`    |
 | [Lab 02 — Java Legacy & Refactoring](lab-02-java-legacy-refactoring/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
 | [Lab 03 — React + Spring Full-Stack](lab-03-react-spring-fullstack/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING`                      | `✅ DONE`    |
 | Lab 04 — Angular + Spring Enterprise | Angular, TypeScript, Java, Spring Boot, PostgreSQL                      | Enterprise full-stack, validation, authorization and integration            | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
@@ -65,7 +65,7 @@ All eight official Labs remain visible regardless of implementation status. A La
 | Lab 07 — Applied AI Engineering | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING` |
 | [Lab 08 — AWS Cloud & DevOps](lab-08-aws-cloud-devops/README.md) | Docker, AWS, Terraform, GitHub Actions, PostgreSQL | Cloud deployment, CI/CD, IaC, security, observability and teardown | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` |
 
-Lab 01 and Lab 02 are validated base Labs, not claims that their full three-track expansions exist. Lab 03 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab 03 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
+Lab 01 is the completed Reference Lab: its Base, Easy, Intermediate, Advanced, Agent Continuity Test, and full experience are `✅ DONE`. Lab 02 has a validated base challenge, while its Reference Standard expansion remains `⏳ PENDING`. Lab 03 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab 03 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
 
 ## Real-world assessment patterns
 
@@ -273,7 +273,7 @@ No metric is inferred or manufactured; a milestone moves only with public eviden
 | Core Labs            | Lab 08                            | `⏳ PENDING`     |
 | Difficulty expansion | Easy in all eight Labs           | `⏳ PENDING`     |
 | Difficulty expansion | Intermediate in all eight Labs   | `⏳ PENDING`     |
-| Difficulty expansion | Advanced Lab 01                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab 01                   | `✅ DONE`        |
 | Difficulty expansion | Advanced Lab 02                   | `⏳ PENDING`     |
 | Difficulty expansion | Advanced Lab 03                   | `⏳ PENDING`     |
 | Difficulty expansion | Advanced Lab 06                   | `⏳ PENDING`     |
@@ -305,7 +305,7 @@ The temporary build order is Lab 01 → Lab 02 → Lab 03 → Lab 06 → Lab 07 
 
 ## Agent Continuity standard
 
-A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can understand the challenge, guide the learner, provide progressive hints, teach the related concept, distinguish challenge defects from infrastructure failures, validate a solution, explain root causes and alternatives, and provide a complete resolution when the learner is blocked. Lab 01 is the first Reference Lab for this standard; Lab 02 and Lab 03 will be adapted differentially afterward.
+A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can understand the challenge, guide the learner, provide progressive hints, teach the related concept, distinguish challenge defects from infrastructure failures, validate a solution, explain root causes and alternatives, and provide a complete resolution when the learner is blocked. Lab 01 has passed this test and is the completed Reference Lab; Lab 02 and Lab 03 will be adapted differentially afterward.
 
 ## Project continuity context
 

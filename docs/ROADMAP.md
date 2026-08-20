@@ -4,18 +4,18 @@ The root [README](../README.md) is the public status board. Editorial decisions 
 
 ## Product roadmap — eight official Labs
 
-| Lab | Canonical directory | Base | Easy | Intermediate | Advanced |
-| --- | --- | --- | --- | --- | --- |
-| Lab 01 — Java/Spring Debugging | `lab-01-java-spring-debugging` | `✅ DONE` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 02 — Java Legacy & Refactoring | `lab-02-java-legacy-refactoring` | `✅ DONE` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 03 — React + Spring Full-Stack | `lab-03-react-spring-fullstack` | `✅ DONE` | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING` |
-| Lab 04 — Angular + Spring Enterprise | `lab-04-angular-spring-enterprise` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community |
-| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community |
-| Lab 06 — Python Data Engineering | `lab-06-python-data-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab 07 — Applied AI Engineering | `lab-07-applied-ai-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` |
-| Lab 08 — AWS Cloud & DevOps | `lab-08-aws-cloud-devops` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` |
+| Lab | Canonical directory | Base | Easy | Intermediate | Advanced | Agent Continuity | Full experience |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Lab 01 — Java/Spring Debugging | `lab-01-java-spring-debugging` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` | `✅ DONE` |
+| Lab 02 — Java Legacy & Refactoring | `lab-02-java-legacy-refactoring` | `✅ DONE` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 03 — React + Spring Full-Stack | `lab-03-react-spring-fullstack` | `✅ DONE` | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 04 — Angular + Spring Enterprise | `lab-04-angular-spring-enterprise` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | optional/community | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 06 — Python Data Engineering | `lab-06-python-data-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 07 — Applied AI Engineering | `lab-07-applied-ai-engineering` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` | `⏳ PENDING` |
+| Lab 08 — AWS Cloud & DevOps | `lab-08-aws-cloud-devops` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` | `⏳ PENDING` |
 
-Base and track completion are separate. No status is promoted by this migration. Lab 03 Intermediate and its Agent Continuity Test remain under validation.
+Base and track completion are separate. Lab 01 is the completed Reference Lab and has passed the Agent Continuity Test. Lab 02's expansion to the Reference Standard remains pending. Lab 03 Intermediate remains under validation; its Agent Continuity Test remains pending.
 
 ## Lab 04 — Angular + Spring Enterprise
 
