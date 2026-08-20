@@ -4,16 +4,16 @@ The root [README](../README.md) is the public status board. Editorial decisions 
 
 ## Product roadmap — eight official Labs
 
-| Lab                                   | Canonical directory                | Base         | Easy         | Intermediate    | Advanced           | Agent Continuity | Full experience |
-| ------------------------------------- | ---------------------------------- | ------------ | ------------ | --------------- | ------------------ | ---------------- | --------------- |
-| Lab 01 — Java/Spring Debugging        | `lab-01-java-spring-debugging`     | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
-| Lab 02 — Java Legacy & Refactoring    | `lab-02-java-legacy-refactoring`   | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
-| Lab 03 — React + Spring Full-Stack    | `lab-03-react-spring-fullstack`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
-| Lab 04 — Angular + Spring Enterprise  | `lab-04-angular-spring-enterprise` | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community | `✅ DONE`        | `✅ DONE`       |
-| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php`           | `✅ DONE`    | `✅ DONE`    | `✅ DONE`       | optional/community | `✅ DONE`        | `✅ DONE`       |
-| Lab 06 — Python Data Engineering      | `lab-06-python-data-engineering`   | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
-| Lab 07 — Applied AI Engineering       | `lab-07-applied-ai-engineering`    | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
-| Lab 08 — AWS Cloud & DevOps           | `lab-08-aws-cloud-devops`          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
+| Lab                                   | Canonical directory                | Base         | Easy         | Intermediate | Advanced           | Agent Continuity | Full experience |
+| ------------------------------------- | ---------------------------------- | ------------ | ------------ | ------------ | ------------------ | ---------------- | --------------- |
+| Lab 01 — Java/Spring Debugging        | `lab-01-java-spring-debugging`     | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
+| Lab 02 — Java Legacy & Refactoring    | `lab-02-java-legacy-refactoring`   | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`          | `✅ DONE`        | `✅ DONE`       |
+| Lab 03 — React + Spring Full-Stack    | `lab-03-react-spring-fullstack`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
+| Lab 04 — Angular + Spring Enterprise  | `lab-04-angular-spring-enterprise` | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | optional/community | `✅ DONE`        | `✅ DONE`       |
+| Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php`           | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | optional/community | `✅ DONE`        | `✅ DONE`       |
+| Lab 06 — Python Data Engineering      | `lab-06-python-data-engineering`   | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING` | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
+| Lab 07 — Applied AI Engineering       | `lab-07-applied-ai-engineering`    | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
+| Lab 08 — AWS Cloud & DevOps           | `lab-08-aws-cloud-devops`          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
 
 Base and track completion are separate. Lab 01 and Lab 02 are complete at 100%. Lab 03 Advanced remains pending because A1/A2 still require technical validation. Lab 04 and Lab 05 have completed their initial scopes, with Advanced optional/community. Lab 06 has Foundation and Easy validated; Intermediate and Advanced remain pending.
 
