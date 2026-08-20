@@ -22,6 +22,27 @@ class IngestionResponse(BaseModel):
     inserted: int
 
 
+class IncrementalIngestionResponse(BaseModel):
+    accepted: int
+    rejected: int
+    duplicated: int
+    inserted: int
+
+
+class ReconciliationReport(BaseModel):
+    expected_count: int
+    persisted_count: int
+    expected_total: Decimal
+    persisted_total: Decimal
+    expected_statuses: dict[str, dict[str, int | Decimal]]
+    persisted_statuses: dict[str, dict[str, int | Decimal]]
+    discrepancies: list[str]
+
+
+class ElasticsearchSyncResponse(BaseModel):
+    synced: int
+
+
 class MerchantReport(BaseModel):
     merchant_id: str
     status: str
