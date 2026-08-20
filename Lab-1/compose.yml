@@ -1,0 +1,125 @@
+name: lab-1
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lab1}
+      POSTGRES_USER: ${POSTGRES_USER:-lab1}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lab1_dev}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lab1} -d ${POSTGRES_DB:-lab1}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: "no"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-lab1}
+      DB_USERNAME: ${POSTGRES_USER:-lab1}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-lab1_dev}
+    ports:
+      - "127.0.0.1:18081:8080"
+    command: ["mvn", "spring-boot:run", "-Dspring-boot.run.jvmArguments=-Dspring.profiles.active=default"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres-test:
+    profiles: ["test"]
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_TEST_DB:-lab1_test}
+      POSTGRES_USER: ${POSTGRES_USER:-lab1}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lab1_test}
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lab1} -d ${POSTGRES_TEST_DB:-lab1_test}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: "no"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  test:
+    profiles: ["test"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      DB_URL: jdbc:postgresql://postgres-test:5432/${POSTGRES_TEST_DB:-lab1_test}
+      DB_USERNAME: ${POSTGRES_USER:-lab1}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-lab1_test}
+      SPRING_PROFILES_ACTIVE: test
+    command: ["bash", "-lc", "mvn test -Dspring.profiles.active=test --no-transfer-progress"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  debug:
+    profiles: ["debug"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-lab1}
+      DB_USERNAME: ${POSTGRES_USER:-lab1}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-lab1_dev}
+    ports:
+      - "127.0.0.1:18081:8080"
+      - "127.0.0.1:15005:5005"
+    command: ["bash", "-lc", "mvn spring-boot:run -Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' -Dspring-boot.run.arguments=--spring.profiles.active=debug"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  maven_cache:

@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://postgres-test:5432/lab1_test}
+    username: ${DB_USERNAME:lab1}
+    password: ${DB_PASSWORD:lab1_test}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+server:
+  port: 0

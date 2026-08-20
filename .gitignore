@@ -1,0 +1,43 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Java and build artifacts
+target/
+*.class
+*.jar
+*.war
+
+# JavaScript and frontend artifacts
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# PHP artifacts
+vendor/
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+
+# IDE and OS files
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local Docker overrides and runtime data
+docker-compose.override.yml
+compose.override.yml
+*.log
