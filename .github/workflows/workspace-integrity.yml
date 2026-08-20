@@ -1,0 +1,52 @@
+name: Workspace integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject tracked artifacts and sensitive files
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden='(^|/)(\.env|target|node_modules|__pycache__)(/|$)|\.(log|dump|bak)$|(^|/)[^/]*(backup|solution|solved|answer)[^/]*(/|$)'
+          matches="$(git ls-files | grep -Ei "$forbidden" || true)"
+          if [[ -n "$matches" ]]; then
+            echo "Forbidden tracked paths:"
+            echo "$matches"
+            exit 1
+          fi
+      - name: Validate Lab structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=false
+          for lab in Lab-*; do
+            [[ -d "$lab" ]] || continue
+            found=true
+            [[ -f "$lab/README.md" ]] || { echo "$lab/README.md is missing"; exit 1; }
+            [[ -f "$lab/compose.yml" ]] || { echo "$lab/compose.yml is missing"; exit 1; }
+            if grep -Eq '(^|[[:space:]])build:' "$lab/compose.yml"; then
+              find "$lab" -maxdepth 2 -type f \( -name 'Dockerfile' -o -name 'Dockerfile.*' \) | grep -q . || {
+                echo "$lab declares a build but has no Dockerfile"; exit 1;
+              }
+            fi
+          done
+          "$found" || { echo "No Lab directories found"; exit 1; }
+      - name: Validate Docker Compose files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for compose in Lab-*/compose.yml; do
+            [[ -f "$compose" ]] || continue
+            docker compose -f "$compose" config -q
+          done

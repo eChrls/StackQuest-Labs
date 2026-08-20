@@ -1,0 +1,28 @@
+name: Lab improvement
+description: Propose a focused improvement to an existing Lab
+title: "[Lab improvement]: "
+labels: [lab-improvement]
+body:
+  - type: dropdown
+    id: lab
+    attributes: {label: Lab, options: [Lab-1, Lab-2, Lab-3, Lab-4, Lab-5, Lab-6]}
+    validations: {required: true}
+  - type: textarea
+    id: problem
+    attributes: {label: Problem or opportunity}
+    validations: {required: true}
+  - type: textarea
+    id: proposal
+    attributes: {label: Proposed improvement, description: "Avoid root causes and solution code."}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Expected value and validation}
+    validations: {required: true}
+  - type: checkboxes
+    id: baseline
+    attributes:
+      label: Baseline
+      options:
+        - label: This proposal does not disclose the challenge solution.
+          required: true

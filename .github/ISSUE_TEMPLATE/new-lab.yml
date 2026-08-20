@@ -1,0 +1,37 @@
+name: New Lab proposal
+description: Propose a realistic new Lab before implementation
+title: "[New Lab]: "
+labels: [new-lab]
+body:
+  - type: input
+    id: stack
+    attributes: {label: Stack}
+    validations: {required: true}
+  - type: textarea
+    id: challenge
+    attributes: {label: Challenge type, description: "What real-world situation does it simulate?"}
+    validations: {required: true}
+  - type: textarea
+    id: skills
+    attributes: {label: Skills trained}
+    validations: {required: true}
+  - type: dropdown
+    id: difficulty
+    attributes: {label: Target difficulty, options: [Beginner, Intermediate, Advanced]}
+    validations: {required: true}
+  - type: textarea
+    id: failures
+    attributes: {label: Proposed intentional failures, description: "Describe symptoms and learning value, not solutions."}
+    validations: {required: true}
+  - type: textarea
+    id: tests
+    attributes: {label: Test strategy}
+    validations: {required: true}
+  - type: textarea
+    id: docker
+    attributes: {label: Docker architecture}
+    validations: {required: true}
+  - type: textarea
+    id: value
+    attributes: {label: Why it adds value}
+    validations: {required: true}

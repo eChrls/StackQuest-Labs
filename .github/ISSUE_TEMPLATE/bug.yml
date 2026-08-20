@@ -1,0 +1,41 @@
+name: Bug report
+description: Report a reproducible repository or Lab problem without challenge spoilers
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: dropdown
+    id: lab
+    attributes:
+      label: Lab
+      options: [Repository-wide, Lab-1, Lab-2, Lab-3, Lab-4, Lab-5, Lab-6]
+    validations: {required: true}
+  - type: textarea
+    id: environment
+    attributes: {label: Environment, description: "OS, architecture, Docker and Compose versions"}
+    validations: {required: true}
+  - type: textarea
+    id: symptom
+    attributes: {label: Symptom, description: "Describe the problem without revealing a challenge solution."}
+    validations: {required: true}
+  - type: textarea
+    id: reproduction
+    attributes: {label: Reproduction steps}
+    validations: {required: true}
+  - type: textarea
+    id: expected
+    attributes: {label: Expected behavior}
+    validations: {required: true}
+  - type: textarea
+    id: actual
+    attributes: {label: Actual behavior}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Logs or evidence, render: shell}
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I have removed secrets, credentials, personal data, and challenge solutions.
+          required: true

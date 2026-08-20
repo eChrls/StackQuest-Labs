@@ -1,0 +1,17 @@
+title: "[Q&A] "
+labels: []
+body:
+  - type: textarea
+    id: question
+    attributes: {label: Question, description: "Describe the Lab and what you have investigated. Avoid solution spoilers."}
+    validations: {required: true}
+  - type: textarea
+    id: context
+    attributes: {label: Context and evidence}
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I removed secrets and avoided publishing a complete challenge solution.
+          required: true

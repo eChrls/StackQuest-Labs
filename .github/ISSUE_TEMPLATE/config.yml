@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/eChrls/Labs/discussions
+    about: Use Discussions for guidance, learning questions, and early ideas.
+  - name: Security report
+    url: https://github.com/eChrls/Labs/security/policy
+    about: Read the security policy before reporting a real vulnerability.

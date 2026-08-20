@@ -1,0 +1,15 @@
+title: "[New Lab Idea] "
+labels: []
+body:
+  - type: input
+    id: stack
+    attributes: {label: Proposed stack}
+    validations: {required: true}
+  - type: textarea
+    id: scenario
+    attributes: {label: Real-world scenario and skills trained}
+    validations: {required: true}
+  - type: textarea
+    id: value
+    attributes: {label: Community value}
+    validations: {required: true}
