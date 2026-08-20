@@ -181,6 +181,57 @@ Hint 2: una respuesta HTTP 200 de indexacion no siempre implica que una busqueda
 
 Hint 3: usa `source_event_id` como `_id` y un resync completo sencillo antes de introducir colas o arquitectura distribuida.
 
+## Advanced track
+
+### A1 - PostgreSQL reporting performance
+
+**Type:** SQL / Data / Production incident
+**Suggested interview time:** 90-120 min
+
+**Context:** finance necesita un leaderboard de los merchants con mas importe capturado en una ventana de fechas, sobre la tabla `payments` a escala de produccion (cientos de miles de filas, no el dataset de cinco registros del resto del Lab).
+
+**Observed behaviour:** `GET /api/reports/merchant-leaderboard` devuelve el resultado correcto, pero primero obtiene todos los `merchant_id` distintos y despues ejecuta una consulta agregada adicional por cada uno (un patron N+1 clasico). Ademas, incluso una unica consulta agregada bien escrita hace un `Seq Scan` completo de la tabla porque no existe un indice que sirva al filtro `status` + rango de `created_at`.
+
+**Expected behaviour:** el endpoint ejecuta una unica consulta agregada (`GROUP BY merchant_id` con `ORDER BY` y `LIMIT`), y esa consulta usa un indice para el filtro en lugar de recorrer toda la tabla.
+
+**Reproduction:** `pytest -q tests/test_advanced_a1_reporting_performance.py` dentro del servicio test. El test siembra ~200.000 filas sinteticas con `generate_series` (rapido y determinista, sin depender de Python) y comprueba dos cosas de forma independiente:
+
+1. cuenta las consultas SQL reales ejecutadas por el endpoint durante una peticion (debe ser 1, no una por merchant);
+2. ejecuta `EXPLAIN (ANALYZE, FORMAT JSON)` sobre la consulta agregada filtrada por `status` + rango de fechas y comprueba que ningun nodo del plan sea `Seq Scan` sobre `payments`.
+
+**Constraints:** no reescribas el dataset de negocio (`app/data/payments.json`) ni el resto de endpoints; el dataset grande es exclusivo de este test/benchmark.
+
+**Acceptance criteria:** una unica query agregada por peticion; el plan de ejecucion de la consulta filtrada usa un indice (no `Seq Scan`); el resultado (merchant, count, total) es identico al de la version N+1.
+
+Hint 1: cuenta cuantas consultas SQL reales dispara una peticion al endpoint, no solo si la respuesta es correcta.
+
+Hint 2: la cardinalidad de `status` por si sola es baja (25% de las filas); combinada con un rango de fechas estrecho, la selectividad real es mucho mayor. Piensa que columnas debe cubrir el indice y en que orden (igualdad antes que rango).
+
+Hint 3: `EXPLAIN (ANALYZE, BUFFERS)` te dice si Postgres esta leyendo la tabla entera o solo las paginas relevantes; compara los buffers antes y despues del indice.
+
+### A2 - Recovery / consistency under failure
+
+**Type:** Production incident / Data
+**Suggested interview time:** 90-150 min
+
+**Context:** un job de sincronizacion escribe pagos confirmados en PostgreSQL hacia Elasticsearch. El job puede fallar a mitad de camino (timeout, restart del worker, error de red) dejando algunos documentos sin indexar; ademas, una correccion posterior sobre un pago ya sincronizado (ej. un ajuste de status) no siempre se propaga, dejando un documento indexado pero desactualizado.
+
+**Observed behaviour:** `POST /api/elasticsearch/reconcile` compara cada pago de PostgreSQL contra Elasticsearch, pero solo detecta documentos ausentes (`missing`). Un documento que existe en ES con datos desactualizados nunca aparece en `stale`, asi que `POST /api/elasticsearch/repair` nunca lo corrige: la recuperacion "declara exito" y dice `skipped` sobre un pago con datos incorrectos.
+
+**Expected behaviour:** `reconcile` detecta tanto documentos ausentes como documentos presentes cuyo contenido difiere del registro actual en PostgreSQL (`stale`); `repair` reindexa todos los `missing` + `stale`; repetir `repair` sobre un estado ya reparado es un no-op seguro (no duplica, no reindexa de mas); una busqueda posterior devuelve el dato corregido.
+
+**Reproduction:** `pytest -q tests/test_advanced_a2_recovery.py` con Elasticsearch healthy. El test simula un fallo parcial: un pago indexado correctamente, un pago nunca sincronizado (`missing`) y un pago indexado con un snapshot antiguo que ya no coincide con PostgreSQL (`stale`). Llama `reconcile` (debe listar el missing y el stale), `repair` (debe reparar ambos y dejar el ya-correcto intacto), `reconcile` otra vez (debe quedar en cero) y `repair` otra vez (debe ser un no-op), y termina comprobando `GET /api/search` para el pago antes stale.
+
+**Constraints:** no introduzcas una cola de mensajes, un segundo servicio ni orquestacion distribuida; la recuperacion es un resync dirigido, local y sincrono, sobre el mismo esquema PostgreSQL/Elasticsearch que ya usa I3.
+
+**Acceptance criteria:** `reconcile` distingue `missing` de `stale`; `repair` corrige exactamente los pagos con drift y deja los correctos sin tocar (evidenciado en `skipped`); repetir la reconciliacion tras un repair da `missing=[]` y `stale=[]`; repetir el repair da `repaired=0`; la proyeccion ES coincide con PostgreSQL campo a campo tras la recuperacion.
+
+Hint 1: "el documento existe" y "el documento esta actualizado" son dos comprobaciones distintas; revisa cual de las dos falta.
+
+Hint 2: compara el documento indexado contra la misma representacion que usa `/api/sync` para escribir (`payment_document`), no solo su existencia.
+
+Hint 3: idempotencia significa que reconciliar y reparar dos veces seguidas produce el mismo estado final que una vez; verifica el segundo `repair` explicitamente en tu prueba.
+
 ## Guided debugging
 
 1. Arranca PostgreSQL y Elasticsearch y confirma sus healthchecks.
