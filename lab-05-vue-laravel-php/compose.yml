@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment: { MYSQL_DATABASE: lab5, MYSQL_USER: lab5, MYSQL_PASSWORD: lab5_dev, MYSQL_ROOT_PASSWORD: root_dev }
+    healthcheck: { test: ["CMD-SHELL", "mysqladmin ping -h localhost -u lab5 -plab5_dev"], interval: 3s, timeout: 3s, retries: 30 }
+    volumes: [lab5_mysql:/var/lib/mysql]
+  backend:
+    build: ./backend
+    environment: { DB_HOST: mysql, DB_DATABASE: lab5, DB_USERNAME: lab5, DB_PASSWORD: lab5_dev }
+    depends_on: { mysql: { condition: service_healthy } }
+    ports: ["127.0.0.1:18085:8000"]
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["127.0.0.1:14205:5173"]
+  backend-test:
+    build: ./backend
+    profiles: [test]
+    environment: { DB_HOST: mysql, DB_DATABASE: lab5, DB_USERNAME: lab5, DB_PASSWORD: lab5_dev }
+    depends_on: { mysql: { condition: service_healthy } }
+    command: ["php", "tests/run.php"]
+volumes: { lab5_mysql: {} }

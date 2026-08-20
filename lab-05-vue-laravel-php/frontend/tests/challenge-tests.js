@@ -1,0 +1,1 @@
+const checks=[['E1 Vue list reacts after completion',false],['E2 whitespace validation blocks submit',false]];let failures=0;for(const [name,ok] of checks){if(ok)console.log('PASS',name);else{console.error('FAIL',name);failures++}}process.exitCode=failures;

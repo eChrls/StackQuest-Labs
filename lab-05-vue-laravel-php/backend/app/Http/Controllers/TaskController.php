@@ -1,0 +1,1 @@
+<?php namespace App\Http\Controllers; use App\Services\TaskService; class TaskController { public function __construct(private TaskService $tasks){} public function index(int $customer){return $this->tasks->listOpen($customer);} public function complete(int $id,int $customer){return $this->tasks->complete($id,$customer);} }
