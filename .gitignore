@@ -41,3 +41,5 @@ Thumbs.db
 docker-compose.override.yml
 compose.override.yml
 *.log
+.claude
+.gitignore

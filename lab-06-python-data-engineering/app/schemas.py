@@ -48,3 +48,25 @@ class MerchantReport(BaseModel):
     status: str
     count: int
     total: Decimal
+
+
+class MerchantLeaderboardEntry(BaseModel):
+    merchant_id: str
+    count: int
+    total: Decimal
+
+
+class MerchantLeaderboardReport(BaseModel):
+    status: str
+    entries: list[MerchantLeaderboardEntry]
+
+
+class RecoveryReconcileReport(BaseModel):
+    checked: int
+    missing: list[str]
+    stale: list[str]
+
+
+class RecoveryRepairReport(BaseModel):
+    repaired: int
+    skipped: int

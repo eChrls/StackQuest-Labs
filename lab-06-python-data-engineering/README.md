@@ -1,14 +1,13 @@
-# Lab-06 - Foundation + Easy Data Engineering
+# Lab-06 - Python/FastAPI + PostgreSQL + ETL + Elasticsearch Data Engineering
 
-Lab Docker-first de ingesta y reporting de pagos. El estado candidato contiene tres defectos deliberados e independientes. El objetivo es ejecutar, observar, formular una hipotesis, corregir la causa minima y verificarla con evidencia.
+Lab Docker-first de ingesta y reporting de pagos. El estado candidato contiene ocho defectos deliberados e independientes repartidos en Easy, Intermediate y Advanced. El objetivo es ejecutar, observar, formular una hipotesis, corregir la causa minima y verificarla con evidencia.
 
 ## Identidad y objetivos
 
-- Dificultad: Easy e Intermediate implementados; Advanced pendiente.
-- Tiempo orientativo Easy: 20-60 minutos.
-- Dominio: pequenos eventos de pagos con calidad de datos imperfecta.
-- Resultados: validar registros, persistir en PostgreSQL, repetir ingestas de forma segura y calcular un reporte por merchant/status.
-- Restriccion: no se implementa aun busqueda, sincronizacion ni challenges de Elasticsearch.
+- Dificultad: Easy, Intermediate y Advanced implementados.
+- Tiempo orientativo Easy: 20-60 minutos; Intermediate: 45-90 minutos; Advanced: 60-180 minutos.
+- Dominio: pequenos eventos de pagos con calidad de datos imperfecta, mas reporting agregado y recuperacion ante fallos parciales a escala.
+- Resultados: validar registros, persistir en PostgreSQL, repetir ingestas de forma segura, calcular reportes por merchant/status, escalar reportes agregados sobre un dataset grande con indices correctos y recuperar una proyeccion Elasticsearch tras un fallo parcial sin duplicar ni dejar datos stale.
 
 ## Stack y arquitectura
 
@@ -25,7 +24,7 @@ POST /api/ingest
                                       |
 GET /api/merchants/{id}/report?status=...
 
-Elasticsearch participa en la sincronizacion/resync de Intermediate; no hay aun challenges Advanced.
+Elasticsearch participa en la sincronizacion/resync de Intermediate y en la reconciliacion/repair de Advanced (A2). PostgreSQL participa ademas en el reporting agregado a escala de Advanced (A1).
 ```
 
 ## Docker
@@ -67,16 +66,18 @@ curl http://localhost:18086/api/merchants/M-ALPHA/report?status=CAPTURED
 
 ## Baseline esperado
 
-Hay 15 tests: 9 PASS y 6 FAIL deliberados. No hay fallos accidentales.
+Hay 17 tests: 9 PASS y 8 FAIL deliberados. No hay fallos accidentales.
 
-| Ticket | Test                                                       | Resultado baseline | Sintoma                                       |
-| ------ | ---------------------------------------------------------- | ------------------ | --------------------------------------------- |
-| E1     | `test_e1_invalid_dataset_row_is_rejected`                  | FAIL deliberado    | falta `amount` y la fila termina persistida   |
-| E2     | `test_e2_reingesting_same_events_is_idempotent`            | FAIL deliberado    | el replay inserta otra vez los mismos eventos |
-| E3     | `test_e3_report_aggregates_only_requested_status`          | FAIL deliberado    | el reporte mezcla statuses                    |
-| I1     | `test_i1_mixed_replay_inserts_only_new_events`             | FAIL deliberado    | el replay mixto informa demasiados inserts    |
-| I2     | `test_i2_reconciliation_reports_status_and_total_mismatch` | FAIL deliberado    | falta una discrepancia de status persistido   |
-| I3     | `test_i3_postgres_payment_is_readable_from_elasticsearch`  | FAIL deliberado    | PostgreSQL se actualiza pero ES queda stale   |
+| Ticket | Test                                                                | Resultado baseline | Sintoma                                                          |
+| ------ | -------------------------------------------------------------------- | ------------------- | ----------------------------------------------------------------- |
+| E1     | `test_e1_invalid_dataset_row_is_rejected`                             | FAIL deliberado      | falta `amount` y la fila termina persistida                       |
+| E2     | `test_e2_reingesting_same_events_is_idempotent`                       | FAIL deliberado      | el replay inserta otra vez los mismos eventos                     |
+| E3     | `test_e3_report_aggregates_only_requested_status`                     | FAIL deliberado      | el reporte mezcla statuses                                        |
+| I1     | `test_i1_mixed_replay_inserts_only_new_events`                        | FAIL deliberado      | el replay mixto informa demasiados inserts                        |
+| I2     | `test_i2_reconciliation_reports_status_and_total_mismatch`            | FAIL deliberado      | falta una discrepancia de status persistido                       |
+| I3     | `test_i3_postgres_payment_is_readable_from_elasticsearch`             | FAIL deliberado      | PostgreSQL se actualiza pero ES queda stale                       |
+| A1     | `test_a1_leaderboard_report_scales_with_index_and_single_query`       | FAIL deliberado      | el reporte hace una query por merchant y escanea la tabla entera  |
+| A2     | `test_a2_partial_sync_failure_recovers_without_duplication_or_stale_data` | FAIL deliberado   | la reconciliacion nunca detecta una proyeccion ES desactualizada  |
 
 Los otros nueve tests comprueban health, migracion, validacion de status, persistencia decimal, ingesta valida, reporte simple y merchant inexistente.
 

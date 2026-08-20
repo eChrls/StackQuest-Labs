@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 from decimal import Decimal
 
@@ -14,9 +15,13 @@ from app.schemas import (
     ElasticsearchSyncResponse,
     IncrementalIngestionResponse,
     IngestionResponse,
+    MerchantLeaderboardEntry,
+    MerchantLeaderboardReport,
     MerchantReport,
     PaymentRecord,
     ReconciliationReport,
+    RecoveryReconcileReport,
+    RecoveryRepairReport,
 )
 
 app = FastAPI(title="StackQuest Lab-06")
@@ -179,6 +184,52 @@ def sync_to_elasticsearch(db: Session = Depends(get_db)):
     return ElasticsearchSyncResponse(synced=synced)
 
 
+def elasticsearch_document(source_event_id: str) -> dict | None:
+    response = httpx.get(
+        f"{elasticsearch_url()}/{ELASTICSEARCH_INDEX}/_doc/{source_event_id}",
+        timeout=5,
+    )
+    if response.status_code == 404:
+        return None
+    response.raise_for_status()
+    return response.json()["_source"]
+
+
+def reconcile_elasticsearch_state(db: Session) -> RecoveryReconcileReport:
+    payments = db.scalars(select(Payment)).all()
+    missing: list[str] = []
+    stale: list[str] = []
+    for payment in payments:
+        doc = elasticsearch_document(payment.source_event_id)
+        if doc is None:
+            missing.append(payment.source_event_id)
+    return RecoveryReconcileReport(checked=len(payments), missing=missing, stale=stale)
+
+
+@app.post("/api/elasticsearch/reconcile", response_model=RecoveryReconcileReport)
+def reconcile_elasticsearch(db: Session = Depends(get_db)):
+    return reconcile_elasticsearch_state(db)
+
+
+@app.post("/api/elasticsearch/repair", response_model=RecoveryRepairReport)
+def repair_elasticsearch(db: Session = Depends(get_db)):
+    report = reconcile_elasticsearch_state(db)
+    to_repair = set(report.missing) | set(report.stale)
+    repaired = 0
+    if to_repair:
+        payments = db.scalars(select(Payment).where(Payment.source_event_id.in_(to_repair))).all()
+        for payment in payments:
+            response = httpx.put(
+                f"{elasticsearch_url()}/{ELASTICSEARCH_INDEX}/_doc/{payment.source_event_id}",
+                json=payment_document(payment),
+                params={"refresh": "wait_for"},
+                timeout=5,
+            )
+            response.raise_for_status()
+            repaired += 1
+    return RecoveryRepairReport(repaired=repaired, skipped=report.checked - repaired)
+
+
 @app.get("/api/search")
 def search_elasticsearch(source_event_id: str,):
     response = httpx.post(
@@ -206,3 +257,29 @@ def merchant_report(
     if count == 0:
         raise HTTPException(status_code=404, detail="merchant has no payments")
     return MerchantReport(merchant_id=merchant_id, status=status, count=count, total=total)
+
+
+@app.get("/api/reports/merchant-leaderboard", response_model=MerchantLeaderboardReport)
+def merchant_leaderboard(
+    status: str = Query("CAPTURED"),
+    date_from: datetime = Query(...),
+    date_to: datetime = Query(...),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db),
+):
+    merchant_ids = db.scalars(select(Payment.merchant_id).distinct()).all()
+    entries = []
+    for merchant_id in merchant_ids:
+        count, total = db.execute(
+            select(func.count(Payment.id), func.coalesce(func.sum(Payment.amount), 0))
+            .where(
+                Payment.merchant_id == merchant_id,
+                Payment.status == status,
+                Payment.created_at >= date_from,
+                Payment.created_at < date_to,
+            )
+        ).one()
+        if count > 0:
+            entries.append(MerchantLeaderboardEntry(merchant_id=merchant_id, count=count, total=total))
+    entries.sort(key=lambda entry: entry.total, reverse=True)
+    return MerchantLeaderboardReport(status=status, entries=entries[:limit])

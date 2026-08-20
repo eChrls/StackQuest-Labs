@@ -11,11 +11,11 @@ The root [README](../README.md) is the public status board. Editorial decisions 
 | Lab 03 — React + Spring Full-Stack    | `lab-03-react-spring-fullstack`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
 | Lab 04 — Angular + Spring Enterprise  | `lab-04-angular-spring-enterprise` | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | optional/community | `✅ DONE`        | `✅ DONE`       |
 | Lab 05 — Vue + Laravel/PHP Full-Stack | `lab-05-vue-laravel-php`           | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | optional/community | `✅ DONE`        | `✅ DONE`       |
-| Lab 06 — Python Data Engineering      | `lab-06-python-data-engineering`   | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING` | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
-| Lab 07 — Applied AI Engineering       | `lab-07-applied-ai-engineering`    | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
+| Lab 06 — Python Data Engineering      | `lab-06-python-data-engineering`   | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`    |
+| Lab 07 — Applied AI Engineering       | `lab-07-applied-ai-engineering`    | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `🚫 NOT PLANNED`   | `✅ DONE`        | `✅ DONE`       |
 | Lab 08 — AWS Cloud & DevOps           | `lab-08-aws-cloud-devops`          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`    |
 
-Base and track completion are separate. Lab 01 and Lab 02 are complete at 100%. Lab 03 Advanced remains pending because A1/A2 still require technical validation. Lab 04 and Lab 05 have completed their initial scopes, with Advanced optional/community. Lab 06 has Foundation and Easy validated; Intermediate and Advanced remain pending.
+Base and track completion are separate. Lab 01 and Lab 02 are complete at 100%. Lab 03 Advanced remains pending because A1/A2 still require technical validation. Lab 04 and Lab 05 have completed their initial scopes, with Advanced optional/community. Lab 06 has Foundation, Easy, and Intermediate validated; Advanced remains pending. Lab 07 has completed its full initial scope: the Easy baseline has 4 tests with 3 deliberate failures and its temporary corrected suite passes 4/4; Intermediate covers I1 retrieval/grounding/citations/no-answer, I2 read-only SQLite/Text-to-SQL, and I3 prompt injection/permissions/tool safety, with a final baseline of 7 tests (1 pass + 6 deliberate failures) and a temporary corrected suite passing 7/7. Evidence commit: `7cac482`.
 
 ## Lab 04 — Angular + Spring Enterprise
 
@@ -25,7 +25,7 @@ The former Angular + NestJS direction is no longer an official numbered Lab. A *
 
 ## Lab 07 — Applied AI Engineering
 
-Self-learning is primary; realistic AI interview practice is secondary. Baseline tests/evals cannot require Internet, paid APIs, secrets, nondeterministic responses, GPU/CUDA, or specialized hardware. Advanced remains `🚫 NOT PLANNED` initially.
+Status: `✅ DONE`. Self-learning is primary; realistic AI interview practice is secondary. Baseline tests/evals cannot require Internet, paid APIs, secrets, nondeterministic responses, GPU/CUDA, or specialized hardware. Advanced remains `🚫 NOT PLANNED`.
 
 ## Lab 08 — AWS Cloud & DevOps
 

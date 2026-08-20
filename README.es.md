@@ -61,11 +61,11 @@ Los ocho Labs oficiales permanecen visibles sea cual sea su estado. Que un Lab e
 | [Lab 03 — React + Spring Full-Stack](./lab-03-react-spring-fullstack/)      | React, TypeScript, Java, Spring Boot, PostgreSQL                           | HTTP, DTO, estado async, JPA, transacciones, debugging entre capas          | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`         |
 | [Lab 04 — Angular + Spring Enterprise](./lab-04-angular-spring-enterprise/) | Angular, TypeScript, Java, Spring Boot, PostgreSQL                         | Full-stack enterprise, validación, autorización e integración               | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | opcional/comunidad | `✅ DONE`        | `✅ DONE`            |
 | [Lab 05 — Vue + Laravel/PHP Full-Stack](./lab-05-vue-laravel-php/)          | Vue 3, TypeScript, PHP, Laravel, MySQL                                     | Features de producto, validación, persistencia e integración                | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | opcional/comunidad | `✅ DONE`        | `✅ DONE`            |
-| [Lab 06 — Python Data Engineering](./lab-06-python-data-engineering/)       | Python, FastAPI, PostgreSQL, Elasticsearch                                 | Backend, ETL, reporting, calidad, SQL, sincronización y búsqueda            | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING` | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`         |
-| [Lab 07 — Applied AI Engineering](./lab-07-applied-ai-engineering/)         | Python, FastAPI, Pydantic, PostgreSQL/pgvector, abstracción de provider AI | Applied AI Engineering: prompting, extracción, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`         |
+| [Lab 06 — Python Data Engineering](./lab-06-python-data-engineering/)       | Python, FastAPI, PostgreSQL, Elasticsearch                                 | Backend, ETL, reporting, calidad, SQL, sincronización y búsqueda            | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `⏳ PENDING`       | `✅ DONE`        | `⏳ PENDING`         |
+| [Lab 07 — Applied AI Engineering](./lab-07-applied-ai-engineering/)         | Python, FastAPI, Pydantic, PostgreSQL/pgvector, abstracción de provider AI | Applied AI Engineering: prompting, extracción, RAG, evals, tools, debugging | `✅ DONE`    | `✅ DONE`    | `✅ DONE`    | `🚫 NOT PLANNED`   | `✅ DONE`        | `✅ DONE`            |
 | [Lab 08 — AWS Cloud & DevOps](./lab-08-aws-cloud-devops/)                   | Docker, AWS, Terraform, GitHub Actions, PostgreSQL                         | Despliegue cloud, CI/CD, IaC, seguridad, observabilidad y teardown          | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED`   | `⏳ PENDING`     | `⏳ PENDING`         |
 
-Lab 01 y Lab 02 están completos al 100%. Lab 03 tiene Easy e Intermediate validados, mientras Advanced A1/A2 aún requiere validación técnica. Lab 04 y Lab 05 completaron su alcance inicial; Advanced es opcional/comunitario. Lab 06 tiene Foundation y Easy validados, con Intermediate y Advanced pendientes. Consulta el [roadmap](docs/ROADMAP.md).
+Lab 01 y Lab 02 están completos al 100%. Lab 03 tiene Easy e Intermediate validados, mientras Advanced A1/A2 aún requiere validación técnica. Lab 04 y Lab 05 completaron su alcance inicial; Advanced es opcional/comunitario. Lab 06 tiene Foundation, Easy e Intermediate validados; Advanced sigue pendiente. Lab 07 completó su alcance inicial: baseline Easy de 4 tests, con 3 FAIL deliberados y temporal 4/4 PASS; Intermediate con I1 RAG/retrieval/citations/no-answer, I2 SQLite read-only/Text-to-SQL e I3 prompt injection/permisos/tool safety; baseline final de 7 tests, 1 PASS + 6 FAIL deliberados, y temporal 7/7 PASS. Evidencia: commit `7cac482`. Consulta el [roadmap](docs/ROADMAP.md).
 
 ## Patrones de pruebas reales
 
@@ -152,7 +152,7 @@ No hace falta instalar globalmente Java/Maven, Node/npm, PHP/Composer, Python, P
 
 **Prompting • RAG • Evals • Tools • Debugging**
 
-Estado: `⏳ PENDING` · Objetivo principal: **Self-learning** · Objetivo secundario: **Práctica realista de entrevistas de AI Engineer**.
+Estado: `✅ DONE` · Objetivo principal: **Self-learning** · Objetivo secundario: **Práctica realista de entrevistas de AI Engineer**.
 
 A diferencia de Labs 1–6, su objetivo principal no es exclusivamente simular pruebas técnicas. Enseñará AI Engineering mediante problemas progresivos, originales y medibles, incorporando patrones de assessments públicos cuando resulte útil. Mantiene Docker-first, reproducibilidad, portabilidad, realismo, debugging y evidencia mediante tests/evals.
 
@@ -175,16 +175,16 @@ Debe ejecutarse razonablemente en Linux y Windows mediante Docker Desktop/WSL2 o
 
 | Track        | Etapa                          | Aprendizaje                                                                                                                                | Estado           |
 | ------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
-| Easy         | E1 — Prompt engineering        | Instrucciones system/user, precisión, constraints, structured output, JSON válido, iteración                                               | `⏳ PENDING`     |
-| Easy         | E2 — Extracción de CV          | CV ficticios originales; tecnología, periodos, experiencia, términos, ausencias; primero búsqueda/regex/fake                               | `⏳ PENDING`     |
-| Easy         | E3 — Fundamentos de evaluación | Dataset, salida esperada, precisión, falsos positivos/negativos; “looks good” no es evidencia fiable                                       | `⏳ PENDING`     |
-| Intermediate | RAG                            | Documentos, chunking, embeddings, retrieval, top-k, citas, grounding, no-answer                                                            | `⏳ PENDING`     |
-| Intermediate | AI debugging                   | Trazar input → parsing → chunking → embedding → retrieval → context → prompt → generation → validation                                     | `⏳ PENDING`     |
-| Intermediate | Evals                          | Dataset visible, regresiones, calidad de retrieval, respuesta y citas                                                                      | `⏳ PENDING`     |
-| Intermediate | Tool calling                   | Búsqueda documental, SQL read-only, calculadora, consulta estructurada                                                                     | `⏳ PENDING`     |
-| Intermediate | Text-to-SQL                    | Lenguaje natural → SQL seguro → PostgreSQL → respuesta; SQL destructivo bloqueado                                                          | `⏳ PENDING`     |
-| Intermediate | Seguridad AI básica            | Prompt injection, permisos, límites de datos sensibles, validación de salida                                                               | `⏳ PENDING`     |
-| Integrado    | Challenge aplicado final       | Combinar fundamentos, retrieval, evals, tools, debugging y trade-offs justificados                                                         | `⏳ PENDING`     |
+| Easy         | E1 — Prompt engineering        | Instrucciones system/user, precisión, constraints, structured output, JSON válido, iteración                                               | `✅ DONE`        |
+| Easy         | E2 — Extracción de CV          | CV ficticios originales; tecnología, periodos, experiencia, términos, ausencias; primero búsqueda/regex/fake                               | `✅ DONE`        |
+| Easy         | E3 — Fundamentos de evaluación | Dataset, salida esperada, precisión, falsos positivos/negativos; “looks good” no es evidencia fiable                                       | `✅ DONE`        |
+| Intermediate | RAG                            | Documentos, chunking, embeddings, retrieval, top-k, citas, grounding, no-answer                                                            | `✅ DONE`        |
+| Intermediate | AI debugging                   | Trazar input → parsing → chunking → embedding → retrieval → context → prompt → generation → validation                                     | `✅ DONE`        |
+| Intermediate | Evals                          | Dataset visible, regresiones, calidad de retrieval, respuesta y citas                                                                      | `✅ DONE`        |
+| Intermediate | Tool calling                   | Búsqueda documental, SQL read-only, calculadora, consulta estructurada                                                                     | `✅ DONE`        |
+| Intermediate | Text-to-SQL                    | Lenguaje natural → SQL seguro → PostgreSQL → respuesta; SQL destructivo bloqueado                                                          | `✅ DONE`        |
+| Intermediate | Seguridad AI básica            | Prompt injection, permisos, límites de datos sensibles, validación de salida                                                               | `✅ DONE`        |
+| Integrado    | Challenge aplicado final       | Combinar fundamentos, retrieval, evals, tools, debugging y trade-offs justificados                                                         | `✅ DONE`        |
 | Advanced     | Alcance inicial de Lab 07      | Sin training/fine-tuning grande, CUDA, ML distribuido, serving pesado, internals profundos, modelos locales grandes o multi-agent complejo | `🚫 NOT PLANNED` |
 
 Principio rector: establecer primero un baseline, medirlo e introducir IA solo cuando mejore justificadamente el resultado. Futuras extensiones comunitarias podrán reconsiderar áreas excluidas si existe demanda.
