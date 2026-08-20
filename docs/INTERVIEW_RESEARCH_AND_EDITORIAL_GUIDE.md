@@ -66,6 +66,7 @@ This directly supports the core philosophy of Real-World Technical Interview Lab
 ## 4. Strongest sources and what they teach us
 
 ### 4.1 GetYourGuide — Backend Coding Interview
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/getyourguide/swe-be-coding-interview
 
@@ -86,6 +87,7 @@ The repository contains a confidentiality notice. Do not reproduce undisclosed i
 ---
 
 ### 4.2 GetYourGuide — Frontend Coding Interview
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/getyourguide/swe-fe-coding-interview
 
@@ -102,6 +104,7 @@ Frontend Labs should contain existing behaviour, ambiguous symptoms and debuggin
 ---
 
 ### 4.3 Personio — Backend Coding Challenge
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/personio/backend-coding-challenge
 
@@ -119,6 +122,7 @@ Realistic backend challenges should include domain rules with time, persistence,
 ---
 
 ### 4.4 Crewmeister — Java Coding Challenge
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/crewmeister/java-coding-challenge
 
@@ -136,6 +140,7 @@ Not every challenge should be “find the bug”. Some should be feature-oriente
 ---
 
 ### 4.5 George Backend Chapter — Coding Challenge
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/george-labs/george-backend-hiring
 
@@ -157,6 +162,7 @@ Labs should contain iterative tickets, explicit Definition of Done, progressive 
 ---
 
 ### 4.6 Flipdish — Engineering interview process
+
 **Evidence:** A — official company careers documentation
 **URL:** https://www.flipdish.com/es/carreras/engineering-careers
 
@@ -172,6 +178,7 @@ Legacy, debugging and “make this safer/better without rewriting it” are real
 ---
 
 ### 4.7 Wise — Engineering Interviews
+
 **Evidence:** A — official company careers documentation
 **URL:** https://wise.jobs/engineering-interviews
 
@@ -187,6 +194,7 @@ Each Lab ticket should look like a concise engineering brief and should support 
 ---
 
 ### 4.8 FACEIT — Frontend Coding Challenge
+
 **Evidence:** A — official public repository, archived
 **URL:** https://github.com/faceit/frontend-coding-challenge
 
@@ -206,6 +214,7 @@ Frontend Labs should not reduce React/Angular/Vue to rendering a list. Realistic
 ---
 
 ### 4.9 Mimo — Frontend Take-home Assignment
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/getmimo/coding-challenge
 
@@ -224,6 +233,7 @@ Some Labs should include open-ended feature tickets where multiple solutions are
 ---
 
 ### 4.10 Equal Experts — Data Engineering Exercise
+
 **Evidence:** A — official public repository, archived
 **URL:** https://github.com/EqualExperts/data-engineering-exercise-python
 
@@ -245,6 +255,7 @@ The Data Lab should strongly emphasize incremental ingestion, repeatability/idem
 ---
 
 ### 4.11 Primer — DX Backend Challenge
+
 **Evidence:** A — official public repository
 **URL:** https://github.com/primer-io/dx-backend-challenge
 
@@ -261,6 +272,7 @@ Python/FastAPI challenges should often begin from a working skeleton and ask the
 ---
 
 ### 4.12 seQura — Backend coding challenge copy
+
 **Evidence:** C — candidate/public copy, not treated as authoritative company repository
 **URL:** https://github.com/itSQualL/sequra
 
@@ -286,6 +298,7 @@ Use only the general pattern. Do not copy its wording, dataset or exact rules in
 ---
 
 ### 4.13 Community hiring-process evidence
+
 **Evidence:** B — community curated
 **URL:** https://github.com/poteto/hiring-without-whiteboards
 
@@ -325,28 +338,28 @@ Lab-7 may use these general patterns for original self-learning challenges and i
 
 ## 5. Observed interview patterns
 
-| Pattern | Strength in researched sample | Labs |
-|---|---:|---|
-| Existing repository / starter project | Very high | All |
-| Run and understand project before coding | Very high | All |
-| Tests as evaluation evidence | Very high | All |
-| Add/extend a product feature | Very high | All |
-| Explain design decisions / trade-offs | Very high | All |
-| Follow-up discussion / code review / pairing | Very high | All |
-| Refactoring / improve messy code | High | Lab-1, Lab-2, Lab-3 |
-| Debugging with IDE/logs | High | Lab-1, Lab-2, Lab-3 |
-| REST/API behaviour | High | Lab-1, Lab-3, Lab-4, Lab-5, Lab-6 |
-| Persistence and data modelling | High | Lab-1, Lab-2, Lab-3, Lab-5, Lab-6 |
-| Loading/error/empty/retry frontend states | High in frontend sample | Lab-3, Lab-4, Lab-5 |
-| Async UI mutation / rollback | Medium-high | Lab-3, Lab-4, Lab-5 |
-| Incremental ingestion / repeated jobs | High in data sample | Lab-6 |
-| Data quality / scale discussion | High in data sample | Lab-6 |
-| Transactions / atomicity | Medium-high | Lab-1, Lab-2, Lab-3, Lab-6 |
-| Time zones / scheduling | Medium | Lab-1, Lab-6 |
-| Production-readiness notes | High | All |
-| Algorithm puzzles as main assessment | Not dominant in this sample | Optional only |
-| Baseline plus measurable AI evaluation | High in AI Engineering sample | Lab-7 |
-| Document extraction / RAG / tool use | High in AI Engineering sample | Lab-7 |
+| Pattern                                      | Strength in researched sample | Labs                              |
+| -------------------------------------------- | ----------------------------: | --------------------------------- |
+| Existing repository / starter project        |                     Very high | All                               |
+| Run and understand project before coding     |                     Very high | All                               |
+| Tests as evaluation evidence                 |                     Very high | All                               |
+| Add/extend a product feature                 |                     Very high | All                               |
+| Explain design decisions / trade-offs        |                     Very high | All                               |
+| Follow-up discussion / code review / pairing |                     Very high | All                               |
+| Refactoring / improve messy code             |                          High | Lab-1, Lab-2, Lab-3               |
+| Debugging with IDE/logs                      |                          High | Lab-1, Lab-2, Lab-3               |
+| REST/API behaviour                           |                          High | Lab-1, Lab-3, Lab-4, Lab-5, Lab-6 |
+| Persistence and data modelling               |                          High | Lab-1, Lab-2, Lab-3, Lab-5, Lab-6 |
+| Loading/error/empty/retry frontend states    |       High in frontend sample | Lab-3, Lab-4, Lab-5               |
+| Async UI mutation / rollback                 |                   Medium-high | Lab-3, Lab-4, Lab-5               |
+| Incremental ingestion / repeated jobs        |           High in data sample | Lab-6                             |
+| Data quality / scale discussion              |           High in data sample | Lab-6                             |
+| Transactions / atomicity                     |                   Medium-high | Lab-1, Lab-2, Lab-3, Lab-6        |
+| Time zones / scheduling                      |                        Medium | Lab-1, Lab-6                      |
+| Production-readiness notes                   |                          High | All                               |
+| Algorithm puzzles as main assessment         |   Not dominant in this sample | Optional only                     |
+| Baseline plus measurable AI evaluation       | High in AI Engineering sample | Lab-7                             |
+| Document extraction / RAG / tool use         | High in AI Engineering sample | Lab-7                             |
 
 ---
 
@@ -529,30 +542,39 @@ Every challenge ticket should read like a small company assignment.
 **Suggested interview time:** 45 min
 
 ### Context
+
 Why the business/system cares.
 
 ### Observed behaviour
+
 What currently happens.
 
 ### Expected behaviour
+
 What should happen.
 
 ### Reproduction
+
 Endpoint, UI steps, failing test, dataset or scenario.
 
 ### Constraints
+
 What must not be rewritten/changed.
 
 ### Acceptance criteria
+
 Observable Definition of Done.
 
 ### Starting point
+
 Present for Easy; optional for Intermediate; usually absent for Advanced.
 
 ### Hints
+
 Progressive `<details>` sections.
 
 ### Follow-up discussion
+
 Two or three questions about trade-offs, testing, production readiness or scalability.
 ```
 
@@ -1019,7 +1041,22 @@ Before accepting a new challenge into a Lab:
 
 ---
 
-## 19. Bibliography
+## 19. Agent Continuity standard
+
+A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can:
+
+- understand the challenge;
+- guide the learner;
+- provide progressive hints;
+- teach the related concept;
+- distinguish challenge defects from infrastructure failures;
+- validate a solution;
+- explain the root cause and review alternatives; and
+- provide a complete resolution when the learner is blocked.
+
+Lab-1 is the first Reference Lab for this standard. Lab-2 and Lab-3 will be adapted differentially after that reference is established.
+
+## 20. Bibliography
 
 ### Primary / official company sources
 

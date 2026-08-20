@@ -40,13 +40,13 @@ That workflow is the identity of this project.
 
 ## Canonical status system
 
-| Status | Meaning |
-| --- | --- |
-| `✅ DONE` | Exists, is validated, and is synchronized/published when applicable. |
-| `🟡 IN PROGRESS` | Active work exists but does not meet its Definition of Done yet. |
-| `🧪 VALIDATION` | Implementation appears complete, but mandatory verification is missing. |
-| `⏳ PENDING` | Planned but not started or not yet available. |
-| `🚫 NOT PLANNED` | Consciously not planned at present. |
+| Status           | Meaning                                                                 |
+| ---------------- | ----------------------------------------------------------------------- |
+| `✅ DONE`        | Exists, is validated, and is synchronized/published when applicable.    |
+| `🟡 IN PROGRESS` | Active work exists but does not meet its Definition of Done yet.        |
+| `🧪 VALIDATION`  | Implementation appears complete, but mandatory verification is missing. |
+| `⏳ PENDING`     | Planned but not started or not yet available.                           |
+| `🚫 NOT PLANNED` | Consciously not planned at present.                                     |
 
 Creating files or writing code is not enough to mark an item `✅ DONE`. A Lab needs evidence of a reproducible project, the expected challenge test state, a temporarily demonstrated solution, complete documentation, validated Docker, and commit/push when applicable. Open-source infrastructure must be applied, checked, and synchronized. When evidence is incomplete, use `🧪 VALIDATION` or `🟡 IN PROGRESS`.
 
@@ -54,17 +54,17 @@ Creating files or writing code is not enough to mark an item `✅ DONE`. A Lab n
 
 The seven Labs remain visible regardless of implementation status. A Lab being available does not mean every planned difficulty track exists.
 
-| Lab | Stack | Focus | Easy | Intermediate | Advanced | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| [Lab-1](Lab-1/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `✅ DONE` |
-| [Lab-2](Lab-2/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito | Legacy, characterization tests, refactoring, side effects, TDD | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `✅ DONE` |
-| [Lab-3](Lab-3/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging | `⏳ PENDING` | `🟡 IN PROGRESS` | `⏳ PENDING` | `🟡 IN PROGRESS` |
-| Lab-4 | Angular, TypeScript, Node.js, NestJS | Frontend/backend contracts and async behavior | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
-| Lab-5 | Vue 3, TypeScript, PHP, Laravel, MySQL | Product features, validation, persistence and integration | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
-| Lab-6 | Python, FastAPI, PostgreSQL, Elasticsearch | Backend, ETL, reporting, data quality, SQL, synchronization, search | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
-| Lab-7 | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING` | `🚫 NOT PLANNED` | `⏳ PENDING` |
+| Lab                      | Stack                                                                   | Focus                                                                       | Easy         | Intermediate    | Advanced                          | Status       |
+| ------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------ | --------------- | --------------------------------- | ------------ |
+| [Lab-1](Lab-1/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit                          | Unfamiliar backend, Java/Spring, REST, PostgreSQL, tests, debugging         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
+| [Lab-2](Lab-2/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito                         | Legacy, characterization tests, refactoring, side effects, TDD              | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `✅ DONE`    |
+| [Lab-3](Lab-3/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL                        | HTTP, DTOs, async state, JPA, transactions, cross-layer debugging           | `⏳ PENDING` | `🧪 VALIDATION` | `⏳ PENDING`                      | `✅ DONE`    |
+| Lab-4                    | Angular, TypeScript, Node.js, NestJS                                    | Frontend/backend contracts and async behavior                               | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
+| Lab-5                    | Vue 3, TypeScript, PHP, Laravel, MySQL                                  | Product features, validation, persistence and integration                   | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING` (optional/community) | `⏳ PENDING` |
+| Lab-6                    | Python, FastAPI, PostgreSQL, Elasticsearch                              | Backend, ETL, reporting, data quality, SQL, synchronization, search         | `⏳ PENDING` | `⏳ PENDING`    | `⏳ PENDING`                      | `⏳ PENDING` |
+| Lab-7                    | Python, FastAPI, Pydantic, PostgreSQL/pgvector, AI provider abstraction | Applied AI Engineering: prompting, extraction, RAG, evals, tools, debugging | `⏳ PENDING` | `⏳ PENDING`    | `🚫 NOT PLANNED`                  | `⏳ PENDING` |
 
-Lab-1 and Lab-2 are validated base Labs, not claims that their full three-track expansions exist. Lab-3 has a published challenge baseline, but its planned track model and global experience requirements are incomplete. See the detailed [roadmap](docs/ROADMAP.md).
+Lab-1 and Lab-2 are validated base Labs, not claims that their full three-track expansions exist. Lab-3 has a published base challenge: `✅ DONE` means the base exists and is validated, not that all difficulty tracks or the full Lab experience are complete. Lab-3 Intermediate remains `🧪 VALIDATION` until it conforms to the Reference Lab standard. See the detailed [roadmap](docs/ROADMAP.md).
 
 ## Real-world assessment patterns
 
@@ -107,25 +107,25 @@ Easy has an explicit starting point. Intermediate provides reproduction plus pro
 
 ## Usage modes
 
-| Mode | Intended experience | Status |
-| --- | --- | --- |
-| Learning Mode | Progressive hints, documentation, no time pressure. | `⏳ PENDING` |
-| Interview Mode | Suggested timebox, difficulty-appropriate hints, observable reasoning. | `⏳ PENDING` |
-| Review Mode | Root cause, code review, alternatives, production concerns, small follow-up. | `⏳ PENDING` |
+| Mode           | Intended experience                                                          | Status       |
+| -------------- | ---------------------------------------------------------------------------- | ------------ |
+| Learning Mode  | Progressive hints, documentation, no time pressure.                          | `⏳ PENDING` |
+| Interview Mode | Suggested timebox, difficulty-appropriate hints, observable reasoning.       | `⏳ PENDING` |
+| Review Mode    | Root cause, code review, alternatives, production concerns, small follow-up. | `⏳ PENDING` |
 
 These modes are the global target; they are not yet formalized consistently in every Lab.
 
 ## Debugging is a core skill
 
-| Stack | Debugging |
-| --- | --- |
-| Java/Spring | JVM debugger, breakpoints, call stack, variables, JUnit, logs |
-| React/Angular/Vue | Browser DevTools, Network, Console, Sources, tests |
-| Node | Debugger, async stack, logs, tests |
-| PHP | Stack traces, logs, tests/debugger |
-| Python | Debugger, exceptions, logging, pytest |
-| PostgreSQL | Diagnostic SQL, `EXPLAIN`, locks, data comparison |
-| Elasticsearch | Queries, mappings, documents, synchronization state |
+| Stack             | Debugging                                                     |
+| ----------------- | ------------------------------------------------------------- |
+| Java/Spring       | JVM debugger, breakpoints, call stack, variables, JUnit, logs |
+| React/Angular/Vue | Browser DevTools, Network, Console, Sources, tests            |
+| Node              | Debugger, async stack, logs, tests                            |
+| PHP               | Stack traces, logs, tests/debugger                            |
+| Python            | Debugger, exceptions, logging, pytest                         |
+| PostgreSQL        | Diagnostic SQL, `EXPLAIN`, locks, data comparison             |
+| Elasticsearch     | Queries, mappings, documents, synchronization state           |
 
 Docker is infrastructure, not the learning objective. An agent may perform Docker operations so the learner can focus on investigation and reasoning.
 
@@ -172,19 +172,19 @@ The Lab must run reasonably on Linux and Windows through Docker Desktop/WSL2 or 
 
 ### Planned progression
 
-| Track | Stage | Learning outcomes | Status |
-| --- | --- | --- | --- |
-| Easy | E1 — Prompt engineering | System/user instructions, precision, constraints, structured output, valid JSON, iteration | `⏳ PENDING` |
-| Easy | E2 — CV information extraction | Original fictional CVs; technology, periods, experience, terms, missing data; baseline search/regex/fake first | `⏳ PENDING` |
-| Easy | E3 — Evaluation basics | Dataset, expected output, precision, false positives/negatives; “looks good” is not reliable evidence | `⏳ PENDING` |
-| Intermediate | RAG | Documents, chunking, embeddings, retrieval, top-k, citations, grounding, no-answer cases | `⏳ PENDING` |
-| Intermediate | AI debugging | Trace input → parsing → chunking → embedding → retrieval → context → prompt → generation → validation | `⏳ PENDING` |
-| Intermediate | Evals | Visible dataset, regressions, retrieval quality, answer and citation correctness | `⏳ PENDING` |
-| Intermediate | Tool calling | Controlled document search, read-only SQL, calculator, structured lookup | `⏳ PENDING` |
-| Intermediate | Text-to-SQL | Natural language → safe SQL → PostgreSQL → answer, with destructive SQL blocked | `⏳ PENDING` |
-| Intermediate | Basic AI security | Prompt injection, tool permissions, sensitive-data boundaries, output validation | `⏳ PENDING` |
-| Integrated | Final applied challenge | Combine foundations, retrieval, evals, tools, debugging, and justified trade-offs | `⏳ PENDING` |
-| Advanced | Initial Lab-7 scope | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
+| Track        | Stage                          | Learning outcomes                                                                                                                                              | Status           |
+| ------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| Easy         | E1 — Prompt engineering        | System/user instructions, precision, constraints, structured output, valid JSON, iteration                                                                     | `⏳ PENDING`     |
+| Easy         | E2 — CV information extraction | Original fictional CVs; technology, periods, experience, terms, missing data; baseline search/regex/fake first                                                 | `⏳ PENDING`     |
+| Easy         | E3 — Evaluation basics         | Dataset, expected output, precision, false positives/negatives; “looks good” is not reliable evidence                                                          | `⏳ PENDING`     |
+| Intermediate | RAG                            | Documents, chunking, embeddings, retrieval, top-k, citations, grounding, no-answer cases                                                                       | `⏳ PENDING`     |
+| Intermediate | AI debugging                   | Trace input → parsing → chunking → embedding → retrieval → context → prompt → generation → validation                                                          | `⏳ PENDING`     |
+| Intermediate | Evals                          | Visible dataset, regressions, retrieval quality, answer and citation correctness                                                                               | `⏳ PENDING`     |
+| Intermediate | Tool calling                   | Controlled document search, read-only SQL, calculator, structured lookup                                                                                       | `⏳ PENDING`     |
+| Intermediate | Text-to-SQL                    | Natural language → safe SQL → PostgreSQL → answer, with destructive SQL blocked                                                                                | `⏳ PENDING`     |
+| Intermediate | Basic AI security              | Prompt injection, tool permissions, sensitive-data boundaries, output validation                                                                               | `⏳ PENDING`     |
+| Integrated   | Final applied challenge        | Combine foundations, retrieval, evals, tools, debugging, and justified trade-offs                                                                              | `⏳ PENDING`     |
+| Advanced     | Initial Lab-7 scope            | No large-model training/fine-tuning, CUDA, distributed ML, heavy serving, deep transformer internals, large local models, or complex multi-agent architectures | `🚫 NOT PLANNED` |
 
 The governing principle is: establish a baseline, measure it, and introduce AI only when it demonstrably improves the result. Future community extensions may revisit excluded areas if there is demand.
 
@@ -209,84 +209,92 @@ Contributions are welcome: a New Lab, new or advanced challenge, bug report, tes
 
 ## Community status board
 
-| Capability | Status |
-| --- | --- |
-| Public repository | `✅ DONE` |
-| MIT License | `✅ DONE` |
-| CONTRIBUTING | `✅ DONE` |
-| Code of Conduct | `✅ DONE` |
-| Security policy | `✅ DONE` |
-| Issue Forms | `✅ DONE` |
-| PR template | `✅ DONE` |
-| Discussions | `✅ DONE` |
-| Topics | `✅ DONE` |
-| Labels | `✅ DONE` |
-| CODEOWNERS | `✅ DONE` |
-| Community Profile 100% | `✅ DONE` |
-| Workspace integrity CI | `✅ DONE` |
-| Social Preview | `✅ DONE` (configured manually) |
-| GitHub Pages | `⏳ PENDING` |
-| Custom domain | `🚫 NOT PLANNED` |
-| First external contributor | `⏳ PENDING` |
-| First community Lab | `⏳ PENDING` |
-| First release | `⏳ PENDING` |
+| Capability                 | Status                          |
+| -------------------------- | ------------------------------- |
+| Public repository          | `✅ DONE`                       |
+| MIT License                | `✅ DONE`                       |
+| CONTRIBUTING               | `✅ DONE`                       |
+| Code of Conduct            | `✅ DONE`                       |
+| Security policy            | `✅ DONE`                       |
+| Issue Forms                | `✅ DONE`                       |
+| PR template                | `✅ DONE`                       |
+| Discussions                | `✅ DONE`                       |
+| Topics                     | `✅ DONE`                       |
+| Labels                     | `✅ DONE`                       |
+| CODEOWNERS                 | `✅ DONE`                       |
+| Community Profile 100%     | `✅ DONE`                       |
+| Workspace integrity CI     | `✅ DONE`                       |
+| Social Preview             | `✅ DONE` (configured manually) |
+| GitHub Pages               | `⏳ PENDING`                    |
+| Custom domain              | `🚫 NOT PLANNED`                |
+| First external contributor | `⏳ PENDING`                    |
+| First community Lab        | `⏳ PENDING`                    |
+| First release              | `⏳ PENDING`                    |
 
 The [social preview asset](docs/assets/social-preview.png) is retained for GitHub, LinkedIn, and community sharing. Pages will be evaluated only when core Labs are stable, community documentation is mature, and a clear use exists. GitHub remains the primary platform; a separate website/domain is not needed for usability today.
 
 ## Discovery and community milestones
 
-| Milestone | Status |
-| --- | --- |
-| First external star | `⏳ PENDING` |
-| First external fork | `⏳ PENDING` |
-| First external contributor | `⏳ PENDING` |
-| First external PR | `⏳ PENDING` |
+| Milestone                   | Status       |
+| --------------------------- | ------------ |
+| First external star         | `⏳ PENDING` |
+| First external fork         | `⏳ PENDING` |
+| First external contributor  | `⏳ PENDING` |
+| First external PR           | `⏳ PENDING` |
 | First community-created Lab | `⏳ PENDING` |
-| First release | `⏳ PENDING` |
+| First release               | `⏳ PENDING` |
 
 No metric is inferred or manufactured; a milestone moves only with public evidence.
 
 ## Master roadmap
 
-| Area | Capability | Status |
-| --- | --- | --- |
-| Foundation | Open-source foundation | `✅ DONE` |
-| Foundation | Global documentation | `✅ DONE` |
-| Foundation | Community infrastructure | `✅ DONE` |
-| Foundation | Editorial research | `✅ DONE` |
-| Core Labs | Lab-1 | `✅ DONE` |
-| Core Labs | Lab-2 | `✅ DONE` |
-| Core Labs | Lab-3 | `🟡 IN PROGRESS` |
-| Core Labs | Lab-4 | `⏳ PENDING` |
-| Core Labs | Lab-5 | `⏳ PENDING` |
-| Core Labs | Lab-6 | `⏳ PENDING` |
-| Core Labs | Lab-7 | `⏳ PENDING` |
-| Difficulty expansion | Easy in all seven Labs | `⏳ PENDING` |
-| Difficulty expansion | Intermediate in all seven Labs | `⏳ PENDING` |
-| Difficulty expansion | Advanced Lab-1 | `⏳ PENDING` |
-| Difficulty expansion | Advanced Lab-2 | `⏳ PENDING` |
-| Difficulty expansion | Advanced Lab-3 | `⏳ PENDING` |
-| Difficulty expansion | Advanced Lab-6 | `⏳ PENDING` |
-| Difficulty expansion | Advanced Lab-7 | `🚫 NOT PLANNED` |
-| Learning experience | Progressive hints | `⏳ PENDING` |
-| Learning experience | Learning Mode | `⏳ PENDING` |
-| Learning experience | Interview Mode | `⏳ PENDING` |
-| Learning experience | Review Mode | `⏳ PENDING` |
-| Learning experience | Time estimates | `⏳ PENDING` |
-| Learning experience | Follow-up questions | `⏳ PENDING` |
-| Community | Good first issues | `⏳ PENDING` |
-| Community | First external contribution | `⏳ PENDING` |
-| Community | First community Lab | `⏳ PENDING` |
-| Community | Release/versioning | `⏳ PENDING` |
-| Future | GitHub Pages | `⏳ PENDING` |
-| Future | Additional stacks/community Labs | `⏳ PENDING` |
-| Future | Custom domain | `🚫 NOT PLANNED` |
+| Area                 | Capability                       | Status           |
+| -------------------- | -------------------------------- | ---------------- |
+| Foundation           | Open-source foundation           | `✅ DONE`        |
+| Foundation           | Global documentation             | `✅ DONE`        |
+| Foundation           | Community infrastructure         | `✅ DONE`        |
+| Foundation           | Editorial research               | `✅ DONE`        |
+| Core Labs            | Lab-1                            | `✅ DONE`        |
+| Core Labs            | Lab-2                            | `✅ DONE`        |
+| Core Labs            | Lab-3 base challenge             | `✅ DONE`        |
+| Core Labs            | Lab-4                            | `⏳ PENDING`     |
+| Core Labs            | Lab-5                            | `⏳ PENDING`     |
+| Core Labs            | Lab-6                            | `⏳ PENDING`     |
+| Core Labs            | Lab-7                            | `⏳ PENDING`     |
+| Difficulty expansion | Easy in all seven Labs           | `⏳ PENDING`     |
+| Difficulty expansion | Intermediate in all seven Labs   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab-1                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab-2                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab-3                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab-6                   | `⏳ PENDING`     |
+| Difficulty expansion | Advanced Lab-7                   | `🚫 NOT PLANNED` |
+| Learning experience  | Progressive hints                | `⏳ PENDING`     |
+| Learning experience  | Learning Mode                    | `⏳ PENDING`     |
+| Learning experience  | Interview Mode                   | `⏳ PENDING`     |
+| Learning experience  | Review Mode                      | `⏳ PENDING`     |
+| Learning experience  | Time estimates                   | `⏳ PENDING`     |
+| Learning experience  | Follow-up questions              | `⏳ PENDING`     |
+| Community            | Good first issues                | `⏳ PENDING`     |
+| Community            | First external contribution      | `⏳ PENDING`     |
+| Community            | First community Lab              | `⏳ PENDING`     |
+| Community            | Release/versioning               | `⏳ PENDING`     |
+| Future               | GitHub Pages                     | `⏳ PENDING`     |
+| Future               | Additional stacks/community Labs | `⏳ PENDING`     |
+| Future               | Custom domain                    | `🚫 NOT PLANNED` |
 
 ## Maintaining this roadmap
 
 > Planned capabilities remain visible even while pending. When a milestone is completed, update its status instead of removing it.
 
 Any agent that completes a milestone must update this README in the same PR/commit when appropriate. Status moves to `✅ DONE` only with evidence of its completion criteria.
+
+## Temporary construction order
+
+The current build strategy is temporary: Lab-1 -> Reference Lab at 100%, Lab-2 -> adapt to the Reference Lab standard, Lab-3 -> adapt to the Reference Lab standard, then Lab-6, Lab-7, Lab-4 and Lab-5. Once all Labs are complete, these internal sequencing notes may be simplified or removed.
+
+## Agent Continuity standard
+
+A Lab is 100% complete only when a new agent, using the global sources and the Lab-specific README, can understand the challenge, guide the learner, provide progressive hints, teach the related concept, distinguish challenge defects from infrastructure failures, validate a solution, explain root causes and alternatives, and provide a complete resolution when the learner is blocked. Lab-1 is the first Reference Lab for this standard; Lab-2 and Lab-3 will be adapted differentially afterward.
 
 ## Project continuity context
 
