@@ -1,79 +1,54 @@
-# Lab 08 — AWS Cloud Deployment & DevOps
+# Lab 08 — AWS Cloud / DevOps Foundation
 
-**Docker • AWS • CI/CD • Terraform • Debugging**
+## Foundation
 
-Status: `⏳ PENDING` · Easy: `⏳ PENDING` · Intermediate: `⏳ PENDING` · Advanced: `🚫 NOT PLANNED`
+Small Python HTTP application for cloud/DevOps practice only. Docker is the only prerequisite: no AWS account, credentials, Terraform binary or paid service is required for Easy. Compose provides `api` and an isolated `checks` profile. The API exposes `/health` and `/config`, logs requests to stdout, reads `APP_PORT`, `APP_BIND` and `APP_GREETING`, and has a local healthcheck. Terraform in `infra/` is static AWS preparation; never run `apply` in this phase.
 
-This planning and continuity scaffold defines a future Lab. It contains no application, Terraform implementation, AWS resources, or deployment credentials.
+Run from the repository root: `docker compose -f lab-08-aws-cloud-devops/compose.yml config`, `docker compose -f lab-08-aws-cloud-devops/compose.yml up --build api`, and `docker compose -f lab-08-aws-cloud-devops/compose.yml --profile test run --rm checks`. The app is intended for `127.0.0.1:18088` in local mode. Terraform can be run without credentials in a Terraform container for `fmt` and syntax checks; provider download/validate is optional and documented separately.
 
-## Objective
+## Baseline
 
-Learn how to take a working Dockerized application from a reproducible local environment to a secure cloud environment. A secondary objective is practicing recurring Cloud/DevOps technical-assessment patterns.
+The Easy baseline has exactly three independent failing checks and no accidental failures. The API process itself starts and its localhost healthcheck can be green; challenge checks exercise service reachability, runtime configuration and least-exposure infrastructure.
 
-## Docker-first baseline
+### E1 — Container / port / health configuration
 
-```text
-LOCAL / SAFE MODE
-Git + Docker + Docker Compose
-             ↓
-application works locally
-             ↓
-CLOUD / OPTIONAL LIVE MODE
-same application/container → AWS
-```
+Observed: the process works inside its container but another service cannot reach `/health`. Expected: the service binds an interface reachable through the Compose network and the health evidence agrees with external reachability. Starting Point: inspect `APP_BIND`, published ports, `docker compose ps` and `docker compose logs api`. Hint 1: compare `127.0.0.1` with `0.0.0.0`; Hint 2: test from the `checks` container, not only inside `api`; Hint 3: change binding/configuration before changing application logic.
 
-AWS must never be required to clone, understand, run, test, or debug the local application. Java/Maven, Node, PostgreSQL, Terraform, and AWS CLI should not be global prerequisites when containerization can reasonably avoid them. LocalStack is not an initial requirement.
+### E2 — Environment / runtime configuration
 
-## No-paid requirement and Cost Gate
+Observed: `/config` returns an empty greeting although the image starts. Expected: non-secret configuration arrives through Compose environment and is visible in runtime diagnostics without committing secrets. Starting Point: `docker compose config` and `docker compose exec api env`. Hint 1: inspect effective environment; Hint 2: distinguish image defaults from Compose overrides; Hint 3: add only the required non-sensitive variable.
 
-The principal learning path must be completable in Local / Safe Mode without spending money. AWS Live Mode is optional and allowed only when the learner verifies eligibility and explicitly accepts deployment.
+### E3 — Cloud-readiness / Terraform exposure
 
-Before creating any resource, the Cost Gate must verify:
+Observed: `infra/main.tf` permits the application ingress from the whole internet. Expected: a minimally exposed rule suitable for this local exercise, with variables/outputs formatted and no `apply`. Starting Point: `terraform fmt -check` and inspect the security-group ingress. Hint 1: identify the CIDR; Hint 2: separate app ingress from unrestricted egress; Hint 3: validate the narrow rule offline/static before considering AWS.
 
-- account eligibility and whether it uses the Free plan or Paid plan;
-- remaining credits and expiration date;
-- region and eligible services/configurations;
-- a cost estimate before deployment;
-- resources already active in the account.
+Guided debugging: reproduce one check, capture config/log/health evidence, state the infrastructure hypothesis, make the smallest reversible edit, rerun the focused check and then the full profile. Docker/health failures are infrastructure evidence; they are not reasons to weaken assertions.
 
-Research snapshot: **2026-08-20**. At that date AWS documents a new-customer Free plan lasting up to six months, $100 initial credits, up to $100 additional credits, and eligible EC2 and RDS/PostgreSQL options. These terms are time-sensitive.
+## Learning / Interview / Review
 
-> Before any live AWS deployment, re-check the current official AWS Free Tier / Free Plan documentation.
+Learning teaches container interfaces, environment precedence, healthchecks, logs, CIDR exposure and Terraform plan/validate concepts. Interview mode requires explaining why a process can be healthy internally but unreachable externally and why credentials are never needed for static validation. Review mode checks least exposure, deterministic teardown planning, secret boundaries, portable commands and minimal diffs.
 
-See the detailed sources and classification in the [editorial guide](../docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md).
+### Mentor / AI spoilers
 
-## Planned Easy track
+Verified roots: E1 is loopback binding inside the container; E2 is missing runtime Compose configuration; E3 is an unrestricted ingress CIDR. Valid solutions change deployment/configuration rather than application behavior. Wrong fixes: publish more random ports, hard-code a secret, disable the healthcheck, open every AWS port, or run `terraform apply` to “see if it works”.
 
-### E1 — Cloud deployment foundations
+## Validation matrix
 
-A small working Dockerized application reaches EC2. Learn instance/AMI concepts, Security Groups, IAM basics, environment variables, Docker on a VM, health, logs, public HTTP, and teardown through the realistic symptom “works locally, fails in cloud”. Starting point and progressive hints are required.
+| Area | Evidence |
+|---|---|
+| Compose | `docker compose config` passes |
+| Image/runtime | image builds; `/health` and stdout logs available |
+| Easy baseline | exactly E1/E2/E3 fail |
+| Temporary green | all three checks pass after reversible corrections |
+| Terraform | static CIDR check and `fmt`; no credentials/apply |
+| Cost gate | AWS account and spending are unnecessary |
 
-### E2 — Networking / exposure
+Terraform provider validation may require downloading a provider; that is distinct from the offline/static checks and still must not use credentials or `apply`. For troubleshooting, inspect `docker compose ps`, `docker compose logs api`, `docker compose config`, and the effective environment before editing code.
 
-Expose the backend while keeping the database private. Investigate inbound/outbound rules, application/database ports, public/private access, and least exposure.
+## Agent Continuity
 
-### E3 — Configuration / debugging
+Work only inside this directory. Preserve the three Easy defects and their independent checks. The temporary green proof was: E1 bind `0.0.0.0`, E2 provide `APP_GREETING=hello from lab08`, E3 narrow the ingress CIDR; all three passed, then defects were restored. Intermediate remains explicitly pending: ECR, RDS PostgreSQL, GitHub Actions CI/CD, fuller Terraform, CloudWatch/observability, optional AWS deployment and mandatory teardown verification.
 
-Diagnose wrong environment or port, missing variables, crashing containers, connection failures, logs, and health evidence.
+## Completion
 
-## Planned Intermediate track
-
-- **I1 — Container registry / deployment flow:** ECR, tagging, push/pull, and deployment artifact.
-- **I2 — Managed PostgreSQL:** RDS PostgreSQL, migrations, private connectivity, Security Groups, secrets, and configuration.
-- **I3 — CI/CD:** GitHub → tests → Docker image → registry → deployment, preferably with GitHub Actions.
-- **I4 — Infrastructure as Code:** Terraform providers, resources, variables, outputs, plan, apply, state, and destroy without premature enterprise complexity.
-- **I5 — Observability and cloud debugging:** logs, health, CloudWatch basics, deployment failures, connectivity, configuration, and rollback reasoning.
-
-## Security and credentials
-
-Credentials are environment-based and never versioned. Future implementation must apply least privilege, document live-provider assumptions, keep the database non-public, and distinguish AWS failures from challenge defects. Static validation and local tests should cover everything that does not require a live provider.
-
-## Teardown is Definition of Done
-
-After each cloud session, run `terraform destroy` or the documented equivalent and verify EC2, RDS, ECR, networking, and every created resource. Confirm no unintended billable resources remain.
-
-“Challenge completed but resources still billing” is **not complete**.
-
-## Agent Continuity checklist
-
-Future implementation must enable a new agent to explain local and live modes, enforce the Cost Gate, guide progressive hints, separate infrastructure from challenge defects, validate each track, explain root causes and alternatives, and verify teardown without rediscovering the Lab.
+Easy is complete when a new agent can reproduce all three red checks, give Hint 1/2/3, explain Docker versus cloud evidence, validate temporary corrections without AWS, restore the baseline and avoid billable resources. Advanced is not planned in this phase.

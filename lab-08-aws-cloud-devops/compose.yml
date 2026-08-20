@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    environment:
+      APP_PORT: "8080"
+      # Deliberate E2: APP_GREETING is missing at runtime.
+    ports: ["127.0.0.1:18088:8080"]
+    healthcheck: { test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"], interval: 3s, timeout: 2s, retries: 10 }
+  checks:
+    build: .
+    profiles: [test]
+    depends_on: { api: { condition: service_started } }
+    command: ["python", "tests/checks.py", "http://api:8080"]
