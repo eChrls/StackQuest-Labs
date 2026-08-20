@@ -17,7 +17,11 @@ New Labs, improvements to existing Labs, Lab bug reports, better test coverage, 
 
 ## Requirements for a new Lab
 
-Every new Lab must follow [docs/LAB_SPEC.md](docs/LAB_SPEC.md). It must be Docker-first, isolated, rebuildable from scratch, independent of global infrastructure, and include a complete README, reproducible challenge baseline, tests, learning objective, difficulty, and completion criteria. Authors must temporarily prove a solution exists, then restore the challenge baseline before committing. Never publish solutions or commit secrets.
+Before designing a Lab or challenge, read the [Interview Research & Editorial Guide](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md), then follow [docs/LAB_SPEC.md](docs/LAB_SPEC.md). The guide is authoritative for realism, difficulty, hints, originality, copyright, Definition of Done, interview modes, and follow-up discussion; LAB_SPEC is the technical contract.
+
+Every proposal must declare `Easy`, `Intermediate`, or `Advanced`; identify the target skill and challenge type; explain why the scenario is realistic; include the standard ticket structure and objective acceptance criteria; describe difficulty-appropriate starting points/progressive hints; and include a follow-up discussion. It must be original and must not copy confidential material or substantial wording, datasets, or exact rules. Cite a public source only when it actually informed the pattern.
+
+Every new Lab must be Docker-first, isolated, rebuildable from scratch, independent of global infrastructure, and include a complete README, reproducible challenge baseline, tests, learning objective, difficulty, and completion criteria. Authors must temporarily prove a solution exists and run its verification, then restore and re-verify the intended challenge baseline before committing. Record evidence in the PR without publishing the solution. Never publish solutions or commit secrets.
 
 ## Deliberate bugs
 

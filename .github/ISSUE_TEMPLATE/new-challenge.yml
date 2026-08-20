@@ -1,0 +1,43 @@
+name: New challenge proposal
+description: Propose an original ticket for an existing Lab
+title: "[New Challenge]: "
+labels: [lab-improvement]
+body:
+  - type: input
+    id: lab
+    attributes: {label: Lab, placeholder: "Lab-1"}
+    validations: {required: true}
+  - type: dropdown
+    id: difficulty
+    attributes: {label: Difficulty, options: [Easy, Intermediate, Advanced]}
+    validations: {required: true}
+  - type: textarea
+    id: context
+    attributes: {label: Context and observed behaviour or requirement}
+    validations: {required: true}
+  - type: textarea
+    id: skill
+    attributes: {label: Target skill and realism, description: "What does it assess and why is it production-plausible?"}
+    validations: {required: true}
+  - type: textarea
+    id: testing
+    attributes: {label: Testing strategy and acceptance criteria}
+    validations: {required: true}
+  - type: textarea
+    id: hints
+    attributes: {label: Starting point and hints, description: "Match guidance to the selected difficulty."}
+    validations: {required: true}
+  - type: textarea
+    id: follow_up
+    attributes: {label: Follow-up discussion}
+    validations: {required: true}
+  - type: input
+    id: inspiration
+    attributes: {label: Public inspiration, description: "Optional public URL; patterns only, never copied material."}
+  - type: checkboxes
+    id: originality
+    attributes:
+      label: Originality
+      options:
+        - label: This proposal is original and contains no confidential or copied assessment material.
+          required: true

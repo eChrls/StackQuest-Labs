@@ -1,37 +1,65 @@
 name: New Lab proposal
-description: Propose a realistic new Lab before implementation
+description: Propose an original, realistic Lab before implementation
 title: "[New Lab]: "
 labels: [new-lab]
 body:
+  - type: markdown
+    attributes:
+      value: "Read the editorial guide and LAB_SPEC first. Describe the challenge, not its solution."
   - type: input
     id: stack
-    attributes: {label: Stack}
+    attributes:
+      label: Stack and Docker architecture
+      description: Languages, frameworks, data services, containers, and isolation approach.
+    validations: {required: true}
+  - type: checkboxes
+    id: tracks
+    attributes:
+      label: Difficulty tracks
+      options:
+        - label: Easy
+        - label: Intermediate
+        - label: Advanced
     validations: {required: true}
   - type: textarea
     id: challenge
-    attributes: {label: Challenge type, description: "What real-world situation does it simulate?"}
+    attributes:
+      label: Challenge type and target skills
+      description: Debugging, feature, refactoring, SQL, data, incident, or review; and skills assessed.
     validations: {required: true}
   - type: textarea
-    id: skills
-    attributes: {label: Skills trained}
-    validations: {required: true}
-  - type: dropdown
-    id: difficulty
-    attributes: {label: Target difficulty, options: [Beginner, Intermediate, Advanced]}
+    id: realism
+    attributes:
+      label: Context, realism, and value
+      description: What real engineering situation does it simulate, and what does it add?
     validations: {required: true}
   - type: textarea
-    id: failures
-    attributes: {label: Proposed intentional failures, description: "Describe symptoms and learning value, not solutions."}
+    id: inspiration
+    attributes:
+      label: Public inspiration or source
+      description: Optional. Link only public material that informed the pattern; do not copy it.
+  - type: textarea
+    id: guidance
+    attributes:
+      label: Starting point and progressive hints
+      description: Explain how guidance changes across the proposed difficulty tracks.
     validations: {required: true}
   - type: textarea
     id: tests
-    attributes: {label: Test strategy}
+    attributes:
+      label: Expected tests and acceptance criteria
+      description: Describe observable baseline evidence and realistic completion criteria.
     validations: {required: true}
   - type: textarea
-    id: docker
-    attributes: {label: Docker architecture}
+    id: follow_up
+    attributes:
+      label: Follow-up discussion
+      description: What trade-off, review, production, or scalability questions should follow?
     validations: {required: true}
-  - type: textarea
-    id: value
-    attributes: {label: Why it adds value}
-    validations: {required: true}
+  - type: checkboxes
+    id: originality
+    attributes:
+      label: Originality confirmation
+      options:
+        - label: This proposal is original and does not copy confidential or proprietary assessment material.
+          required: true

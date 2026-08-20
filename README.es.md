@@ -1,79 +1,242 @@
 # Real-World Technical Interview Labs
 
+**Debug • Test • Refactor • Learn**
+
 [English](README.md) | [Español](README.es.md)
 
-Proyectos Docker deliberadamente defectuosos para practicar debugging, código legacy, testing, refactoring y entrevistas técnicas.
+[![Licencia: MIT](https://img.shields.io/github/license/eChrls/Labs)](LICENSE) [![Estrellas](https://img.shields.io/github/stars/eChrls/Labs)](https://github.com/eChrls/Labs/stargazers) [![Forks](https://img.shields.io/github/forks/eChrls/Labs)](https://github.com/eChrls/Labs/forks) [![Integridad](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml/badge.svg?branch=main)](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml)
 
-[![Licencia: MIT](https://img.shields.io/github/license/eChrls/Labs)](LICENSE) [![Estrellas](https://img.shields.io/github/stars/eChrls/Labs)](https://github.com/eChrls/Labs/stargazers) [![Forks](https://img.shields.io/github/forks/eChrls/Labs)](https://github.com/eChrls/Labs/forks) [![Contributors](https://img.shields.io/github/contributors/eChrls/Labs)](https://github.com/eChrls/Labs/graphs/contributors) [![Issues](https://img.shields.io/github/issues/eChrls/Labs)](https://github.com/eChrls/Labs/issues) [![Integridad](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml/badge.svg?branch=main)](https://github.com/eChrls/Labs/actions/workflows/workspace-integrity.yml)
+Colección open source de proyectos deliberadamente imperfectos y reproducibles que simulan trabajo y pruebas técnicas reales.
 
-Estos proyectos deliberadamente imperfectos simulan los repositorios recibidos durante una prueba técnica o al incorporarse a un equipo. Son aplicaciones reales —no katas algorítmicas— y cubren backend, frontend, datos, tests y código legacy en entornos reproducibles.
+Esto no es LeetCode, algoritmos aislados, un tutorial de sintaxis ni una colección de katas. Es práctica con bases de código desconocidas, debugging, tests fallando, código legacy, refactoring, REST, bases de datos, integración frontend/backend, datos, razonamiento orientado a producción y entrevistas técnicas.
 
-## ¿Por qué este proyecto?
+## El trabajo detrás de la entrevista
 
-Muchas pruebas técnicas no empiezan con un proyecto vacío. Piden ejecutar una aplicación desconocida, entender su código, seguir el comportamiento entre archivos y capas, localizar bugs, interpretar tests, depurar fallos, modificar código legacy y añadir funcionalidades sin regresiones. Estos Labs permiten practicar exactamente ese trabajo.
+Muchas pruebas reales no entregan un editor vacío. Entregan esto:
 
-## Filosofía
+```text
+un proyecto desconocido
+        ↓
+ejecutarlo
+        ↓
+entenderlo
+        ↓
+reproducir el problema
+        ↓
+inspeccionar tests/logs
+        ↓
+depurar
+        ↓
+corregir/refactorizar
+        ↓
+verificar
+        ↓
+explicar la decisión
+```
 
-- **Docker-first y reproducible.** Git y Docker son las únicas dependencias esperadas en el host.
-- **Un Lab, un entorno aislado.** Runtimes, servicios, bases de datos y dependencias pertenecen a cada Lab.
-- **Fallos deliberados.** Un test fallando puede ser evidencia del challenge, no una rotura del repositorio.
-- **Debugging primero.** Investiga síntomas y sigue evidencias antes de cambiar código.
-- **Código realista.** Aplicaciones por capas, persistencia, efectos secundarios y diseño legacy imperfecto.
-- **Tests como evidencia.** Revelan comportamiento, protegen contratos y guían el refactoring.
-- **Sin runtimes globales ocultos.** Una máquina limpia puede reconstruir cada Lab.
-- **Sin soluciones publicadas.** Los baselines quedan sin resolver; no se guardan soluciones, parches ni copias.
+Ese flujo es la identidad del proyecto.
 
-Docker proporciona la infraestructura; no es necesariamente la materia evaluada.
+## Sistema de estados canónico
+
+| Estado | Significado |
+| --- | --- |
+| `✅ DONE` | Existe, está validado y, cuando corresponde, sincronizado/publicado. |
+| `🟡 IN PROGRESS` | Existe trabajo activo pero aún no cumple su Definition of Done. |
+| `🧪 VALIDATION` | La implementación parece terminada, pero falta verificación obligatoria. |
+| `⏳ PENDING` | Planeado pero no iniciado o todavía no disponible. |
+| `🚫 NOT PLANNED` | Decisión consciente de no planificarlo actualmente. |
+
+Crear archivos o código no basta para `✅ DONE`. Un Lab necesita evidencia de proyecto reproducible, tests en el estado esperado, solución temporal demostrada, documentación completa, Docker validado y commit/push cuando corresponda. La infraestructura open source debe estar aplicada, comprobada y sincronizada. Si falta evidencia, usa `🧪 VALIDATION` o `🟡 IN PROGRESS`.
 
 ## Catálogo de Labs
 
-| Lab | Stack y enfoque | Dificultad | Estado |
-| --- | --- | --- | --- |
-| [Lab 1](Lab-1/README.md) | Debugging con Java + Spring Boot | Beginner | 🟢 **Available** |
-| [Lab 2](Lab-2/README.md) | Java legacy + refactoring + TDD | Advanced | 🟢 **Available** |
-| Lab 3 | React + TypeScript + Java/Spring Boot | Intermediate | 🟡 **In progress** |
-| Lab 4 | Angular + TypeScript + NestJS | Intermediate | ⚪ **Planned** |
-| Lab 5 | Vue 3 + TypeScript + Laravel | Intermediate | ⚪ **Planned** |
-| Lab 6 | Python + FastAPI + PostgreSQL + Elasticsearch/Data | Advanced | ⚪ **Planned** |
+Los seis Labs permanecen visibles sea cual sea su estado. Que un Lab esté disponible no implica que existan todos sus tracks.
 
-Consulta la fuente de verdad en el [roadmap](docs/ROADMAP.md).
+| Lab | Stack | Enfoque | Easy | Intermediate | Advanced | Estado |
+| --- | --- | --- | --- | --- | --- | --- |
+| [Lab-1](Lab-1/README.md) | Java 21, Spring Boot, Maven, PostgreSQL, JUnit | Backend desconocido, Java/Spring, REST, PostgreSQL, tests, debugging | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `✅ DONE` |
+| [Lab-2](Lab-2/README.md) | Java 21, Spring Boot, PostgreSQL, JUnit/Mockito | Legacy, characterization tests, refactoring, side effects, TDD | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `✅ DONE` |
+| [Lab-3](Lab-3/README.md) | React, TypeScript, Java, Spring Boot, PostgreSQL | HTTP, DTO, estado async, JPA, transacciones, debugging entre capas | `⏳ PENDING` | `🟡 IN PROGRESS` | `⏳ PENDING` | `🟡 IN PROGRESS` |
+| Lab-4 | Angular, TypeScript, Node.js, NestJS | Contratos frontend/backend y comportamiento asíncrono | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (opcional/comunidad) | `⏳ PENDING` |
+| Lab-5 | Vue 3, TypeScript, PHP, Laravel, MySQL | Features de producto, validación, persistencia e integración | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` (opcional/comunidad) | `⏳ PENDING` |
+| Lab-6 | Python, FastAPI, PostgreSQL, Elasticsearch | Backend, ETL, reporting, calidad, SQL, sincronización y búsqueda | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` | `⏳ PENDING` |
 
-## Cómo funciona
+Lab-1 y Lab-2 son Labs base validados, no una afirmación de que tengan su expansión completa. Lab-3 tiene baseline publicado, pero su modelo de tracks y experiencia global siguen incompletos. Consulta el [roadmap](docs/ROADMAP.md).
+
+## Patrones de pruebas reales
+
+Los challenges son originales, pero siguen patrones recurrentes observados en pruebas técnicas europeas públicas. La investigación incluye GetYourGuide, Personio, Crewmeister, George, FACEIT, Mimo, Equal Experts, Primer, Flipdish y Wise.
+
+> Inspired by recurring patterns observed in publicly available European technical assessments.
+
+Son referencias, no ejercicios para copiar ni afirmaciones de afiliación. Las reglas autoritativas de investigación, originalidad, copyright, dificultad, pistas y edición están en la [Guía editorial y de investigación](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md).
+
+## Tracks de dificultad
+
+### Easy
+
+Finalmente en todos los Labs: alcance reducido, starting point visible, test/endpoint fallando conocido, pistas progresivas y fundamentos.
+
+### Intermediate
+
+Finalmente en todos los Labs: varios archivos/capas, debugging, DB/API, decisiones y riesgo de regresión.
+
+### Advanced
+
+Obligatorio finalmente en Lab-1, Lab-2, Lab-3 y Lab-6; expansión opcional futura/comunitaria en Lab-4 y Lab-5. Debe incluir concurrencia, locking, límites transaccionales, rendimiento, SQL/query plans, idempotencia, consistencia, incidentes, sincronización de Elasticsearch o escalabilidad.
+
+Docker no aumenta la dificultad; proporciona infraestructura.
+
+## Formato estándar y pistas
 
 ```text
-clonar → elegir Lab → Docker construye → ejecutar proyecto/tests
-       → investigar fallos → depurar → corregir/refactorizar/implementar
+Context
+Observed behaviour
+Expected behaviour
+Reproduction
+Constraints
+Acceptance criteria
+Starting point / progressive hints
+Follow-up discussion
 ```
 
-El README de cada Lab documenta su dominio, servicios, comandos, baseline y criterios de finalización.
+Easy tiene starting point explícito. Intermediate ofrece reproducción y pistas progresivas. Advanced expone síntoma y aceptación con ayuda mínima. Nunca uses comentarios como `// BUG HERE`; deben parecer comentarios reales de producción. Reglas completas en la [guía editorial](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md).
 
-## ¿Para quién es?
+## Modos de uso
 
-- Desarrolladores junior y early-mid.
-- Personas que preparan entrevistas técnicas.
-- Desarrolladores que practican con bases de código desconocidas.
-- Contributors que quieren diseñar challenges realistas.
+| Modo | Experiencia prevista | Estado |
+| --- | --- | --- |
+| Learning Mode | Pistas, documentación y sin presión temporal. | `⏳ PENDING` |
+| Interview Mode | Timebox sugerido, pistas según dificultad y razonamiento observable. | `⏳ PENDING` |
+| Review Mode | Causa raíz, code review, alternativas, producción y follow-up. | `⏳ PENDING` |
 
-## Dificultad
+Son el objetivo global y aún no están formalizados consistentemente en todos los Labs.
 
-- **Beginner:** alcance guiado, código pequeño y fundamentos de debugging.
-- **Intermediate:** varias capas o tecnologías y mayor riesgo de regresión.
-- **Advanced:** restricciones legacy, decisiones arquitectónicas o refactoring seguro considerable.
+## Debugging como competencia central
 
-La dificultad describe el challenge, no un puesto laboral requerido.
+| Stack | Debugging |
+| --- | --- |
+| Java/Spring | Debugger JVM, breakpoints, call stack, variables, JUnit, logs |
+| React/Angular/Vue | Browser DevTools, Network, Console, Sources, tests |
+| Node | Debugger, async stack, logs, tests |
+| PHP | Stack traces, logs, tests/debugger |
+| Python | Debugger, exceptions, logging, pytest |
+| PostgreSQL | SQL de diagnóstico, `EXPLAIN`, locks, comparación de datos |
+| Elasticsearch | Queries, mappings, documentos, estado de sincronización |
 
-## Contribuir
+Docker es infraestructura, no objetivo de aprendizaje. Un agente puede ejecutar Docker para que el alumno se concentre en investigar y razonar.
 
-Lee [CONTRIBUTING.md](CONTRIBUTING.md) para proponer un Lab, mejorar un challenge, informar de uno roto, mejorar documentación, añadir tests o mejorar portabilidad. Los Labs nuevos deben seguir la [especificación](docs/LAB_SPEC.md).
+## Los tests son evidencia
 
-## Comunidad
+Los tests son criterios de aceptación, evidencia de debugging y protección contra regresiones, no una comprobación final. Los Labs pueden empezar con tests rojos; es el baseline del challenge y no significa que el repositorio esté roto.
 
-- [Issues](https://github.com/eChrls/Labs/issues)
-- [Discussions](https://github.com/eChrls/Labs/discussions)
-- [Código de conducta](CODE_OF_CONDUCT.md)
-- [Política de seguridad](SECURITY.md)
-- [Soporte](SUPPORT.md)
+## Docker-first y portable
 
-## Licencia
+```text
+clonar repo
+   ↓
+Docker + Compose
+   ↓
+elegir Lab
+   ↓
+construir entorno aislado
+```
+
+No hace falta instalar globalmente Java/Maven, Node/npm, PHP/Composer, Python, PostgreSQL, MySQL ni Elasticsearch. Cada Lab define su entorno. Todo Lab debe reconstruirse usando esencialmente Git, Docker y Compose. Las DB iniciales salen de migrations, seeds o fixtures versionados, nunca de volúmenes personales. Portabilidad actual: `✅ DONE` para los baselines existentes, respaldada por setup versionado y Compose validado.
+
+## Jerarquía documental
+
+- **[README.md](README.md):** identidad, visión, catálogo, estado, roadmap resumido, objetivos, tracks y milestones.
+- **[docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md):** fuente autoritativa de realismo, investigación, dificultad, diseño, pistas, criterios, originalidad y follow-up.
+- **[docs/LAB_SPEC.md](docs/LAB_SPEC.md):** contrato técnico obligatorio para crear un Lab.
+- **`Lab-N/README.md`:** contexto, operación, baseline y tickets específicos.
+- **[docs/ROADMAP.md](docs/ROADMAP.md):** roadmap detallado y evolución futura.
+
+## Contribuciones open source
+
+Se buscan New Labs, challenges nuevos o Advanced, bug reports, tests, documentación, portabilidad, accesibilidad, stacks alternativos y escenarios realistas. Lee [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Panel de estado comunitario
+
+| Capacidad | Estado |
+| --- | --- |
+| Repositorio público | `✅ DONE` |
+| Licencia MIT | `✅ DONE` |
+| CONTRIBUTING | `✅ DONE` |
+| Código de conducta | `✅ DONE` |
+| Política de seguridad | `✅ DONE` |
+| Issue Forms | `✅ DONE` |
+| Plantilla de PR | `✅ DONE` |
+| Discussions | `✅ DONE` |
+| Topics | `✅ DONE` |
+| Labels | `✅ DONE` |
+| CODEOWNERS | `✅ DONE` |
+| Community Profile 100% | `✅ DONE` |
+| CI de integridad | `✅ DONE` |
+| Social Preview | `✅ DONE` (configurado manualmente) |
+| GitHub Pages | `⏳ PENDING` |
+| Dominio propio | `🚫 NOT PLANNED` |
+| Primer contributor externo | `⏳ PENDING` |
+| Primer Lab comunitario | `⏳ PENDING` |
+| Primera release | `⏳ PENDING` |
+
+El [Social Preview](docs/assets/social-preview.png) se conserva para GitHub, LinkedIn y difusión. Pages se evaluará cuando los Labs centrales sean estables, la documentación madure y exista utilidad clara. GitHub es la plataforma principal; hoy no hace falta web/dominio.
+
+## Milestones de discovery y comunidad
+
+| Milestone | Estado |
+| --- | --- |
+| Primera star externa | `⏳ PENDING` |
+| Primer fork externo | `⏳ PENDING` |
+| Primer contributor externo | `⏳ PENDING` |
+| Primera PR externa | `⏳ PENDING` |
+| Primer Lab comunitario | `⏳ PENDING` |
+| Primera release | `⏳ PENDING` |
+
+No se fabrican métricas; un milestone solo cambia con evidencia pública.
+
+## Roadmap maestro
+
+| Área | Capacidad | Estado |
+| --- | --- | --- |
+| Foundation | Base open source | `✅ DONE` |
+| Foundation | Documentación global | `✅ DONE` |
+| Foundation | Infraestructura comunitaria | `✅ DONE` |
+| Foundation | Investigación editorial | `✅ DONE` |
+| Core Labs | Lab-1 | `✅ DONE` |
+| Core Labs | Lab-2 | `✅ DONE` |
+| Core Labs | Lab-3 | `🟡 IN PROGRESS` |
+| Core Labs | Lab-4 | `⏳ PENDING` |
+| Core Labs | Lab-5 | `⏳ PENDING` |
+| Core Labs | Lab-6 | `⏳ PENDING` |
+| Difficulty expansion | Easy en todos los Labs | `⏳ PENDING` |
+| Difficulty expansion | Intermediate en todos los Labs | `⏳ PENDING` |
+| Difficulty expansion | Advanced Lab-1 | `⏳ PENDING` |
+| Difficulty expansion | Advanced Lab-2 | `⏳ PENDING` |
+| Difficulty expansion | Advanced Lab-3 | `⏳ PENDING` |
+| Difficulty expansion | Advanced Lab-6 | `⏳ PENDING` |
+| Learning experience | Pistas progresivas | `⏳ PENDING` |
+| Learning experience | Learning Mode | `⏳ PENDING` |
+| Learning experience | Interview Mode | `⏳ PENDING` |
+| Learning experience | Review Mode | `⏳ PENDING` |
+| Learning experience | Estimaciones de tiempo | `⏳ PENDING` |
+| Learning experience | Preguntas follow-up | `⏳ PENDING` |
+| Community | Good first issues | `⏳ PENDING` |
+| Community | Primera contribución externa | `⏳ PENDING` |
+| Community | Primer Lab comunitario | `⏳ PENDING` |
+| Community | Release/versionado | `⏳ PENDING` |
+| Future | GitHub Pages | `⏳ PENDING` |
+| Future | Stacks/Labs comunitarios adicionales | `⏳ PENDING` |
+| Future | Dominio propio | `🚫 NOT PLANNED` |
+
+## Mantenimiento de este roadmap
+
+> Las capacidades planificadas permanecen visibles aunque estén pendientes. Al completar un milestone, actualiza su estado en lugar de eliminarlo.
+
+Todo agente que complete un milestone debe actualizar este README en la misma PR/commit cuando corresponda. Solo puede cambiar a `✅ DONE` con evidencia de finalización.
+
+## Contexto de continuidad del proyecto
+
+Proyecto open source y Docker-first de Labs originales y realistas. La [guía editorial](docs/INTERVIEW_RESEARCH_AND_EDITORIAL_GUIDE.md) gobierna investigación y calidad; [LAB_SPEC](docs/LAB_SPEC.md) gobierna la construcción. Hay seis Labs previstos; Easy e Intermediate deben llegar a todos y Advanced es obligatorio en Labs 1, 2, 3 y 6. Los Labs base 1 y 2 están completos; Lab-3 y sus tracks siguen en progreso; Labs 4–6, expansión, modos, milestones, releases y Pages siguen pendientes. Conserva todo lo planificado y usa solo los estados canónicos.
 
 Publicado bajo la [Licencia MIT](LICENSE).
