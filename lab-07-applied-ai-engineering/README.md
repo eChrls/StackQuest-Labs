@@ -48,6 +48,20 @@ Verified roots: E1 trusts malformed provider shape without normalization; E2 tre
 
 Work only in this directory. Preserve the three Easy defects and their independent tests. Dataset ground truth is versioned and original. The next agent can reproduce symptoms, provide Hint 1/2/3, explain structured outputs/evals from zero, review alternatives and separate infrastructure from challenge failures without inspecting unrelated Labs.
 
-## Pending Intermediate
+## Intermediate track
 
-Not implemented in this phase: embeddings, RAG, chunking/retrieval, citations/no-answer, tool calling, simple Text-to-SQL, prompt injection/tool permissions and pipeline evaluation. These remain explicit future tracks.
+### I1 — Retrieval, grounding and citations
+
+Documents are split into deterministic chunks and ranked by token overlap (an offline embedding/retrieval stand-in). A grounded answer must cite `source#chunk` identifiers; when no chunk meets the evidence threshold the answer is explicitly `I don't know`. Starting point: inspect `app/retrieval.py` and query `/search`. Hints: (1) print chunk scores, (2) distinguish “top result” from “supported result”, (3) test both citation and no-answer paths. Wrong fix: always return the first chunk.
+
+### I2 — Safe tool calling / Text-to-SQL
+
+The tool exposes a deliberately tiny SQLite schema (`candidates(name, skills)`) and only read operations. Natural language is not SQL authority: validate an allow-listed SELECT shape and reject DELETE/UPDATE/DDL before execution. Hints: (1) log generated SQL, (2) check the verb and selected columns, (3) assert the database is unchanged after a rejected request. Wrong fix: sanitize one forbidden word or trust the model’s SQL.
+
+### I3 — Prompt injection and permissions
+
+Document text is untrusted data, not policy. Tool permissions are explicit (`analyst` plus an allow-list); an embedded “ignore previous instructions” must never grant access. Hints: (1) separate user identity from document content, (2) make authorization a precondition, (3) test adversarial text with a guest and an allowed analyst. Wrong fix: block one exact phrase or hide the dangerous button.
+
+Guided debugging for all Intermediate tickets: reproduce a focused red eval, capture raw chunks/SQL/authorization decision, state the invariant, make the smallest boundary fix, run focused and full pytest, then review false positives and denial behavior.
+
+Intermediate validation evidence: the complete offline suite reached **7/7 PASS** with temporary corrections for E1–E3 and I1–I3. After restoration, the baseline is **1 PASS + 6 deliberate FAIL**, with no accidental failures. The API exposes `/search` and `/tool/check` in addition to `/extract`.
