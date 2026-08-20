@@ -200,7 +200,7 @@ Despues se restauraron los tres defects y se verifico `3 failed, 9 passed`.
 | Alembic        | `alembic upgrade head` en app/test            | revision `0001` aplicada                                                      |
 | Elasticsearch  | healthcheck `_cluster/health`                 | healthy, single-node                                                          |
 | FastAPI        | logs de `app`                                 | startup complete                                                              |
-| Health         | `curl http://localhost:18086/health`          | pendiente de comprobacion manual en cada arranque; endpoint incluido en tests |
+| Health         | `curl http://localhost:18086/health`          | `status=ok` y URL interna de Elasticsearch verificados                     |
 | Ingestion      | `POST /api/ingest`                            | dataset reproducible; baseline E1 visible                                     |
 | Baseline       | `docker compose --profile test run --rm test` | 12 = 9 PASS + 3 FAIL deliberados                                              |
 | Verde temporal | misma suite con E1/E2/E3 corregidos           | 12 PASS                                                                       |
