@@ -1,399 +1,498 @@
-# Lab-1 — Java Spring Boot Debugging Challenge
+# Lab-1 — Reference Lab: Java/Spring Payments
 
-## Objetivo
+Lab-1 is the reference implementation for Real-World Technical Interview Labs. It is an intentionally imperfect payments backend. The candidate receives an unfamiliar but runnable service, reproduces observable symptoms, follows evidence through the layers, makes the smallest justified change, and explains the result.
 
-Este laboratorio simula una prueba técnica de backend en la que el candidato recibe una aplicación pequeña, funcionalmente cercana al estado real de una API de pagos, pero con varios defectos deliberados sembrados en el flujo de negocio y en la capa de validación. El objetivo no es reescribir el sistema, sino comprenderlo, diagnosticarlo y corregirlo con pruebas y debugging sobre una stack real.
+The normal material is candidate-first. Root causes and complete resolution guidance are in the collapsed Mentor / AI Support section.
 
-Este ejercicio entrena:
+## Why this Lab exists
 
-- comprensión de un proyecto desconocido;
-- Java 21 y Spring Boot;
-- tests automatizados;
-- debugging y lectura de stack traces;
-- navegación entre capas de una aplicación web;
-- PostgreSQL básico;
-- mantenimiento de un flujo HTTP → Controller → Service → Repository → DB;
-- corrección de bugs y validación de regresiones;
-- trabajo con Docker-first y perfiles de entorno.
+This Lab teaches the real backend workflow:
 
-## Stack
+    run → understand → reproduce → inspect evidence → hypothesize
+    → change the smallest justified cause → verify → explain
 
-Versiones reales utilizadas por este laboratorio:
+Learning outcomes:
 
-- Java: 21
-- Maven: 3.9.9
-- Spring Boot: 3.5.4
-- PostgreSQL: 17-alpine
-- JUnit: 5 (incluido con Spring Boot starter test)
-- Mockito: incluido con Spring Boot starter test
-- Flyway: 10.x (gestionado por Spring Boot starter)
-- Spring Data JPA: incluida con spring-boot-starter-data-jpa
+- navigate an unfamiliar Java/Spring codebase;
+- use JUnit, Mockito, MockMvc, PostgreSQL and Flyway as evidence;
+- debug HTTP → Controller → Service → Repository → PostgreSQL;
+- handle BigDecimal, nullability, validation and query parameters;
+- add a small REST feature without breaking existing behaviour;
+- reason about query plans, idempotency and concurrency;
+- review correctness, maintainability and production risk.
 
-## Arquitectura
+## Stack and architecture
 
-La aplicación sigue este flujo funcional:
+- Java 21
+- Spring Boot 3.5.4
+- Maven 3.9.9 inside Docker
+- Spring Web, Spring Data JPA and Bean Validation
+- PostgreSQL 17-alpine
+- Flyway 10.x, JUnit 5, Mockito and Spring Boot Test
 
-HTTP
-↓
-Controller
-↓
-Service
-↓
-Repository
-↓
-PostgreSQL
+    HTTP
+      ↓
+    Controller → Service → Repository → PostgreSQL
+       ↓          ↓            ↓
+      DTO      business      JPA / SQL
+               rules
 
-Responsabilidades reales:
+The domain contains Merchant and Payment. Payment has a UUID id, merchant, BigDecimal amount, status, nullable providerReference, and UTC createdAt. Statuses are PENDING, CAPTURED, FAILED and REFUNDED.
 
-- Controller: expone endpoints HTTP y transforma llamadas a la capa de servicio.
-- Service: implementa la lógica de negocio, validaciones de dominio y coordinación del flujo.
-- Repository: acceso a datos con Spring Data JPA y consultas específicas.
-- Entity/domain: modela Merchant y Payment con sus atributos y relaciones.
-- DTO: transporta payloads de entrada y salida entre HTTP y aplicación.
-- Mapper: convierte entidades a respuestas públicas sin mezclar capas.
-- Exception handling: centraliza errores HTTP y mensajes de negocio.
-- Flyway: aplica esquema y seed inicial sobre PostgreSQL.
+## Docker services
 
-## Árbol del proyecto
+| Service | Purpose | Profile | Host ports |
+| --- | --- | --- | --- |
+| postgres | Development PostgreSQL | default | none |
+| app | Development API | default | 127.0.0.1:18081 |
+| postgres-test | Isolated test PostgreSQL | test | none |
+| test | Runs Maven tests | test | none |
+| debug | API with remote JVM debugging | debug | HTTP 18081, JDWP 15005 |
 
-```text
-Lab-1/
-├── Dockerfile
-├── README.md
-├── compose.yml
-├── pom.xml
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── src/
-│   ├── main/
-│   │   ├── java/com/lab1/
-│   │   │   ├── config/
-│   │   │   │   └── RestExceptionHandler.java
-│   │   │   ├── controller/
-│   │   │   │   └── PaymentController.java
-│   │   │   ├── domain/
-│   │   │   │   ├── Merchant.java
-│   │   │   │   ├── Payment.java
-│   │   │   │   └── PaymentStatus.java
-│   │   │   ├── dto/
-│   │   │   │   ├── CapturedTotalResponse.java
-│   │   │   │   ├── PaymentCreateRequest.java
-│   │   │   │   └── PaymentResponse.java
-│   │   │   ├── exception/
-│   │   │   │   └── ResourceNotFoundException.java
-│   │   │   ├── mapper/
-│   │   │   │   └── PaymentMapper.java
-│   │   │   ├── repository/
-│   │   │   │   ├── MerchantRepository.java
-│   │   │   │   └── PaymentRepository.java
-│   │   │   ├── service/
-│   │   │   │   └── PaymentService.java
-│   │   │   └── Lab1Application.java
-│   │   └── resources/
-│   │       ├── application.yml
-│   │       └── db/migration/
-│   │           ├── V1__schema.sql
-│   │           └── V2__seed.sql
-│   └── test/
-│       ├── java/com/lab1/
-│       │   ├── Lab1ApplicationTests.java
-│       │   ├── PaymentAmountCalculationTest.java
-│       │   ├── PaymentBugBigDecimalTest.java
-│       │   ├── PaymentBugNegativeAmountTest.java
-│       │   ├── PaymentBugPendingNullProviderTest.java
-│       │   ├── PaymentBugStatusFilterTest.java
-│       │   ├── PaymentControllerSmokeTest.java
-│       │   ├── PaymentCreateRequestValidationTest.java
-│       │   ├── PaymentCreateTest.java
-│       │   ├── PaymentExceptionTest.java
-│       │   ├── PaymentListTest.java
-│       │   ├── PaymentMapperTest.java
-│       │   ├── PaymentRepositoryTest.java
-│       │   ├── PaymentRepositoryTotalTest.java
-│       │   ├── PaymentServiceTest.java
-│       │   └── PaymentStatusEnumTest.java
-│       └── resources/
-│           └── application-test.yml
-```
+The databases are recreated from versioned Flyway migrations and seed data. Java, Maven and PostgreSQL do not need to be installed on the host.
 
-## Arquitectura Docker
+## Quick start
 
-El laboratorio está pensado para ejecutarse en Docker desde el primer momento. No está orientado a que el alumno instale Java, Maven o PostgreSQL en el host.
+From the repository root:
 
-Servicios principales:
+    cd Lab-1
+    docker compose config
+    docker compose up --build postgres app
 
-- postgres: base de datos principal de desarrollo.
-- app: API Spring Boot de desarrollo.
-- postgres-test: base de datos aislada para tests.
-- test: ejecuta la suite automatizada sobre postgres-test.
-- debug: arranca la API en modo debug con JDWP.
+The API is available at http://localhost:18081.
 
-Perfiles:
+Run the isolated test environment:
 
-- default: app + postgres
-- test: postgres-test + test
-- debug: postgres + debug
+    docker compose --profile test up --build --abort-on-container-exit --exit-code-from test test
 
-Redes y almacenamiento:
+When repeating a test run after tests have written data, recreate the ephemeral service:
 
-- red Compose por defecto para los servicios del laboratorio;
-- volumen postgres_data para persistencia del entorno de desarrollo;
-- volumen maven_cache para cache de dependencias Maven;
-- test usa postgres-test con almacenamiento efímero para aislar la DB de pruebas;
-- las bases de datos no exponen puertos al host salvo el puerto HTTP y JDWP de la app/debug.
+    docker compose --profile test down
+    docker compose --profile test up --build --abort-on-container-exit --exit-code-from test test
 
-Healthchecks:
+Debug mode:
 
-- PostgreSQL se valida con pg_isready antes de permitir arranque de la app o tests.
+    docker compose --profile debug up --build postgres debug
 
-Puertos y debugging:
+Attach an IDE to localhost:15005. Useful commands:
 
-- host → localhost:18081 → app/debug
-- host → localhost:15005 → JDWP dentro del contenedor del servicio debug
+    docker compose ps
+    docker compose logs -f app
+    docker compose --profile test logs -f test
+    docker compose --profile debug logs -f debug
+    docker compose exec postgres psql -U lab1 -d lab1
 
-Diagrama:
+## Seed data and endpoints
 
-```text
-Host
-│
-├── localhost:18081
-│       ↓
-│     app/debug
-│       ↓
-│     postgres
-│
-└── localhost:15005
-        ↓
-       JDWP
+Seeded merchants are M1 (Merchant One) and M2 (Merchant Two). M1 contains:
 
-Tests:
+| Status | Amount | Provider reference |
+| --- | ---: | --- |
+| CAPTURED | 100.00 | PROVIDER-123 |
+| CAPTURED | 50.00 | PROVIDER-456 |
+| FAILED | 30.00 | PROVIDER-789 |
+| PENDING | 25.00 | NULL |
 
-test
- ↓
-postgres-test
-```
-
-Por qué PostgreSQL no publica puerto al host:
-
-- la aplicación se comunica por red Docker interna;
-- el acceso al servicio de base de datos se gestiona desde los contenedores;
-- la intención del laboratorio es aislar la capa de persistencia y no depender de un puerto de host para el flujo normal.
-
-## Operación
-
-Los comandos que se usan para operar el laboratorio son Docker/Compose y no requieren instalación local de Java, Maven o PostgreSQL.
-
-```bash
-# levantar la app en desarrollo
-cd Lab-1
-docker compose up --build postgres app
-
-# detener la app
-cd Lab-1
-docker compose down
-
-# ejecutar la suite de tests
-cd Lab-1
-docker compose --profile test up --build --abort-on-container-exit test
-
-# arrancar modo debug
-cd Lab-1
-docker compose --profile debug up --build postgres debug
-
-# ver logs de la app
-cd Lab-1
-docker compose logs -f app
-
-# ver logs del debug
-cd Lab-1
-docker compose --profile debug logs -f debug
-
-# ver logs de tests
-cd Lab-1
-docker compose --profile test logs -f test
-
-# inspeccionar estado de contenedores
-cd Lab-1
-docker compose ps
-
-# inspeccionar configuración del compose
-cd Lab-1
-docker compose config
-
-# entrar a PostgreSQL de desarrollo
-cd Lab-1
-docker compose exec postgres psql -U lab1 -d lab1
-```
-
-## Dominio
-
-Entidades principales:
-
-Merchant
-
-- id: identificador principal de merchant
-- name: nombre del comerciante
-- relación: un merchant puede tener varios payments
-
-Payment
-
-- id: UUID
-- merchant: relación con Merchant
-- amount: importe monetario en BigDecimal
-- status: enum PaymentStatus
-- providerReference: referencia del proveedor, puede ser nula en algunos estados
-- createdAt: timestamp UTC de creación
-
-PaymentStatus
-
-- PENDING
-- CAPTURED
-- FAILED
-- REFUNDED
-
-## Endpoints
-
-La API disponible incluye, al menos:
+Available endpoints:
 
 - POST /api/payments
 - GET /api/payments/{paymentId}
 - GET /api/merchants/{merchantId}/payments
 - GET /api/merchants/{merchantId}/captured-total
 
-El flujo principal de negocio se centra en Merchant y Payment; los endpoints se usan para crear, listar y consultar pagos por comercio.
+I2, A1 and A2 are specifications for the candidate; their implementations are not in the baseline.
 
-## Datos seed
+## Expected initial state
 
-La base de datos inicial usa los siguientes datos relevantes para reproducir los tickets:
+The baseline contains exactly 16 tests:
 
-Merchants:
+- 12 PASS;
+- 4 NON-GREEN, one independent reproduction for each base ticket;
+- no accidental infrastructure failure.
 
-- M1 — Merchant One
-- M2 — Merchant Two
+| Ticket | Evidence | Initial result |
+| --- | --- | --- |
+| E1 | PaymentBugBigDecimalTest | assertion failure |
+| E2 | PaymentControllerSmokeTest | nullable mapping error |
+| E3 | PaymentBugNegativeAmountTest | assertion failure |
+| I1 | PaymentBugStatusFilterTest | Service-flow assertion failure |
 
-Payments seed:
+PaymentBugPendingNullProviderTest documents that null is valid in the domain. It is not the E2 reproduction. Repository-only tests are not sufficient evidence for I1.
 
-- 11111111-1111-4111-8111-111111111111 — M1 — 100.00 — CAPTURED — PROVIDER-123
-- 22222222-2222-4222-8222-222222222222 — M1 — 50.00 — CAPTURED — PROVIDER-456
-- 33333333-3333-4333-8333-333333333333 — M1 — 30.00 — FAILED — PROVIDER-789
-- 44444444-4444-4444-8444-444444444444 — M2 — 200.00 — CAPTURED — PROVIDER-999
-- 55555555-5555-4555-8555-555555555555 — M1 — 25.00 — PENDING — NULL
+## Choose a track
 
-Estos datos permiten reproducir los síntomas del challenge sobre la suma de pagos capturados, el tratamiento de null en providerReference y el filtro por estado.
+Easy tickets take approximately 20–60 minutes and expose a visible starting point. Intermediate tickets take 45–120 minutes and require cross-layer reasoning. Advanced tickets take 60–180 minutes and require production-oriented performance, consistency or concurrency reasoning. Docker is infrastructure, not difficulty.
 
-## Estado inicial del challenge
+## Easy track
 
-La suite inicial del laboratorio está diseñada para esperar este resultado:
+### E1 — Captured total is incorrect
 
-```text
-16 tests
-12 passing
-4 failing
-```
+Difficulty: Easy
+Type: Debugging / monetary calculation
+Suggested interview time: 30–45 min
+Skills: BigDecimal, immutability, JUnit, debugger variables
 
-Los cuatro errores forman parte del challenge y son deliberados.
+Context: Merchant operations uses the captured-total endpoint to reconcile money received from providers.
 
-## Tickets
+Observed behaviour: The captured total for a merchant with captured payments does not match the database.
 
-### Ticket 0 — Arranque y orientación
+Expected behaviour: M1 returns 150.00. Failed and pending payments are excluded.
 
-Síntoma: la aplicación no se entiende de inmediato y el alumno debe localizar la capa correcta, ejecutar la suite y observar el estado real del proyecto.
-Comportamiento esperado: arranque funcional, contexto Spring correcto, base de datos preparada por Flyway y pruebas ejecutándose con Docker.
-Competencia entrenada: comprensión del proyecto y del flujo de ejecución.
+Reproduction: Run PaymentBugBigDecimalTest in the Docker test profile.
 
-### Ticket 1 — cálculo monetario incorrecto
+Constraints: Keep monetary values as BigDecimal. Do not change seed data or hard-code a response.
 
-Síntoma: el total CAPTURED de M1 no coincide con el esperado.
-Comportamiento esperado: la suma de pagos capturados debe dar 150.00.
-Competencia entrenada: cálculo monetario y validación con BigDecimal.
+Acceptance criteria:
 
-### Ticket 2 — tratamiento de providerReference nulo
+- the focused test and full suite pass after the candidate solution;
+- the endpoint returns the exact monetary result;
+- the candidate explains the observed value.
 
-Síntoma: un pago PENDING válido puede provocar un error al serializar o consultar la entidad.
-Comportamiento esperado: la API y la serialización deben manejar correctamente un providerReference nulo sin romper la consulta.
-Competencia entrenada: null handling y navegación entre capas.
+Starting point: PaymentService.calculateCapturedTotal. Inspect the value before and after one captured payment.
 
-### Ticket 3 — filtro de estado ignorado
+Hint 1: Use a debugger or focused test and compare total before and after one payment.
 
-Síntoma: al consultar pagos por merchant + status, se devuelven elementos de otros estados.
-Comportamiento esperado: la consulta debe devolver únicamente los pagos del estado solicitado.
-Competencia entrenada: navegación entre capas y filtrado en Repository/Service.
+Hint 2: Follow the loop in the Service and confirm whether the returned value is the value calculated.
 
-### Ticket 4 — validación de amount positivo
+Hint 3: BigDecimal operations return a value; they do not mutate the receiver.
 
-Síntoma: la API acepta un amount negativo.
-Comportamiento esperado: una solicitud con amount negativo debe rechazarse con error 400.
-Competencia entrenada: validación de entrada y contrato HTTP.
+Guided debugging: Reproduce, set a breakpoint, inspect variables, step over the calculation, follow the call stack, form a hypothesis, make the smallest change, and rerun focused plus full tests.
 
-### Ticket 5 — resumen de merchant
+Follow-up: What if amounts arrive with more than two decimal places? Would SQL aggregation be preferable at larger volume?
 
-Contrato de la feature temporalmente añadida:
+### E2 — Nullable provider reference breaks an API response
 
-```json
-{
-  "merchantId": "M1",
-  "capturedCount": 2,
-  "capturedTotal": 150.0,
-  "failedCount": 1
-}
-```
+Difficulty: Easy
+Type: Debugging / DTO mapping
+Suggested interview time: 30–45 min
+Skills: nullability, mapping, HTTP errors, stack traces
 
-Endpoint objetivo:
+Context: Provider references are unavailable while a payment is pending.
 
-- GET /api/merchants/{merchantId}/summary
+Observed behaviour: Listing M1 payments fails instead of returning the pending payment.
 
-Criterios:
+Expected behaviour: The response succeeds and preserves a missing provider reference as JSON null or another justified compatible representation.
 
-- debe devolver el total capturado para un merchant;
-- debe contar pagos CAPTURED;
-- debe contar pagos FAILED;
-- debe estar cubierto por al menos un unit test y un integration test.
+Reproduction: Run PaymentControllerSmokeTest or GET /api/merchants/M1/payments.
 
-No se incluye la solución en este README; solo se documenta el contrato y la intención de la feature.
+Constraints: Preserve the nullable domain and response shape. Do not seed a fake reference.
 
-## Debugging disponible
+Acceptance criteria:
 
-El laboratorio permite:
+- pending payments can be listed;
+- the reference remains absent rather than invented;
+- mapping and HTTP evidence cover the behaviour;
+- other response fields do not regress.
 
-- debugging remoto JDWP;
-- debugging de tests;
-- logs de Spring Boot;
-- stack traces y errores de capa HTTP;
-- verificación de estado de contenedores y healthchecks.
+Starting point: Read the exception stack trace, then inspect the response mapping path.
 
-No se trata todavía de un tutorial de breakpoints o Step Into.
+Hint 1: Read the first application frame, not the framework frames.
 
-## Criterios de finalización
+Hint 2: The repository has returned the payment; inspect the mapping path after that.
 
-El laboratorio se considera terminado solo cuando:
+Hint 3: Check a nullable value before calling an instance method on it.
 
-- Tickets 1-4 están corregidos;
-- los 16 tests originales vuelven a estar verdes;
-- Ticket 5 está implementado;
-- existen pruebas adicionales para Ticket 5;
-- la suite completa queda verde sin regresiones.
+Guided debugging: Reproduce, enable a NullPointerException breakpoint, inspect a pending row, step into the mapper, compare it with a captured row, then verify the HTTP contract.
 
-## Contexto de continuidad
+Follow-up: Would you represent missing data as null, omission or a typed status object? Where should API-wide null policy live?
 
-Lab-1 es un laboratorio de backend Java con Spring Boot, PostgreSQL y Docker. Está diseñado como una prueba técnica de debugging y corrección de defectos en un flujo de pagos. La aplicación usa una arquitectura simple HTTP → Controller → Service → Repository → PostgreSQL, se ejecuta principalmente con Docker Compose y se valida a través de perfiles de app, tests y debug.
+### E3 — Payment amount must be positive
 
-El estado inicial esperado del challenge es:
+Difficulty: Easy
+Type: Debugging / validation
+Suggested interview time: 30–45 min
+Skills: Bean Validation, boundary conditions, HTTP 400
 
-- 16 tests
-- 12 passing
-- 4 failing
-- 4 errores deliberados del challenge
-- Ticket 5 no incorporado en el estado base
+Context: The API must not accept zero or negative payments.
 
-Los comandos más importantes para retomar el trabajo son:
+Observed behaviour: A request with 0.00 or -10.00 is accepted.
 
-- docker compose up --build postgres app
-- docker compose --profile test up --build --abort-on-container-exit test
-- docker compose --profile debug up --build postgres debug
-- docker compose logs -f app
-- docker compose ps
-- docker compose config
-- docker compose exec postgres psql -U lab1 -d lab1
+Expected behaviour: Both values are rejected with HTTP 400 before persistence.
 
-Con este contexto, una IA o agente puede retomar el trabajo sin necesidad de inspeccionar el proyecto completo.
+Reproduction: Run PaymentBugNegativeAmountTest. It includes both values and a non-null provider reference so E2 cannot mask E3.
+
+Constraints: Keep the rule at the request boundary. Do not rely only on a database or later exception.
+
+Acceptance criteria:
+
+- zero is rejected;
+- negative values are rejected;
+- a positive control remains accepted;
+- invalid input produces useful HTTP 400 validation evidence;
+- no invalid payment is persisted.
+
+Starting point: Inspect PaymentCreateRequest annotations and the Controller validation path.
+
+Hint 1: Compare amount constraints with other required fields.
+
+Hint 2: Confirm @Valid is present and identify what boundary rule is missing.
+
+Hint 3: The requirement is strictly greater than zero, not greater-than-or-equal-to zero.
+
+Guided debugging: Run the focused MockMvc test, inspect the deserialized DTO, follow validation, and check whether the Service is reached for invalid input.
+
+Follow-up: Would you also enforce the rule in the domain or database? How should API clients discover it?
+
+## Intermediate track
+
+### I1 — Payment status filter is ignored
+
+Difficulty: Intermediate
+Type: Debugging / cross-layer filtering
+Suggested interview time: 60–90 min
+Skills: query parameters, Controller → Service → Repository, regression testing
+
+Context: Operations needs to list only payments in a requested lifecycle status.
+
+Observed behaviour: A request supplies a status, but payments in other statuses are returned.
+
+Expected behaviour: GET /api/merchants/{merchantId}/payments?status=CAPTURED returns only captured payments. Without the parameter, existing unfiltered behaviour remains.
+
+Reproduction: Run PaymentBugStatusFilterTest. It invokes PaymentService with captured and failed rows. Do not use the repository-only test as the ticket reproduction.
+
+Constraints: Preserve ordering and the no-filter contract. Avoid filtering only after loading unrelated results when the repository can express it.
+
+Acceptance criteria:
+
+- the focused Service-flow test passes;
+- an HTTP integration test or equivalent evidence covers the query parameter;
+- no-filter listing still works;
+- unknown-status behaviour is tested or explicitly documented.
+
+Hint 1: Compare the status received by the Controller with the repository method ultimately called.
+
+Hint 2: Trace the argument through getPaymentsByMerchant; the defect is between receiving and choosing the data access operation.
+
+Hint 3: Filtering must be represented in the query path, not silently discarded by orchestration.
+
+Guided debugging: Break at the Service entry, inspect status, step into the repository call, compare the selected method, and verify filtered and unfiltered paths.
+
+Follow-up: How should unknown status map to HTTP? Would a typed enum parameter be preferable to a raw string?
+
+### I2 — Merchant Summary
+
+Difficulty: Intermediate
+Type: Feature / REST reporting
+Suggested interview time: 75–120 min
+Skills: domain modelling, DTO design, persistence, BigDecimal, unit and integration tests
+
+Requirement: Add GET /api/merchants/{id}/summary returning:
+
+    {
+      "merchantId": "M1",
+      "capturedCount": 2,
+      "capturedTotal": 150.00,
+      "failedCount": 1
+    }
+
+Context: Merchant operations wants one small summary endpoint for reconciliation and triage.
+
+Expected behaviour: The summary counts captured and failed payments and calculates captured money exactly. A missing merchant has deliberate, tested HTTP behaviour.
+
+Constraints: Keep the feature small, preserve existing contracts, add at least one unit and one integration test, and do not build a reporting framework.
+
+Acceptance criteria:
+
+- M1 returns the documented values;
+- BigDecimal exactness is covered;
+- merchant-not-found behaviour is tested;
+- the existing baseline contract is not silently changed;
+- the design is explainable.
+
+Starting point: Map the existing Merchant/Payment relationships and repository methods.
+
+Hint 1: Write down which fields derive from status and which layer should own each decision.
+
+Hint 2: Compare a small service solution with repository aggregation and justify the simplest correct design.
+
+Hint 3: Treat the summary as a stable response DTO, not an entity serialization shortcut.
+
+Follow-up: One query or several? What should an empty summary return?
+
+## Advanced track
+
+### A1 — PostgreSQL reporting performance
+
+Dependency:
+
+    I2 Merchant Summary
+            ↓
+    A1 PostgreSQL / Reporting Performance
+
+A1 assumes I2 has been solved functionally. The intended progression is: first implement a correct small feature, then investigate how to make it suitable for significantly larger volume.
+
+Difficulty: Advanced
+Type: SQL / performance investigation
+Suggested interview time: 90–150 min
+Skills: SQL aggregation, PostgreSQL, EXPLAIN, query plans, exact money
+
+Requirement: Evolve Merchant Summary so PostgreSQL performs the aggregation without unnecessarily loading every Payment entity into application memory.
+
+Constraints: Do not use an absolute latency threshold. Do not change the summary contract. Add an index only when plan evidence justifies it.
+
+Acceptance criteria:
+
+- values remain exact and correct;
+- evidence shows database-side aggregation;
+- EXPLAIN or EXPLAIN ANALYZE is used;
+- functional correctness is distinguished from structural suitability;
+- result and query behaviour are tested.
+
+Optional hints: Inspect rows/entities loaded by the current implementation; compare conditional aggregates with application iteration; inspect aggregate nodes, rows examined and index effects.
+
+Follow-up: When does a composite index help? How would this report be monitored in production?
+
+### A2 — Idempotent concurrent capture callbacks
+
+Difficulty: Advanced
+Type: Concurrency / payment consistency
+Suggested interview time: 120–180 min
+Skills: retries, transactions, unique constraints, locking, PostgreSQL consistency
+
+Context: A local provider callback may be retried or delivered concurrently. It must apply one business capture for one event without a real PSP or Internet.
+
+Requirement: Design a local callback contract with eventId and payment reference. The first event may transition a pending payment to captured; retries, including concurrent deliveries, are idempotent.
+
+Constraints: Use PostgreSQL and Docker tests. Do not build a distributed system. Do not test concurrency only with sequential calls. Define incompatible reuse of an event ID.
+
+Acceptance criteria:
+
+- first callback succeeds;
+- sequential retry has one business effect;
+- duplicate concurrent delivery is reproducible;
+- one durable idempotency record exists;
+- payment state and provider reference are consistent;
+- the test proves concurrency.
+
+Optional hints: Identify the durable unique fact and transaction boundary; coordinate two PostgreSQL workers with a barrier; select and justify constraints, locks and isolation.
+
+Follow-up: What response should a retry receive? What if an event belongs to another payment? What if commit succeeds but the caller times out?
+
+## Standard solving workflow
+
+1. Confirm Docker and PostgreSQL health.
+2. Run the focused test or request.
+3. Record expected versus actual.
+4. Find the earliest divergence.
+5. Trace the layer boundary.
+6. Form a falsifiable hypothesis.
+7. Make the smallest justified change.
+8. Add or improve regression evidence.
+9. Run focused and full tests.
+10. Explain cause, trade-offs and one production concern.
+
+## Debugger from zero
+
+Use the debug profile and attach to localhost:15005.
+
+- Breakpoint: pauses before a selected line.
+- Resume/continue: runs to the next breakpoint or exception.
+- Step over: executes the line without entering called code.
+- Step into: enters called code across layers.
+- Step out: returns from the current method.
+- Variables: inspect current state.
+- Watches: evaluate a useful expression.
+- Call stack: shows how the request or test arrived.
+- Exception breakpoint: stops at the useful exception frame.
+- JUnit debugging: run one test in debug mode with a breakpoint in the code under test.
+
+The practical loop is reproduce → breakpoint → inspect → step → compare → follow stack → hypothesize → verify.
+
+## Tests as evidence
+
+Tests are reproduction, acceptance criteria, debugging evidence and regression protection. A documented red test is intentional; it does not mean Docker is broken. Do not change an expected value just to make the build green, hard-code seed data, or bypass the relevant layer.
+
+## Modes
+
+Learning Mode: hints, documentation and mentor/AI teaching are available, with no mandatory timebox. The objective is understanding.
+
+Interview Mode: use the suggested timebox, start with the public brief, ask for hints explicitly, and explain reasoning. Documentation is allowed unless a ticket says otherwise.
+
+Review Mode: explain root cause, walk through the diff, justify the design, discuss an alternative, identify a production risk, and answer follow-up questions.
+
+## Definition of Done
+
+A ticket is complete only when applicable criteria are met: relevant tests pass; existing behaviour does not regress; Docker and application startup remain valid; contracts are compatible; edge cases are covered; data is consistent; the solution is explainable; and one production concern is identified. A single visible assertion must not be passed with a shortcut.
+
+## Infrastructure versus challenge
+
+| Symptom | First check | Interpretation |
+| --- | --- | --- |
+| No containers | docker compose ps | Start the documented profile. |
+| PostgreSQL unavailable | health status and pg_isready logs | Infrastructure until healthy. |
+| Flyway failure | migration and application logs | Fix environment before ticket debugging. |
+| Port occupied | 18081 or 15005 ownership | Stop conflict or use a documented alternative. |
+| Maven error | image build and Maven output | Separate dependency/build from challenge failure. |
+| JDWP unavailable | debug logs and port 15005 | Confirm debug profile and JVM listener. |
+| Healthy environment plus focused assertion/error | test and stack trace | Likely challenge evidence. |
+
+## Mentor / AI Support — SPOILERS
+
+<details>
+<summary>Open only for mentoring, review or an explicitly requested solution.</summary>
+
+### Verified base root causes
+
+E1: PaymentService calls BigDecimal.add without assigning its returned value. BigDecimal is immutable, so the accumulator remains zero. Assign the result or use an equivalent exact reduction.
+
+E2: PaymentMapper calls trim on a nullable providerReference. The pending seed row legitimately contains SQL NULL. Make mapping null-safe without inventing data.
+
+E3: PaymentCreateRequest has NotNull but no strictly-positive constraint. Add a boundary rule equivalent to DecimalMin(0.00, exclusive) and test zero, negative and positive controls.
+
+I1: PaymentService receives a status but calls the unfiltered repository method. Select the status-aware query or equivalent correct design. The permanent evidence crosses the Service boundary.
+
+### Verified temporary solutions
+
+I2 was temporarily validated with a summary DTO, endpoint, service/repository design, Mockito unit test and PostgreSQL MockMvc integration test. M1 returned 2, 150.00 and 1.
+
+A1 was validated as the next step after I2 with PostgreSQL conditional COUNT/SUM aggregation, a projection, exact results and EXPLAIN evidence showing an aggregate plan node. No millisecond threshold or unjustified index was used.
+
+A2 was temporarily validated with POST /api/payments/{paymentId}/capture-callback, eventId, providerReference, a unique durable event table, a transaction, a payment row lock, sequential retry and two coordinated concurrent PostgreSQL workers. The result was one event row and one captured business state.
+
+### Common wrong fixes
+
+- changing expected money to zero;
+- converting BigDecimal to double;
+- replacing null with fake text;
+- discarding status in another layer;
+- rejecting negative values but accepting zero;
+- hard-coding M1 summary values;
+- claiming performance from a local stopwatch;
+- storing idempotency in process memory;
+- simulating concurrency with sequential calls;
+- recording idempotency outside the payment transaction.
+
+### Full-resolution outline
+
+1. Assign the BigDecimal result.
+2. Make provider mapping null-safe.
+3. Enforce amount strictly greater than zero.
+4. Select the status-aware repository path.
+5. Add I2 DTO, endpoint, service design and unit/integration tests.
+6. Evolve I2 to database aggregation and inspect EXPLAIN for A1.
+7. Add durable unique event recording, transaction and concurrency proof for A2.
+8. Review alternatives, constraints and observability.
+
+### Validation matrix
+
+| Ticket | Baseline evidence | Temporary validation | Accepted result |
+| --- | --- | --- | --- |
+| E1 | PaymentBugBigDecimalTest | 16/16 after fix | exact 150.00 |
+| E2 | HTTP listing test | 16/16 after fix | successful nullable response |
+| E3 | zero/negative MockMvc test | 16/16 after fix | HTTP 400, no persistence |
+| I1 | Service-flow test | 16/16 after fix | requested status only |
+| I2 | feature specification | 18/18 | DTO plus unit/integration |
+| A1 | feature specification | 20/20 with plan evidence | aggregation and exact result |
+| A2 | feature specification | 20/20 with concurrent evidence | one business effect |
+
+### Agent continuity context
+
+A new agent can immediately identify the baseline, all seven tickets, their difficulty, reproduction, hints, the I2 → A1 dependency, A2's concurrency proof, infrastructure checks, four root causes, accepted behaviour, review questions and the full-resolution outline without rediscovering the codebase.
+
+</details>
+
+## Final baseline contract
+
+The committed challenge state contains no I2, A1 or A2 implementation. It retains four production defects and four independent evidence tests. Temporary solutions, migrations, generated target files, logs and solution patches do not belong in the baseline.
+
+This README is the Lab-specific continuity source. Global documentation and the master roadmap are maintained by their dedicated documentation work.

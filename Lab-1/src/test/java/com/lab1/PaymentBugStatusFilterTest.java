@@ -5,6 +5,7 @@ import com.lab1.domain.Payment;
 import com.lab1.domain.PaymentStatus;
 import com.lab1.repository.MerchantRepository;
 import com.lab1.repository.PaymentRepository;
+import com.lab1.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PaymentBugStatusFilterTest {
     @Autowired private MerchantRepository merchantRepository;
     @Autowired private PaymentRepository paymentRepository;
+    @Autowired private PaymentService paymentService;
 
     @Test void shouldReturnOnlyCapturedPayments() {
         Merchant merchant = merchantRepository.save(new Merchant("M-FILTER", "Filter Merchant"));
         paymentRepository.save(new Payment(UUID.randomUUID(), merchant, new BigDecimal("10.00"), PaymentStatus.CAPTURED, "C1", Instant.now()));
         paymentRepository.save(new Payment(UUID.randomUUID(), merchant, new BigDecimal("20.00"), PaymentStatus.FAILED, "F1", Instant.now()));
-        List<Payment> payments = paymentRepository.findByMerchant_IdAndStatusOrderByCreatedAtDesc(merchant.getId(), PaymentStatus.CAPTURED);
+        List<Payment> payments = paymentService.getPaymentsByMerchant(merchant.getId(), PaymentStatus.CAPTURED);
         assertEquals(1, payments.size());
     }
 }

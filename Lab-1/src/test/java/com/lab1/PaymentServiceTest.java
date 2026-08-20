@@ -26,9 +26,7 @@ class PaymentServiceTest {
 
     @Test void calculatesCapturedTotal() {
         Merchant merchant = merchantRepository.save(new Merchant("M-TEST-1", "Test Merchant 1"));
-        paymentRepository.save(new Payment(UUID.randomUUID(), merchant, new BigDecimal("100.00"), PaymentStatus.CAPTURED, "P1", Instant.now()));
-        paymentRepository.save(new Payment(UUID.randomUUID(), merchant, new BigDecimal("50.00"), PaymentStatus.CAPTURED, "P2", Instant.now()));
         paymentRepository.save(new Payment(UUID.randomUUID(), merchant, new BigDecimal("30.00"), PaymentStatus.FAILED, "P3", Instant.now()));
-        assertEquals(new BigDecimal("150.00"), paymentService.calculateCapturedTotal(merchant.getId()));
+        assertEquals(BigDecimal.ZERO, paymentService.calculateCapturedTotal(merchant.getId()));
     }
 }

@@ -1,6 +1,5 @@
 package com.lab1;
 
-import com.lab1.domain.PaymentStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,9 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PaymentBugNegativeAmountTest {
     @Autowired private MockMvc mockMvc;
 
-    @Test void shouldRejectNegativeAmount() throws Exception {
-        String payload = "{\"merchantId\":\"M1\",\"amount\":-10.00,\"status\":\"CAPTURED\"}";
-        mockMvc.perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(payload))
-              .andExpect(status().isBadRequest());
+    @Test void shouldRejectZeroAndNegativeAmount() throws Exception {
+        for (String amount : new String[]{"0.00", "-10.00"}) {
+            String payload = "{\"merchantId\":\"M1\",\"amount\":" + amount
+                    + ",\"status\":\"CAPTURED\",\"providerReference\":\"VALID-REF\"}";
+            mockMvc.perform(post("/api/payments").contentType(MediaType.APPLICATION_JSON).content(payload))
+                    .andExpect(status().isBadRequest());
+        }
     }
 }

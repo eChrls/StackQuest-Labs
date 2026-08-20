@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PaymentControllerSmokeTest {
     @Autowired private MockMvc mockMvc;
 
-    @Test void merchantsEndpointAvailable() throws Exception {
+    @Test void merchantsEndpointHandlesNullableProviderReference() throws Exception {
         mockMvc.perform(get("/api/merchants/M1/payments")).andExpect(status().isOk());
     }
 }
