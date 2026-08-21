@@ -1,3 +1,5 @@
+![StackQuest Labs social preview](docs/assets/social-preview.png)
+
 # StackQuest Labs
 
 [Español](README.es.md)
