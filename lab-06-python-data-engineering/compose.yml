@@ -94,6 +94,23 @@ services:
     init: true
     logging: *jsonlog
 
+  dev:
+    profiles: [dev]
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      DATABASE_URL: postgresql+psycopg://lab6:lab6_dev@postgres:5432/lab6
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    command: ["sleep", "infinity"]
+    logging: *jsonlog
+
 volumes:
   postgres_data:
   elasticsearch_data:

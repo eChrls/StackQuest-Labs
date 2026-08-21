@@ -46,7 +46,7 @@ services:
     environment:
       VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:18083}
     ports: ["127.0.0.1:13003:5173"]
-    command: ["sh", "-c", "npm install && npm run dev"]
+    command: ["sh", "-c", "npm ci && npm run dev"]
     logging: *default-logging
 
   postgres-test:
@@ -85,14 +85,14 @@ services:
     build: {context: ./frontend, dockerfile: Dockerfile}
     working_dir: /workspace
     volumes: ["./frontend:/workspace", "frontend_node_modules:/workspace/node_modules"]
-    command: ["sh", "-c", "npm install && npm test -- --run"]
+    command: ["sh", "-c", "npm ci && npm test -- --run"]
     logging: *default-logging
 
-  backend-debug:
-    profiles: ["debug"]
+  dev:
+    profiles: ["dev"]
     build: {context: ./backend, dockerfile: Dockerfile}
-    working_dir: /workspace
-    volumes: ["./backend:/workspace", "maven_cache:/root/.m2"]
+    working_dir: /workspaces/lab/backend
+    volumes: [".:/workspaces/lab", "maven_cache:/root/.m2"]
     environment:
       SERVER_PORT: 8080
       DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-lab3}
@@ -100,8 +100,7 @@ services:
       DB_PASSWORD: ${POSTGRES_PASSWORD:-lab3_dev}
     depends_on:
       postgres: {condition: service_healthy}
-    ports: ["127.0.0.1:18083:8080", "127.0.0.1:15007:5005"]
-    command: ["sh", "-c", "mvn spring-boot:run -Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005'"]
+    command: ["sleep", "infinity"]
     logging: *default-logging
 
 volumes:

@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Lab 03 — Debug Spring",
+      "request": "launch",
+      "mainClass": "com.lab3.Lab3Application",
+      "projectName": "lab-3-backend",
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 03 — Debug React",
+      "request": "launch",
+      "url": "http://localhost:13003",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true
+    }
+  ]
+}

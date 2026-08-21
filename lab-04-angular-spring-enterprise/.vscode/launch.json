@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Lab 04 — Debug Spring",
+      "request": "launch",
+      "mainClass": "com.example.lab4.Lab4Application",
+      "projectName": "lab4",
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 04 — Debug Angular",
+      "request": "launch",
+      "url": "http://localhost:14204",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true
+    }
+  ]
+}

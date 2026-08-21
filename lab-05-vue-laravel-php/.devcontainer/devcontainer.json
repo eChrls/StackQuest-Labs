@@ -1,0 +1,15 @@
+{
+  "name": "StackQuest Lab 05 - PHP Development",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "dev",
+  "runServices": ["mysql", "backend", "frontend", "dev"],
+  "workspaceFolder": "/workspaces/lab",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": ["xdebug.php-debug"]
+    }
+  }
+}

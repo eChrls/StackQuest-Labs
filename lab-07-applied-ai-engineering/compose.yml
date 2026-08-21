@@ -7,3 +7,8 @@ services:
     build: .
     profiles: [test]
     command: ["pytest","-q"]
+  dev:
+    profiles: [dev]
+    build: .
+    volumes: [.:/workspace]
+    command: ["sleep", "infinity"]

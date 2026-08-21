@@ -31,15 +31,14 @@ services:
     command: ["mvn", "test", "-Dspring-boot.run.skip=true"]
     init: true
     logging: *jsonlog
-  debug:
-    profiles: [debug]
+  dev:
+    profiles: [dev]
     build: .
     working_dir: /workspace
     volumes: [.:/workspace, maven_cache:/root/.m2]
-    environment: {SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab2, SPRING_DATASOURCE_USERNAME: lab2, SPRING_DATASOURCE_PASSWORD: lab2_dev, MAVEN_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"}
+    environment: {SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab2, SPRING_DATASOURCE_USERNAME: lab2, SPRING_DATASOURCE_PASSWORD: lab2_dev}
     depends_on: {postgres: {condition: service_healthy}}
-    ports: ["127.0.0.1:18082:8080", "127.0.0.1:15006:5005"]
-    command: ["mvn", "spring-boot:run"]
+    command: ["sleep", "infinity"]
     logging: *jsonlog
 
 volumes:

@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Lab 01 — Debug Spring",
+      "request": "launch",
+      "mainClass": "com.lab1.Lab1Application",
+      "projectName": "lab-1",
+      "env": {
+        "DB_URL": "jdbc:postgresql://postgres:5432/lab1",
+        "DB_USERNAME": "lab1",
+        "DB_PASSWORD": "lab1_dev"
+      }
+    }
+  ]
+}

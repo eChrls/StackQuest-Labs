@@ -93,8 +93,8 @@ services:
         max-size: "10m"
         max-file: "3"
 
-  debug:
-    profiles: ["debug"]
+  dev:
+    profiles: ["dev"]
     build:
       context: .
       dockerfile: Dockerfile
@@ -110,10 +110,7 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-lab1}
       DB_USERNAME: ${POSTGRES_USER:-lab1}
       DB_PASSWORD: ${POSTGRES_PASSWORD:-lab1_dev}
-    ports:
-      - "127.0.0.1:18081:8080"
-      - "127.0.0.1:15005:5005"
-    command: ["bash", "-lc", "mvn spring-boot:run -Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005' -Dspring-boot.run.arguments=--spring.profiles.active=debug"]
+    command: ["sleep", "infinity"]
     logging:
       driver: "json-file"
       options:

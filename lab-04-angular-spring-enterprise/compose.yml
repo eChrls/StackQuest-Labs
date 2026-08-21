@@ -9,6 +9,7 @@ services:
     volumes: [lab4_pg:/var/lib/postgresql/data]
   backend:
     build: ./backend
+    volumes: [lab4_maven:/root/.m2]
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab4
       SPRING_DATASOURCE_USERNAME: lab4
@@ -27,10 +28,22 @@ services:
   backend-test:
     build: ./backend
     profiles: [test]
+    volumes: [lab4_maven:/root/.m2]
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-test:5432/lab4_test
       SPRING_DATASOURCE_USERNAME: lab4
       SPRING_DATASOURCE_PASSWORD: lab4_test
     depends_on: { postgres-test: { condition: service_healthy } }
     command: ["mvn", "clean", "test", "-q"]
-volumes: { lab4_pg: {} }
+  dev:
+    profiles: [dev]
+    build: ./backend
+    working_dir: /workspaces/lab/backend
+    volumes: [.:/workspaces/lab, lab4_maven:/root/.m2]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab4
+      SPRING_DATASOURCE_USERNAME: lab4
+      SPRING_DATASOURCE_PASSWORD: lab4_dev
+    depends_on: { postgres: { condition: service_healthy } }
+    command: ["sleep", "infinity"]
+volumes: { lab4_pg: {}, lab4_maven: {} }

@@ -1,0 +1,21 @@
+{
+  "name": "StackQuest Lab 02 - Java Development",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "dev",
+  "runServices": ["postgres", "dev"],
+  "workspaceFolder": "/workspace",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-maven"
+      ],
+      "settings": {"java.jdt.ls.java.home": "/opt/java/openjdk"}
+    }
+  }
+}

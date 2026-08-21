@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Lab 02 — Debug Spring",
+      "request": "launch",
+      "mainClass": "com.example.lab2.Lab2Application",
+      "projectName": "lab-2"
+    }
+  ]
+}

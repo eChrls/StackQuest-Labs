@@ -19,4 +19,12 @@ services:
     environment: { DB_HOST: mysql, DB_DATABASE: lab5, DB_USERNAME: lab5, DB_PASSWORD: lab5_dev }
     depends_on: { mysql: { condition: service_healthy } }
     command: ["php", "tests/run.php"]
+  dev:
+    profiles: [dev]
+    build: ./backend
+    working_dir: /workspaces/lab/backend
+    volumes: [.:/workspaces/lab]
+    environment: { DB_HOST: mysql, DB_DATABASE: lab5, DB_USERNAME: lab5, DB_PASSWORD: lab5_dev }
+    depends_on: { mysql: { condition: service_healthy }, backend: { condition: service_started }, frontend: { condition: service_started } }
+    command: ["sleep", "infinity"]
 volumes: { lab5_mysql: {} }

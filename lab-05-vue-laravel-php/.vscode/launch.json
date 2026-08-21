@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "php",
+      "name": "Lab 05 — Listen for Xdebug",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {"/var/www": "${workspaceFolder}/backend"}
+    },
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 05 — Debug Vue",
+      "request": "launch",
+      "url": "http://localhost:14205",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true
+    }
+  ]
+}

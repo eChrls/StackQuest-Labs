@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "debugpy",
+      "name": "Lab 06 — Debug FastAPI",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--host", "0.0.0.0", "--port", "8000"],
+      "justMyCode": true
+    },
+    {
+      "type": "debugpy",
+      "name": "Lab 06 — Debug current pytest file",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q", "${file}"],
+      "justMyCode": true
+    }
+  ]
+}
