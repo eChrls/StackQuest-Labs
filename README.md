@@ -25,6 +25,10 @@ The current eight Labs are the initial content set. They deliberately include ob
 
 Read its README, run the documented Compose configuration, and start with one focused challenge. Keep challenge failures separate from dependency, database or Docker failures. A temporary green solution is a learning exercise; restore the deliberate baseline afterward. No Lab requires paid cloud services for its main local path, and secrets must remain outside Git.
 
+## Versioned development setup
+
+Labs that need visual debugging include tracked `.devcontainer/devcontainer.json` and `.vscode/launch.json` files. Open the Lab directory in VS Code, install the Dev Containers extension, run **Dev Containers: Reopen in Container**, wait for the stack-specific extensions to finish installing, and choose the named launch configuration documented by that Lab. These files are intentionally committed: they contain reproducible editor/container configuration only—never tokens, personal paths, private keys or production credentials. Lab 08 uses Docker diagnostics instead and therefore has no artificial Dev Container/debug configuration.
+
 ## Contributing
 
 These eight Labs are the initial content, not a closed curriculum. Any contributor can add Easy, Intermediate, Advanced or specialised challenges to any Lab. New work should preserve the canonical directory structure, deterministic local execution, independent observable defects, progressive hints, acceptance criteria, tests, troubleshooting, mentor guidance and Agent Continuity described in [LAB_SPEC](docs/LAB_SPEC.md). See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community expectations.

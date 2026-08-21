@@ -1,5 +1,13 @@
 # Lab-06 - Python/FastAPI + PostgreSQL + ETL + Elasticsearch Data Engineering
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Open this Lab and choose **Dev Containers: Reopen in Container**. Python, pip, pytest, PostgreSQL and Elasticsearch remain in Docker. Verify `python --version`, `pytest --version`, service health, then run `docker compose --profile test run --rm test` for the documented baseline.
+
+## Visual debugging
+
+Open a focused test and select **Lab 06 — Debug current pytest file**, or select **Lab 06 — Debug FastAPI** for an HTTP path. Set the breakpoint in the production function reached by that evidence and confirm Variables, Watch, Call Stack and Step Over/Into/Out/Continue. The launched Python process and debugger both run inside the Dev Container; no host Python is used.
+
 Lab Docker-first de ingesta y reporting de pagos. El estado candidato contiene ocho defectos deliberados e independientes repartidos en Easy, Intermediate y Advanced. El objetivo es ejecutar, observar, formular una hipotesis, corregir la causa minima y verificarla con evidencia.
 
 ## Identidad y objetivos

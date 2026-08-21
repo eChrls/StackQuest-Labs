@@ -23,6 +23,10 @@ Los ocho Labs actuales son el contenido inicial. Incluyen fallos deliberados y o
 
 Lee su README, ejecuta la configuración Compose documentada y empieza por un reto focalizado. Separa los fallos del reto de los fallos de dependencias, base de datos o Docker. Una solución temporal verde sirve para aprender; después restaura el baseline deliberadamente rojo. La ruta local principal no requiere servicios cloud de pago y los secretos deben quedar fuera de Git.
 
+## Setup de desarrollo versionado
+
+Los Labs que necesitan debugging visual incluyen `.devcontainer/devcontainer.json` y `.vscode/launch.json` versionados. Abre el directorio del Lab en VS Code, instala la extensión Dev Containers, ejecuta **Dev Containers: Reopen in Container**, espera a que terminen de instalarse las extensiones del stack y elige la configuración indicada en su README. Estos archivos se suben intencionadamente: solo contienen configuración reproducible del editor/contenedor; nunca deben incluir tokens, rutas personales, claves privadas ni credenciales de producción. Lab 08 usa diagnóstico Docker y no añade un Dev Container/debugger artificial.
+
 ## Contribuir
 
 Estos ocho Labs son el contenido inicial, no un currículo cerrado. Cualquier contribuidor puede añadir retos Easy, Intermediate, Advanced o especializados a cualquier Lab. El nuevo contenido debe mantener estructura canónica, ejecución local determinista, defectos independientes y observables, pistas progresivas, criterios de aceptación, tests, troubleshooting, guía de mentor y Agent Continuity según [LAB_SPEC](docs/LAB_SPEC.md). Consulta [CONTRIBUTING.md](CONTRIBUTING.md) y [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

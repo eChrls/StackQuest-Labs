@@ -47,40 +47,60 @@ The domain contains Merchant and Payment. Payment has a UUID id, merchant, BigDe
 | app | Development API | default | 127.0.0.1:18081 |
 | postgres-test | Isolated test PostgreSQL | test | none |
 | test | Runs Maven tests | test | none |
-| debug | API with remote JVM debugging | debug | HTTP 18081, JDWP 15005 |
+| dev | Java/Maven Dev Container for direct test and app debugging | dev | none |
 
 The databases are recreated from versioned Flyway migrations and seed data. Java, Maven and PostgreSQL do not need to be installed on the host.
 
-## Quick start
+## Docker-first setup
 
-From the repository root:
+Prerequisites: Git, Docker with Compose, VS Code, and the VS Code **Dev Containers** extension. Java, Maven and PostgreSQL are provided by Docker and must not be installed on the host.
 
-    cd lab-01-java-spring-debugging
+    git clone https://github.com/eChrls/StackQuest-Labs.git
+    cd StackQuest-Labs/lab-01-java-spring-debugging
     docker compose config
-    docker compose up --build postgres app
 
-The API is available at http://localhost:18081.
+Open this Lab directory in VS Code. Run **Dev Containers: Reopen in Container** from the Command Palette. On the first run, VS Code builds the image, starts `postgres` and `dev`, installs the Java extensions in the container, and opens `/workspace`.
 
-Run the isolated test environment:
+In the Dev Container terminal, confirm the environment:
+
+    java --version
+    mvn --version
+    docker compose --profile test run --rm test
+
+In a host terminal opened in the Lab directory, confirm the services and logs:
+
+    docker compose ps
+    docker compose --profile dev logs dev
+
+Expected infrastructure evidence:
+
+- Java reports version 21 and Maven reports version 3.9.9;
+- `postgres` is `healthy` and `dev` is running;
+- Java tests are discovered by VS Code inside the container;
+- no Java, Maven or debugger port is required on the host.
+
+Useful host commands:
+
+    docker compose ps
+    docker compose --profile dev logs dev
+    docker compose exec postgres psql -U lab1 -d lab1
+
+If the services were stopped, run this on the host before reopening the Lab in its Dev Container:
+
+    docker compose --profile dev up --build -d postgres dev
+
+Run the isolated test environment from the host:
 
     docker compose --profile test up --build --abort-on-container-exit --exit-code-from test test
 
-When repeating a test run after tests have written data, recreate the ephemeral service:
+When repeating a test run after tests have written data, recreate the ephemeral test services:
 
     docker compose --profile test down
     docker compose --profile test up --build --abort-on-container-exit --exit-code-from test test
 
-Debug mode:
+The non-debug API remains available as an optional Compose path:
 
-    docker compose --profile debug up --build postgres debug
-
-Attach an IDE to localhost:15005. Useful commands:
-
-    docker compose ps
-    docker compose logs -f app
-    docker compose --profile test logs -f test
-    docker compose --profile debug logs -f debug
-    docker compose exec postgres psql -U lab1 -d lab1
+    docker compose up --build postgres app
 
 ## Seed data and endpoints
 
@@ -381,9 +401,20 @@ Follow-up: What response should a retry receive? What if an event belongs to ano
 9. Run focused and full tests.
 10. Explain cause, trade-offs and one production concern.
 
-## Debugger from zero
+## Visual debugging with VS Code
 
-Use the debug profile and attach to localhost:15005.
+Complete **Docker-first setup**, then debug the focused JUnit evidence in the Dev Container:
+
+1. Open `src/test/java/com/lab1/PaymentBugBigDecimalTest.java` and the production method it exercises.
+2. Put a breakpoint on an executable line inside `calculateCapturedTotal`.
+3. Use **Debug Test** above the focused test. VS Code launches that test JVM directly inside Docker.
+4. Confirm that execution pauses and that **Variables**, **Watch**, **Call Stack**, **Step Over**, **Step Into**, **Step Out** and **Continue** are available.
+
+For an HTTP path, select **Lab 01 — Debug Spring**, press `F5`, then call `curl --fail http://localhost:8080/api/merchants/M1/captured-total`.
+
+Stop here before investigating the challenge. The breakpoint proves the visual debugging path; it does not prove or reveal the cause.
+
+Debugger controls:
 
 - Breakpoint: pauses before a selected line.
 - Resume/continue: runs to the next breakpoint or exception.
@@ -421,9 +452,10 @@ A ticket is complete only when applicable criteria are met: relevant tests pass;
 | No containers | docker compose ps | Start the documented profile. |
 | PostgreSQL unavailable | health status and pg_isready logs | Infrastructure until healthy. |
 | Flyway failure | migration and application logs | Fix environment before ticket debugging. |
-| Port occupied | 18081 or 15005 ownership | Stop conflict or use a documented alternative. |
+| Port occupied | 18081 ownership | Stop the conflicting process or Compose project. |
 | Maven error | image build and Maven output | Separate dependency/build from challenge failure. |
-| JDWP unavailable | debug logs and port 15005 | Confirm debug profile and JVM listener. |
+| Maven Central hostname does not resolve | Docker DNS/networking, then retry the stopped service | Infrastructure; no host Maven installation is required. |
+| Debug Test is absent | Java project import and container-installed extensions | Wait for Java import; confirm the lower-left corner shows the Dev Container. |
 | Healthy environment plus focused assertion/error | test and stack trace | Likely challenge evidence. |
 
 ## Mentor / AI Support — SPOILERS

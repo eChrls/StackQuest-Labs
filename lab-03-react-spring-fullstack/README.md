@@ -1,5 +1,13 @@
 # Lab 03 — React + Spring Full-Stack
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Open this Lab and run **Dev Containers: Reopen in Container**. Docker starts PostgreSQL, the Vite frontend and the Java development container; Java, Maven, Node and npm are not host requirements. Run backend tests with `docker compose --profile test run --rm backend-test` and frontend tests with `docker compose --profile test run --rm frontend-test`.
+
+## Visual debugging
+
+For Java, use **Debug Test** on a focused JUnit test or **Lab 03 — Debug Spring** for HTTP execution; both run inside the Dev Container. For React, select **Lab 03 — Debug React**, set a breakpoint in `frontend/src/**/*.tsx`, reproduce the action and inspect browser Network plus async state. Vite source maps map the paused browser code back to TypeScript. Confirm Variables, Call Stack and stepping before changing a challenge.
+
 Lab 03 is a full-stack debugging and feature lab that combines a React dashboard with a Spring Boot payments API and PostgreSQL. The candidate starts from a runnable but imperfect application, reproduces symptoms using test and browser evidence, tracks the cause across the stack, and then explains the smallest justified fix.
 
 The normal material is candidate-first. Root causes and the complete resolution guidance are in the collapsed Mentor / AI Support section.
@@ -78,9 +86,9 @@ Host
 │        ↓
 │     postgres
 │
-└── localhost:15007
+└── Dev Container
          ↓
-    backend-debug JDWP
+    Java tests and Spring launch directly
 
 test profile:
 
@@ -98,7 +106,7 @@ The browser calls `http://localhost:18083`; it never calls the Docker hostname `
 - `postgres-test`: isolated PostgreSQL for the test profile.
 - `backend-test`: Maven suite against the ephemeral test database.
 - `frontend-test`: isolated Vitest suite against the app logic.
-- `backend-debug`: Spring Boot with JDWP enabled for remote debugging.
+- `dev`: Java/Maven development environment used by VS Code.
 
 ## Volumes
 
@@ -108,7 +116,6 @@ The browser calls `http://localhost:18083`; it never calls the Docker hostname `
 
 - Frontend: `127.0.0.1:13003` → `http://localhost:13003`
 - Backend: `127.0.0.1:18083` → `http://localhost:18083`
-- JDWP: `127.0.0.1:15007` → `localhost:15007`
 - PostgreSQL is not exposed on the host
 
 ## Quick start
@@ -126,7 +133,7 @@ docker compose --profile test run --rm backend-test
 docker compose --profile test run --rm frontend-test
 docker compose --profile test run --rm backend-test mvn test -Dspring.profiles.active=test --no-transfer-progress
 docker compose --profile test run --rm frontend-test npm test -- --run
-docker compose --profile debug up --build backend-debug postgres
+docker compose --profile dev up --build -d postgres frontend dev
 ```
 
 For psql without exposing PostgreSQL to the host:
@@ -555,7 +562,7 @@ Follow-up: What should a retry response look like? What if the event belongs to 
 
 ## Debugger from zero
 
-Use the debug profile and attach to `localhost:15007`.
+Use **Debug Test** for a focused JUnit JVM, **Lab 03 — Debug Spring** for the API, or **Lab 03 — Debug React** for browser TypeScript.
 
 - Breakpoint: pauses before a selected line.
 - Resume/continue: runs to the next breakpoint or exception.
@@ -595,7 +602,7 @@ A ticket is complete only when the applicable criteria are met: relevant tests p
 | No containers | `docker compose ps` | Infrastructure until healthy |
 | PostgreSQL unavailable | health status and logs | Infrastructure until healthy |
 | Flyway failure | migration and application logs | Fix environment before ticket debugging |
-| Port occupied | 13003 / 18083 / 15007 ownership | Stop conflict or use a documented alternative |
+| Port occupied | 13003 / 18083 ownership | Stop conflict or use a documented alternative |
 | Vite or Maven error | image build and runtime output | Separate dependency/build from challenge failure |
 | Browser cannot reach backend | frontend URL and backend logs | Likely environment or network issue |
 | Healthy environment plus focused assertion/error | test and stack trace | Likely challenge evidence |

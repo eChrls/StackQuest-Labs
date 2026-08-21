@@ -1,5 +1,13 @@
 # Lab 02 — Java Legacy & Refactoring
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Java, Maven and PostgreSQL stay inside Docker. Open this Lab in VS Code, run **Dev Containers: Reopen in Container**, then verify `java --version`, `mvn --version` and `docker compose --profile test run --rm test` in the container terminal. The documented baseline is `16 PASS / 4 FAIL`.
+
+## Visual debugging
+
+Open a focused JUnit test and choose **Debug Test** so VS Code launches the exact test JVM. Put the breakpoint in the production method under test and confirm Variables, Watch, Call Stack, Step Over/Into/Out and Continue. For HTTP debugging, select **Lab 02 — Debug Spring** and press `F5`. No JDWP host port or host JDK is used.
+
 ## Contrato
 
 Backend monolítico Spring Boot 3.5.4, Java 21, Maven 3.9.9, PostgreSQL 17-alpine, JPA/Flyway, JUnit 5, Mockito y Docker Compose. Investiga, caracteriza y refactoriza incrementalmente; no hagas big-bang rewrite, no cambies contratos HTTP/schema ni uses Error Lens como verdad.
@@ -10,7 +18,7 @@ Arquitectura: `HTTP -> PaymentController -> LegacyPaymentProcessor -> repositori
 docker compose config
 docker compose up --build postgres app       # HTTP 127.0.0.1:18082
 docker compose --profile test run --rm test
-docker compose --profile debug up --build postgres debug # JDWP 127.0.0.1:15006
+docker compose --profile dev up --build -d postgres dev
 docker compose down
 ```
 
@@ -54,7 +62,7 @@ Raíces verificadas: T1 igualdad de referencias; T2 llamada duplicada; T3 mutaci
 | Compose | `docker compose config`; postgres healthy |
 | Compile | Maven compile/testCompile Java 21 |
 | App/Flyway | Spring Boot arriba, V1/seed consultables |
-| JDWP | localhost:15006 y log dt_socket |
+| Debugger | Debug Test / Lab 02 — Debug Spring inside the Dev Container |
 | Baseline | 20 = 16 PASS + 4 FAIL deliberados |
 | Green temporal | T1–T4, characterization y refund pasan |
 | Refactor | contratos/schema/comportamiento preservados |

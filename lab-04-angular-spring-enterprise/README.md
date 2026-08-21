@@ -1,10 +1,18 @@
 # Lab 04 — Angular & Spring Enterprise
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Open this Lab and choose **Dev Containers: Reopen in Container**. Java/Maven run in `dev`; Angular/Node run in `frontend`; PostgreSQL runs in `postgres`. Baseline commands are `docker compose --profile test run --rm backend-test` and `docker compose run --rm frontend npm test`. The Angular builder is versioned and installed on a clean image build.
+
+## Visual debugging
+
+Use **Debug Test** or **Lab 04 — Debug Spring** for backend code. Use **Lab 04 — Debug Angular** for a real TypeScript breakpoint, then inspect Network and RxJS/form state in the browser debugger. Confirm Variables, Call Stack, Step Over/Into/Out and Continue before editing a ticket. No Java or Node installation is required on the host.
+
 Docker-first Angular/TypeScript + Java 21/Spring Boot + PostgreSQL lab focused on Reactive Forms, RxJS, HttpClient, REST/DTO contracts, validation, JPA transactions, guards/interceptors and frontend/backend debugging. Distinct from Lab 03: the core exercise is contract and state-flow reasoning.
 
 ## Stack and commands
 
-`frontend/` is Angular standalone with strict TypeScript, Reactive Forms and RxJS. `backend/` is Spring Boot 3.5.4, Maven 3.9.9, JPA, Flyway and PostgreSQL 17. Compose provides `postgres`, `backend`, `frontend` and isolated `postgres-test`/`backend-test`; HTTP uses ports 18084/14204 and PostgreSQL is never exposed. Run `docker compose config`, then `docker compose up --build postgres backend frontend`; tests use `docker compose --profile test run --rm backend-test` and `cd frontend && npm install && npm run build && npm test`.
+`frontend/` is Angular standalone with strict TypeScript, Reactive Forms and RxJS. `backend/` is Spring Boot 3.5.4, Maven 3.9.9, JPA, Flyway and PostgreSQL 17. Compose provides `postgres`, `backend`, `frontend` and isolated `postgres-test`/`backend-test`; HTTP uses ports 18084/14204 and PostgreSQL is never exposed. Run `docker compose config`, then `docker compose up --build postgres backend frontend`; tests use `docker compose --profile test run --rm backend-test`, `docker compose run --rm frontend npm run build` and `docker compose run --rm frontend npm test`.
 
 V1 seeds active/inactive customers and one HIGH/OPEN support request. Baseline has four independent red tests: two backend contract/transaction tickets and two frontend form/HTTP-state tickets. Infrastructure failures are separate.
 

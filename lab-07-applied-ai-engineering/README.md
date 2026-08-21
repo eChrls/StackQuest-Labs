@@ -1,5 +1,13 @@
 # Lab 07 — Applied AI Engineering
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Open this Lab and choose **Dev Containers: Reopen in Container**. Python, pip and pytest remain in Docker. Verify `python --version`, `pytest --version`, then run `docker compose --profile test run --rm tests` for the deterministic baseline.
+
+## Visual debugging
+
+Open a focused eval/test and select **Lab 07 — Debug current pytest file**, or select **Lab 07 — Debug FastAPI** for `/extract`. Put the breakpoint at the provider/extractor boundary and confirm Variables, Watch, Call Stack and Step Over/Into/Out/Continue before changing logic. No host Python, model runtime, GPU or paid provider is involved.
+
 ## Purpose
 
 Offline, deterministic lab for structured extraction from CV/document text. Python 3.12, FastAPI, Pydantic, pytest and a provider abstraction run in Docker without GPU, Ollama, internet at test time or paid APIs. The deterministic fake provider is the reference test double.

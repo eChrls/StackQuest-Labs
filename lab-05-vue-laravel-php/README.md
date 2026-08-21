@@ -1,16 +1,24 @@
 # Lab 05 — Vue + Laravel/PHP Full‑Stack
 
+## Docker-first setup
+
+Prerequisites: Git, Docker with Compose, VS Code and Dev Containers. Open this Lab and choose **Dev Containers: Reopen in Container**. PHP/Composer, Node/npm and MySQL remain in Docker. Run `docker compose --profile test run --rm backend-test`, `docker compose run --rm frontend npm run build` and `docker compose run --rm frontend npm test` for the baseline.
+
+## Visual debugging
+
+Select **Lab 05 — Listen for Xdebug**, put a breakpoint under `backend/`, then reproduce the API request through port 18085; path mapping connects the backend container to the opened source. Select **Lab 05 — Debug Vue** for TypeScript breakpoints and inspect Network plus reactive state. Confirm Variables, Call Stack and Step Over/Into/Out/Continue. Xdebug, PHP and Node are not host dependencies.
+
 ## Purpose
 
 Docker-first Vue 3/TypeScript and Laravel 12/PHP 8.2 with MySQL 8.4. The focus is reactive state, forms and validation, async/API errors, Laravel controllers/services, Eloquent-style persistence, authorization, business rules, transactions and full-stack debugging. It is intentionally different from Lab 03/04: the domain is a task desk and the candidate must follow state and authorization across Vue → HTTP → PHP → MySQL.
 
 ## Run
 
-From the repository root: `docker compose -f lab-05-vue-laravel-php/compose.yml config`, then `docker compose -f lab-05-vue-laravel-php/compose.yml up --build mysql backend frontend`. UI is `http://localhost:14205`; API is `http://localhost:18085/health` and MySQL is internal only. Tests: `docker compose -f lab-05-vue-laravel-php/compose.yml --profile test run --rm backend-test`; frontend `cd frontend && npm install && npm run build && npm test`. No PHP, Composer, Node or MySQL is required on the host.
+From the repository root: `docker compose -f lab-05-vue-laravel-php/compose.yml config`, then `docker compose -f lab-05-vue-laravel-php/compose.yml up --build mysql backend frontend`. UI is `http://localhost:14205`; API is `http://localhost:18085/health` and MySQL is internal only. Tests: `docker compose -f lab-05-vue-laravel-php/compose.yml --profile test run --rm backend-test`; frontend `docker compose -f lab-05-vue-laravel-php/compose.yml run --rm frontend npm run build` and `docker compose -f lab-05-vue-laravel-php/compose.yml run --rm frontend npm test`. No PHP, Composer, Node or MySQL is required on the host.
 
 ## Domain and baseline
 
-Customers own tasks. An active customer has OPEN/DONE tasks; notes are nullable. MySQL schema and deterministic seed live in `backend/database/schema.sql`. Baseline has five independent deliberate failures: E1/E2 frontend and E1/E2/I1 backend. Infrastructure, dependency downloads and MySQL health are not challenge failures.
+Customers own tasks. An active customer has OPEN/DONE tasks; notes are nullable. MySQL schema and deterministic seed live in `backend/database/schema.sql`. Baseline has four independent deliberate failures across the four tickets: two frontend checks and two backend checks. Infrastructure, dependency downloads and MySQL health are not challenge failures.
 
 ## Easy
 
@@ -43,7 +51,7 @@ Candidate-facing symptoms hide root causes. Verified mentor roots: E1 stale/non-
 | Compose | config parses; MySQL healthy |
 | Backend | Composer install, PHP syntax, Laravel service tests, schema/seed |
 | Frontend | Vite build/typecheck; Vue challenge tests |
-| Baseline | exactly 5 independent deliberate failures |
+| Baseline | exactly 4 independent deliberate failures |
 | Green proof | temporary E1/E2/I1/I2 fixes pass; then defects restored |
 | App | Vue request reaches PHP endpoint and MySQL seed |
 
@@ -55,6 +63,6 @@ Work only inside this directory. Preserve the four-ticket baseline, run backend 
 
 ## Acceptance and continuity
 
-Acceptance requires five independent red checks, a reproducible Docker-first path, focused and full validation, and a solution that preserves the HTTP contract, authorization rule and transaction boundary. Compose config, PHP syntax, Laravel tests, Vite build and Vue tests form the validation matrix.
+Acceptance requires four independent red checks, a reproducible Docker-first path, focused and full validation, and a solution that preserves the HTTP contract, authorization rule and transaction boundary. Compose config, PHP syntax, Laravel tests, Vite build and Vue tests form the validation matrix.
 
 Agent Continuity: work only in this directory, run backend and frontend independently, preserve the baseline, and use the documented hints and mentor roots. Contributors may add further Easy, Intermediate, Advanced or specialised task-desk challenges.

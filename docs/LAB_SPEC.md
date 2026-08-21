@@ -8,6 +8,10 @@ Official Labs use `lab-NN-stack-focus`: lowercase, two-digit number, concise sta
 
 Each Lab includes a complete README, Compose definition, Dockerfile(s) where needed, safe `.env.example`, source, and tests. Docker-first setup must rebuild from versioned files on a clean machine; isolate networks, volumes, ports, caches, and test data. Use deterministic migrations, seeds, and fixtures—not copied volumes or mutable external state.
 
+A Docker-first Lab cannot silently depend on the stack runtime, compiler, package manager, database, or debugging tooling being installed on the host. Document every permitted host prerequisite explicitly, such as Git, Docker, VS Code, or Dev Containers; keep stack-specific tooling inside containers.
+
+When visual debugging is part of a Lab, its documented path must work without a host stack runtime and must launch or attach to the process that actually reproduces the selected challenge. Validate setup and debugging from a clean checkout or an equivalently isolated Compose project; cached images or volumes are not sufficient evidence.
+
 ## External services and cloud
 
 If a Lab uses an external provider, everything reasonably testable without it needs a reproducible/local path. Keep secrets outside Git, state possible costs, and distinguish provider failures from challenge failures.

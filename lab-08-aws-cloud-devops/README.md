@@ -1,5 +1,13 @@
 # Lab 08 — AWS Cloud / DevOps Foundation
 
+## Docker-first setup
+
+Prerequisite: Git and Docker with Compose. Run `docker compose config`, `docker compose up --build api`, and `docker compose --profile test run --rm --build checks` from this Lab. Python and Terraform are not host requirements. For formatting from PowerShell use `docker run --rm -v "${PWD}/infra:/workspace" -w /workspace hashicorp/terraform:1.9 fmt -check`; from POSIX shells use `docker run --rm -v "$PWD/infra:/workspace" -w /workspace hashicorp/terraform:1.9 fmt -check`.
+
+## Diagnostic workflow
+
+This Lab intentionally has no visual debugger. Follow `docker compose config` → `docker compose ps` → health → `docker compose logs api` → effective environment → focused static check → Terraform formatting/validation. The evidence is process reachability, configuration, logs and infrastructure structure; adding a breakpoint would not make these deployment defects easier to understand.
+
 ## Foundation
 
 Small Python HTTP application for cloud/DevOps practice only. Docker is the only prerequisite: no AWS account, credentials, Terraform binary or paid service is required for the local path. Compose provides `api` and an isolated `checks` profile. The API exposes `/health` and `/config`, logs requests to stdout, reads `APP_PORT`, `APP_BIND` and `APP_GREETING`, and has a local healthcheck. Terraform in `infra/` is static AWS preparation; never run `apply` for the local challenge.
