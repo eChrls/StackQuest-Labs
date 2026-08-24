@@ -51,7 +51,7 @@ public class PaymentService {
         List<Payment> payments = paymentRepository.findByMerchant_IdOrderByCreatedAtDesc(merchantId);
         for (Payment payment : payments) {
             if (payment.getStatus() == PaymentStatus.CAPTURED && payment.getMerchant().getId().equals(merchantId)) {
-                total.add(payment.getAmount());
+                total = total.add(payment.getAmount());
             }
         }
         return total;
