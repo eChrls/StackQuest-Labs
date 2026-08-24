@@ -1,6 +1,6 @@
 # Roadmap
 
-This document records future project work. The eight Labs listed in the root README are the initial public content; their local READMEs are the source of truth for the challenges that exist today.
+This document records future project work. The nine Labs listed in the root README are the initial public content; their local READMEs are the source of truth for the challenges that exist today.
 
 ## Future directions
 

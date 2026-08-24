@@ -40,4 +40,6 @@ Intentional defects must be independent, reproducible, scoped, pedagogically use
 
 Deliberate baseline failures are allowed only when documented and free of accidental failures. Temporarily prove a valid solution, verify it, restore the challenge baseline, and re-verify. Record evidence without publishing the solution.
 
+A Lab's test/QA harness may be delivered fully built and provided to the candidate rather than written by them, when the pedagogical focus is implementation and design judgment rather than test authorship; this must be explicit in the Lab README, and acceptance tests must assert on behavior, structure, or content rather than on the presence of a specific package, so a candidate's implementation choices remain genuinely open. Where a requirement is inherently subjective (visual/UX interpretation of a brief), pair automated behavioral checks with a documented review rubric instead of pixel-comparison assertions.
+
 Use least privilege and never commit secrets, private data, generated dependencies, dumps, host state, solutions, solved copies, backups, or patches.
