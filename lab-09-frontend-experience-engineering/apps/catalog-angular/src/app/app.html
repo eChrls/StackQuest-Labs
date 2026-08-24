@@ -1,0 +1,62 @@
+<div *ngIf="loading()" class="state-message">Loading products…</div>
+<div *ngIf="!loading() && error()" class="state-message">{{ error() }}</div>
+
+<ng-container *ngIf="!loading() && !error()">
+  <header class="toolbar">
+    <h1>Catalog</h1>
+
+    <div class="view-toggle">
+      <button type="button" [class.active]="view() === 'grid'" (click)="setView('grid')">Grid</button>
+      <button type="button" [class.active]="view() === 'list'" (click)="setView('list')">List</button>
+    </div>
+
+    <div class="category-filter">
+      <button type="button" [class.active]="selectedCategory() === 'all'" (click)="selectCategory('all')">
+        All
+      </button>
+      <button
+        type="button"
+        *ngFor="let category of categories()"
+        [class.active]="selectedCategory() === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        {{ category.name }}
+      </button>
+    </div>
+
+    <input
+      class="search-input"
+      type="search"
+      placeholder="Search products"
+      (input)="onSearchChange($event)"
+    />
+
+    <label class="sort-select">
+      Sort by
+      <select (change)="onSortChange($event)">
+        <option value="default">Featured</option>
+        <option value="price-asc">Price: low to high</option>
+        <option value="price-desc">Price: high to low</option>
+      </select>
+    </label>
+  </header>
+
+  <main class="product-list" [class.list]="view() === 'list'">
+    <div class="card" *ngFor="let product of filteredProducts()">
+      <img [src]="product.images[0]" [alt]="product.name" />
+      <div class="info">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ product.price }} {{ product.currency }}</p>
+        <span class="badge {{ product.availability }}">{{ availabilityLabel(product.availability) }}</span>
+        <p class="short-description">{{ product.shortDescription }}</p>
+
+        <div class="expand-trigger" (click)="toggleExpand(product.id)">
+          {{ isExpanded(product.id) ? 'Hide details' : 'Show details' }}
+        </div>
+        <div class="details" *ngIf="isExpanded(product.id)">
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</ng-container>

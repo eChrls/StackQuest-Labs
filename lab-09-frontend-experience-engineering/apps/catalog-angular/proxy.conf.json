@@ -1,0 +1,4 @@
+{
+  "/api": { "target": "http://cms-api:4000", "changeOrigin": true },
+  "/media": { "target": "http://cms-api:4000", "changeOrigin": true }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "lab9-qa-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:easy": "playwright test --project=easy",
+    "test:intermediate": "playwright test --project=intermediate",
+    "test:advanced": "playwright test --project=advanced",
+    "test:all": "playwright test"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.49.1"
+  }
+}

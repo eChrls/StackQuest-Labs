@@ -1,0 +1,54 @@
+x-workspace: &workspace
+  build:
+    context: .
+    dockerfile: Dockerfile
+  depends_on:
+    - cms-api
+
+services:
+  cms-api:
+    build: ./services/cms-api
+    ports: ["127.0.0.1:18089:4000"]
+
+  landing-vue:
+    <<: *workspace
+    command: ["npm", "run", "dev", "--workspace", "apps/landing-vue"]
+    ports: ["127.0.0.1:15091:5173"]
+    volumes:
+      - .:/workspaces/lab
+      - lab9_node_modules_landing:/workspaces/lab/node_modules
+
+  catalog-angular:
+    <<: *workspace
+    command: ["npm", "run", "start", "--workspace", "apps/catalog-angular"]
+    ports: ["127.0.0.1:15092:4200"]
+    volumes:
+      - .:/workspaces/lab
+      - lab9_node_modules_catalog:/workspaces/lab/node_modules
+
+  product-vue:
+    <<: *workspace
+    command: ["npm", "run", "dev", "--workspace", "apps/product-vue"]
+    ports: ["127.0.0.1:15093:5174"]
+    volumes:
+      - .:/workspaces/lab
+      - lab9_node_modules_product:/workspaces/lab/node_modules
+
+  dev:
+    <<: *workspace
+    profiles: ["dev"]
+    command: ["sleep", "infinity"]
+    volumes:
+      - .:/workspaces/lab
+      - lab9_node_modules_dev:/workspaces/lab/node_modules
+    depends_on:
+      - cms-api
+      - landing-vue
+      - catalog-angular
+      - product-vue
+
+volumes:
+  lab9_node_modules_landing: {}
+  lab9_node_modules_catalog: {}
+  lab9_node_modules_product: {}
+  lab9_node_modules_dev: {}

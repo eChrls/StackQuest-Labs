@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 09 — Debug Landing (Vue, Easy)",
+      "request": "launch",
+      "url": "http://localhost:15091",
+      "webRoot": "${workspaceFolder}/apps/landing-vue",
+      "sourceMaps": true
+    },
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 09 — Debug Catalog (Angular, Intermediate)",
+      "request": "launch",
+      "url": "http://localhost:15092",
+      "webRoot": "${workspaceFolder}/apps/catalog-angular",
+      "sourceMaps": true
+    },
+    {
+      "type": "pwa-chrome",
+      "name": "Lab 09 — Debug Product (Vue, Advanced)",
+      "request": "launch",
+      "url": "http://localhost:15093",
+      "webRoot": "${workspaceFolder}/apps/product-vue",
+      "sourceMaps": true
+    }
+  ]
+}

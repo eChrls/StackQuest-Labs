@@ -1,0 +1,19 @@
+{
+  "name": "lab9-frontend-experience-engineering",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/cms-api",
+    "qa/playwright"
+  ],
+  "scripts": {
+    "dev:cms": "npm run start --workspace services/cms-api",
+    "dev:landing": "npm run dev --workspace apps/landing-vue",
+    "dev:catalog": "npm run start --workspace apps/catalog-angular",
+    "dev:product": "npm run dev --workspace apps/product-vue",
+    "qa:easy": "npm run test:easy --workspace qa/playwright",
+    "qa:intermediate": "npm run test:intermediate --workspace qa/playwright",
+    "qa:advanced": "npm run test:advanced --workspace qa/playwright",
+    "qa:all": "npm run test:all --workspace qa/playwright"
+  }
+}

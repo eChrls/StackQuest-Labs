@@ -1,0 +1,139 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #1c1c1c;
+}
+
+.state-message {
+  padding: 32px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f2f2f2;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.toolbar h1 {
+  font-size: 18px;
+  margin: 0 16px 0 0;
+}
+
+.view-toggle button,
+.category-filter button {
+  border: 1px solid #b5b5b5;
+  background: #fff;
+  padding: 4px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.view-toggle button.active,
+.category-filter button.active {
+  background: #1c1c1c;
+  color: #fff;
+  border-color: #1c1c1c;
+}
+
+.search-input {
+  border: 1px solid #b5b5b5;
+  padding: 4px 8px;
+  font-size: 13px;
+  margin-left: 12px;
+}
+
+.sort-select {
+  margin-left: auto;
+  font-size: 13px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.product-list.list {
+  display: block;
+}
+
+.product-list.list .card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.card {
+  border: 1px solid #d8d8d8;
+  padding: 8px;
+  font-size: 13px;
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 6px;
+}
+
+.product-list.list .card img {
+  width: 96px;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 0;
+}
+
+.card h3 {
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+
+.price {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 6px;
+  border: 1px solid #b5b5b5;
+  margin-bottom: 6px;
+}
+
+.badge.in_stock {
+  border-color: #4a7a4a;
+  color: #2f5c2f;
+}
+
+.badge.low_stock {
+  border-color: #a67c1e;
+  color: #8a6512;
+}
+
+.badge.out_of_stock {
+  border-color: #a33;
+  color: #a33;
+}
+
+.short-description {
+  color: #555;
+  margin: 4px 0;
+}
+
+.expand-trigger {
+  color: #1a5aa8;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.details {
+  margin-top: 6px;
+  color: #444;
+}

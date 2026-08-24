@@ -1,0 +1,338 @@
+{
+  "home": {
+    "site": {
+      "name": "Terra & Co.",
+      "tagline": "Considered home goods for slower living",
+      "description": "Terra & Co. designs lighting, storage and textiles made to last, sourced from small workshops and shipped in plastic-free packaging.",
+      "ogImage": "/media/home/hero-wide.svg"
+    },
+    "nav": [
+      { "label": "Shop", "href": "/catalog" },
+      { "label": "Lighting", "href": "/catalog?category=lighting" },
+      { "label": "Storage", "href": "/catalog?category=storage" },
+      { "label": "About", "href": "/about" }
+    ],
+    "hero": {
+      "eyebrow": "New season",
+      "headline": "Everyday objects, made to be kept",
+      "subheadline": "Small-batch lighting, storage and textiles designed with repairable parts and honest materials.",
+      "ctaLabel": "Shop the collection",
+      "ctaHref": "/catalog",
+      "image": "/media/home/hero-wide.svg"
+    },
+    "benefits": [
+      {
+        "id": "materials",
+        "title": "Honest materials",
+        "body": "Solid ash, waxed canvas and undyed wool — nothing that pretends to be something it isn't."
+      },
+      {
+        "id": "repairable",
+        "title": "Built to repair",
+        "body": "Every lamp ships with a spare fuse and a five-year parts guarantee, not a replacement policy."
+      },
+      {
+        "id": "workshops",
+        "title": "Small workshops",
+        "body": "Made in batches of under 200 by four partner workshops we visit twice a year."
+      },
+      {
+        "id": "packaging",
+        "title": "Plastic-free packaging",
+        "body": "Molded pulp, paper tape and soy ink. Compostable at home, not just 'recyclable'."
+      }
+    ],
+    "featuredProductIds": ["aurora-desk-lamp", "weave-storage-basket", "linen-throw-blanket"],
+    "testimonial": {
+      "quote": "The desk lamp is the first thing I've bought in years that I don't want to upgrade.",
+      "author": "Reader survey, 2025"
+    },
+    "footer": {
+      "columns": [
+        {
+          "title": "Shop",
+          "links": [
+            { "label": "Lighting", "href": "/catalog?category=lighting" },
+            { "label": "Storage", "href": "/catalog?category=storage" },
+            { "label": "Textiles", "href": "/catalog?category=textiles" },
+            { "label": "Outdoor", "href": "/catalog?category=outdoor" }
+          ]
+        },
+        {
+          "title": "Company",
+          "links": [
+            { "label": "About", "href": "/about" },
+            { "label": "Workshops", "href": "/workshops" },
+            { "label": "Contact", "href": "/contact" }
+          ]
+        }
+      ],
+      "note": "© Terra & Co. Fixture data for the StackQuest Lab 09 exercise."
+    }
+  },
+  "categories": [
+    { "id": "lighting", "name": "Lighting" },
+    { "id": "storage", "name": "Storage" },
+    { "id": "textiles", "name": "Textiles" },
+    { "id": "outdoor", "name": "Outdoor" }
+  ],
+  "products": [
+    {
+      "id": "aurora-desk-lamp",
+      "name": "Aurora Desk Lamp",
+      "category": "lighting",
+      "price": 128,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.8,
+      "reviewCount": 214,
+      "shortDescription": "A dimmable ash-and-brass desk lamp with a three-step brightness dial.",
+      "description": "The Aurora pairs a turned ash base with a brushed brass shade so the warm light lands on your desk, not your eyes. The dial has three fixed brightness steps rather than a fiddly slider, and the fabric cord is long enough to route around a monitor arm.",
+      "images": [
+        "/media/products/aurora-desk-lamp-1.svg",
+        "/media/products/aurora-desk-lamp-2.svg",
+        "/media/products/aurora-desk-lamp-3.svg",
+        "/media/products/aurora-desk-lamp-4.svg"
+      ],
+      "variants": {
+        "label": "Base finish",
+        "options": [
+          { "id": "birch", "label": "Birch", "swatch": "#d9c7a3", "priceDelta": 0 },
+          { "id": "charcoal", "label": "Charcoal", "swatch": "#3a3a3a", "priceDelta": 0 },
+          { "id": "sage", "label": "Sage", "swatch": "#8a9a82", "priceDelta": 12 }
+        ]
+      },
+      "specs": [
+        { "label": "Materials", "value": "Solid ash base, brushed brass shade" },
+        { "label": "Bulb", "value": "E27, 6W LED included, dimmable in 3 steps" },
+        { "label": "Dimensions", "value": "18 × 18 × 42 cm" },
+        { "label": "Cord length", "value": "2.2 m, fabric-braided" },
+        { "label": "Warranty", "value": "5 years, parts available separately" }
+      ],
+      "relatedIds": ["halo-floor-lamp", "solstice-table-lamp", "weave-storage-basket"]
+    },
+    {
+      "id": "halo-floor-lamp",
+      "name": "Halo Floor Lamp",
+      "category": "lighting",
+      "price": 245,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.6,
+      "reviewCount": 88,
+      "shortDescription": "An arched floor lamp with a linen shade and a weighted marble foot.",
+      "description": "A gentle arch in powder-coated steel holds a linen shade over a weighted marble foot, so it reads as a piece of furniture rather than a fixture.",
+      "images": ["/media/products/halo-floor-lamp-1.svg", "/media/products/halo-floor-lamp-2.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Powder-coated steel, linen shade, marble foot" },
+        { "label": "Dimensions", "value": "60 × 60 × 168 cm" }
+      ],
+      "relatedIds": ["aurora-desk-lamp", "solstice-table-lamp"]
+    },
+    {
+      "id": "solstice-table-lamp",
+      "name": "Solstice Table Lamp",
+      "category": "lighting",
+      "price": 96,
+      "currency": "EUR",
+      "availability": "low_stock",
+      "rating": 4.4,
+      "reviewCount": 51,
+      "shortDescription": "A squat stoneware lamp with a hand-glazed finish; no two are identical.",
+      "description": "Thrown in stoneware and finished with a reactive glaze, so colour and texture vary slightly piece to piece — that variation is the point.",
+      "images": ["/media/products/solstice-table-lamp-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Hand-glazed stoneware" },
+        { "label": "Dimensions", "value": "16 × 16 × 24 cm" }
+      ],
+      "relatedIds": ["aurora-desk-lamp", "halo-floor-lamp"]
+    },
+    {
+      "id": "weave-storage-basket",
+      "name": "Weave Storage Basket",
+      "category": "storage",
+      "price": 58,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.9,
+      "reviewCount": 132,
+      "shortDescription": "A hand-woven seagrass basket with reinforced leather handles.",
+      "description": "Woven from seagrass by a partner workshop, with leather handles riveted rather than stitched so they hold up to years of daily use.",
+      "images": ["/media/products/weave-storage-basket-1.svg", "/media/products/weave-storage-basket-2.svg"],
+      "variants": {
+        "label": "Size",
+        "options": [
+          { "id": "small", "label": "Small", "swatch": null, "priceDelta": -12 },
+          { "id": "medium", "label": "Medium", "swatch": null, "priceDelta": 0 },
+          { "id": "large", "label": "Large", "swatch": null, "priceDelta": 22 }
+        ]
+      },
+      "specs": [
+        { "label": "Materials", "value": "Seagrass, full-grain leather handles" },
+        { "label": "Dimensions (medium)", "value": "40 × 30 × 28 cm" }
+      ],
+      "relatedIds": ["modular-shelf-unit", "cedar-storage-bench"]
+    },
+    {
+      "id": "modular-shelf-unit",
+      "name": "Modular Shelf Unit",
+      "category": "storage",
+      "price": 340,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.5,
+      "reviewCount": 40,
+      "shortDescription": "A five-tier ash shelving unit that expands with add-on modules.",
+      "description": "Solid ash uprights and shelves that lock together without hardware, so the unit can grow one module at a time.",
+      "images": ["/media/products/modular-shelf-unit-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Solid ash" },
+        { "label": "Dimensions", "value": "90 × 35 × 180 cm" }
+      ],
+      "relatedIds": ["weave-storage-basket", "cedar-storage-bench"]
+    },
+    {
+      "id": "cedar-storage-bench",
+      "name": "Cedar Storage Bench",
+      "category": "storage",
+      "price": 210,
+      "currency": "EUR",
+      "availability": "out_of_stock",
+      "rating": 4.7,
+      "reviewCount": 29,
+      "shortDescription": "An entryway bench with a lift-up seat and cedar-lined storage.",
+      "description": "The cedar lining keeps the storage cavity naturally moth-resistant, which matters if it's doubling as a blanket box.",
+      "images": ["/media/products/cedar-storage-bench-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Cedar, oiled oak legs" },
+        { "label": "Dimensions", "value": "110 × 40 × 46 cm" }
+      ],
+      "relatedIds": ["weave-storage-basket", "modular-shelf-unit"]
+    },
+    {
+      "id": "linen-throw-blanket",
+      "name": "Linen Throw Blanket",
+      "category": "textiles",
+      "price": 72,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.6,
+      "reviewCount": 96,
+      "shortDescription": "A stonewashed linen throw that softens with every wash.",
+      "description": "Woven in a mid-weight linen and stonewashed before shipping, so it already has the soft, worn-in hand you'd expect after a year of use.",
+      "images": ["/media/products/linen-throw-blanket-1.svg", "/media/products/linen-throw-blanket-2.svg"],
+      "variants": {
+        "label": "Colour",
+        "options": [
+          { "id": "oat", "label": "Oat", "swatch": "#e7dcc7", "priceDelta": 0 },
+          { "id": "clay", "label": "Clay", "swatch": "#b56a4c", "priceDelta": 0 },
+          { "id": "moss", "label": "Moss", "swatch": "#6b7a52", "priceDelta": 0 }
+        ]
+      },
+      "specs": [
+        { "label": "Materials", "value": "100% stonewashed linen" },
+        { "label": "Dimensions", "value": "130 × 180 cm" }
+      ],
+      "relatedIds": ["wool-area-rug", "canvas-floor-cushion"]
+    },
+    {
+      "id": "wool-area-rug",
+      "name": "Wool Area Rug",
+      "category": "textiles",
+      "price": 310,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.8,
+      "reviewCount": 63,
+      "shortDescription": "An undyed wool rug, flat-woven in a single natural fleece tone.",
+      "description": "Left undyed so the natural variation in the fleece shows through, this flat weave lies well over underfloor heating.",
+      "images": ["/media/products/wool-area-rug-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "100% undyed wool" },
+        { "label": "Dimensions", "value": "170 × 240 cm" }
+      ],
+      "relatedIds": ["linen-throw-blanket", "canvas-floor-cushion"]
+    },
+    {
+      "id": "canvas-floor-cushion",
+      "name": "Canvas Floor Cushion",
+      "category": "textiles",
+      "price": 54,
+      "currency": "EUR",
+      "availability": "low_stock",
+      "rating": 4.3,
+      "reviewCount": 22,
+      "shortDescription": "A waxed-canvas floor cushion with a removable, washable cover.",
+      "description": "Dense enough to hold its shape on a hard floor, with a zip closure hidden along the seam so the cover comes off for washing.",
+      "images": ["/media/products/canvas-floor-cushion-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Waxed cotton canvas, kapok fill" },
+        { "label": "Dimensions", "value": "70 × 70 × 20 cm" }
+      ],
+      "relatedIds": ["linen-throw-blanket", "wool-area-rug"]
+    },
+    {
+      "id": "foldable-picnic-table",
+      "name": "Foldable Picnic Table",
+      "category": "outdoor",
+      "price": 165,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.5,
+      "reviewCount": 34,
+      "shortDescription": "A folding oak picnic table that packs flat into a car boot.",
+      "description": "Folds flat in two motions without tools, and the oiled oak top is finished to handle rain without staining.",
+      "images": ["/media/products/foldable-picnic-table-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Oiled oak, stainless hardware" },
+        { "label": "Folded size", "value": "120 × 80 × 10 cm" }
+      ],
+      "relatedIds": ["portable-fire-pit", "camp-hammock-chair"]
+    },
+    {
+      "id": "portable-fire-pit",
+      "name": "Portable Fire Pit",
+      "category": "outdoor",
+      "price": 189,
+      "currency": "EUR",
+      "availability": "in_stock",
+      "rating": 4.7,
+      "reviewCount": 58,
+      "shortDescription": "A low-smoke steel fire pit that packs into its own carry case.",
+      "description": "The double-wall steel design draws air through the base for a cleaner, lower-smoke burn, and it packs into a canvas case once cooled.",
+      "images": ["/media/products/portable-fire-pit-1.svg", "/media/products/portable-fire-pit-2.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Double-wall steel, canvas carry case" },
+        { "label": "Dimensions", "value": "56 × 56 × 30 cm" }
+      ],
+      "relatedIds": ["foldable-picnic-table", "camp-hammock-chair"]
+    },
+    {
+      "id": "camp-hammock-chair",
+      "name": "Camp Hammock Chair",
+      "category": "outdoor",
+      "price": 89,
+      "currency": "EUR",
+      "availability": "out_of_stock",
+      "rating": 4.2,
+      "reviewCount": 17,
+      "shortDescription": "A cotton-canvas hanging chair with a folding beechwood spreader bar.",
+      "description": "The beechwood spreader bar folds in half so the whole chair rolls into a bag small enough for a daypack.",
+      "images": ["/media/products/camp-hammock-chair-1.svg"],
+      "variants": null,
+      "specs": [
+        { "label": "Materials", "value": "Cotton canvas, beechwood spreader bar" },
+        { "label": "Weight limit", "value": "120 kg" }
+      ],
+      "relatedIds": ["foldable-picnic-table", "portable-fire-pit"]
+    }
+  ]
+}

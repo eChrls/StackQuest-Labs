@@ -1,0 +1,24 @@
+{
+  "name": "StackQuest Lab 09 - Frontend Experience Engineering",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "dev",
+  "runServices": ["cms-api", "landing-vue", "catalog-angular", "product-vue", "dev"],
+  "workspaceFolder": "/workspaces/lab",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "forwardPorts": [4000, 5173, 4200, 5174],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "Angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "ms-playwright.playwright"
+      ],
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib"
+      }
+    }
+  }
+}
