@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:${TRANSFER_DB_PATH:./data/transfers};AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: 8080
+
+lab:
+  reference-mode: ${LAB_REFERENCE_MODE:false}

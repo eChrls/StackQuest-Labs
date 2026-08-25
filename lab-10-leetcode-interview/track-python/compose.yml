@@ -1,0 +1,46 @@
+name: stackquest-lab-10
+
+services:
+  app:
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - lab10_data:/workspace/data
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/transfers.db
+    ports:
+      - "127.0.0.1:18100:8000"
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    logging: &jsonlog
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  test:
+    profiles: [test]
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/test-transfers.db
+    command: ["pytest", "-q"]
+    init: true
+    logging: *jsonlog
+
+  dev:
+    profiles: [dev]
+    build: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - lab10_data:/workspace/data
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/transfers.db
+    command: ["sleep", "infinity"]
+    logging: *jsonlog
+
+volumes:
+  lab10_data:

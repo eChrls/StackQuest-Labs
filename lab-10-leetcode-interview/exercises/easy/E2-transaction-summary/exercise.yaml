@@ -1,0 +1,7 @@
+id: E2
+level: easy
+family: parsing/aggregation/exact-decimal
+languages: [java, python]
+expected_complexity: {time: O(n), space: O(users)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

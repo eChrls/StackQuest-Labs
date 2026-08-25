@@ -1,0 +1,16 @@
+{
+  "name": "StackQuest Lab 10 - Python Development",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "dev",
+  "runServices": ["dev"],
+  "workspaceFolder": "/workspace",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-python.debugpy"],
+      "settings": {"python.defaultInterpreterPath": "/usr/local/bin/python"}
+    }
+  }
+}

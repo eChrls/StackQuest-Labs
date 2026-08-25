@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Lab 10 — Debug Spring",
+      "request": "launch",
+      "mainClass": "com.lab10.advanced.Lab10Application",
+      "projectName": "lab-10",
+      "env": {
+        "TRANSFER_DB_PATH": "./data/transfers"
+      }
+    }
+  ]
+}

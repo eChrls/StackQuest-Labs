@@ -1,0 +1,8 @@
+id: I1
+level: intermediate
+family: dynamic-programming/LIS
+languages: [java, python]
+expected_complexity: {time: O(n^2), space: O(n)}
+stretch_complexity: {time: O(n log n), space: O(n)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

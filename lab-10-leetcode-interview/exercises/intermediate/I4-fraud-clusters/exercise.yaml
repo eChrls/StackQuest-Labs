@@ -1,0 +1,7 @@
+id: I4
+level: intermediate
+family: bfs/graph-traversal
+languages: [java, python]
+expected_complexity: {time: O(rows*cols), space: O(rows*cols)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

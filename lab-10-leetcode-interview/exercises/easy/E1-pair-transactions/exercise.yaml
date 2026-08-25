@@ -1,0 +1,7 @@
+id: E1
+level: easy
+family: array/hash-map
+languages: [java, python]
+expected_complexity: {time: O(n), space: O(n)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

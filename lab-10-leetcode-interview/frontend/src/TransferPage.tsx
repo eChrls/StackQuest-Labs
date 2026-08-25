@@ -1,0 +1,2 @@
+import {TransferForm} from './TransferForm';import {TransferHistory} from './TransferHistory';import {useTransfers} from './useTransfers';
+export function TransferPage(){const model=useTransfers();return <main><header><p>StackQuest Bank</p><h1>Transfers</h1></header><TransferForm onSubmit={model.create}/>{model.loading?<p>Loading history…</p>:model.error?<p role="alert">{model.error}</p>:<TransferHistory items={model.items} onTransition={model.transition}/>}</main>}

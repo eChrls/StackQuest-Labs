@@ -1,0 +1,27 @@
+name: stackquest-lab-10
+services:
+  algorithms-java:
+    build: ./algorithms-java
+    profiles: [tools]
+    volumes: ["./algorithms-java:/workspace"]
+  python:
+    build: ./track-python
+    profiles: [tools]
+    working_dir: /workspace
+    volumes: ["./track-python:/workspace"]
+  backend:
+    build: ./track-java
+    working_dir: /workspace
+    volumes: ["./track-java:/workspace", "maven_cache:/root/.m2", "advanced_data:/workspace/data"]
+    environment: ["TRANSFER_DB_PATH=/workspace/data/transfers"]
+    ports: ["127.0.0.1:18101:8080"]
+    command: ["mvn","spring-boot:run","--no-transfer-progress"]
+  frontend:
+    build: ./frontend
+    volumes: ["./frontend:/workspace", "frontend_modules:/workspace/node_modules"]
+    ports: ["127.0.0.1:18102:5173"]
+    depends_on: [backend]
+volumes:
+  maven_cache:
+  advanced_data:
+  frontend_modules:

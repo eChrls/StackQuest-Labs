@@ -382,30 +382,48 @@ Lab 08 therefore requires an explicit Cost Gate, optional live mode, least privi
 
 ---
 
+### 4.18 Algorithmic-assessment and DP-screen patterns (Lab 10)
+
+**Confirmed source pattern — Wise engineering interviews**
+**Evidence:** A — official company careers documentation
+**URLs:** https://wise.jobs/backend-pair-programming-interviews, https://wise.jobs/backend-system-design-interviews, https://wise.jobs/eng-product-round-interviews
+
+These three official pages document, respectively: a paired coding round evaluated on correct/maintainable code, problem solving and communication; a system-design round evaluated explicitly on sync/async communication, transactions, consistency, idempotency, scalability, testing, monitoring, errors and databases (with an explicit statement that a perfect solution is not expected — reasoning and trade-offs are what is scored); and a product round evaluated on customer focus, impact, prioritization, cross-functional collaboration and communication.
+
+**Context-only source — candidate-published interview accounts for a fintech/product company**
+**Evidence:** C — candidate-published accounts, not an official company source
+**URL:** public candidate-review aggregator entries for a Malaysia-based fintech/product company (referenced generically here; see editorial rule below)
+
+Independent public accounts describe an online assessment built from two Dynamic Programming problems, screening interviews built around a single ~30-minute coding problem, and a further stage combining roughly 45 minutes of live coding with system design. This evidence is context-only: it establishes a recurring pattern (DP-heavy algorithmic assessment feeding into live coding + system design), never a specific task, dataset or exact wording to reproduce.
+
+**Editorial consequence:**
+Lab 10 is the deliberate, documented exception to this guide's own §6 rule that the repository "is not LeetCode" and to §5's "algorithm puzzles... optional only": it exists specifically to train the algorithmic-assessment-to-onsite pipeline these two evidence classes describe, using original scenario-wrapped problems (never a copied task or dataset) for the algorithmic tracks, and an original small money-transfer service (idempotency/duplicate-submit) for the onsite-style track. Per §17, the candidate-facing material never brands a ticket after either source company — that attribution is confined to this section.
+
 ## 5. Observed interview patterns
 
-| Pattern                                      | Strength in researched sample | Labs                              |
-| -------------------------------------------- | ----------------------------: | --------------------------------- |
-| Existing repository / starter project        |                     Very high | All                               |
-| Run and understand project before coding     |                     Very high | All                               |
-| Tests as evaluation evidence                 |                     Very high | All                               |
-| Add/extend a product feature                 |                     Very high | All                               |
-| Explain design decisions / trade-offs        |                     Very high | All                               |
-| Follow-up discussion / code review / pairing |                     Very high | All                               |
-| Refactoring / improve messy code             |                          High | Lab 01, Lab 02, Lab 03               |
-| Debugging with IDE/logs                      |                          High | Lab 01, Lab 02, Lab 03               |
-| REST/API behaviour                           |                          High | Lab 01, Lab 03, Lab 04, Lab 05, Lab 06 |
-| Persistence and data modelling               |                          High | Lab 01, Lab 02, Lab 03, Lab 05, Lab 06 |
-| Loading/error/empty/retry frontend states    |       High in frontend sample | Lab 03, Lab 04, Lab 05               |
-| Async UI mutation / rollback                 |                   Medium-high | Lab 03, Lab 04, Lab 05               |
-| Incremental ingestion / repeated jobs        |           High in data sample | Lab 06                             |
-| Data quality / scale discussion              |           High in data sample | Lab 06                             |
-| Transactions / atomicity                     |                   Medium-high | Lab 01, Lab 02, Lab 03, Lab 06        |
-| Time zones / scheduling                      |                        Medium | Lab 01, Lab 06                      |
-| Production-readiness notes                   |                          High | All                               |
-| Algorithm puzzles as main assessment         |   Not dominant in this sample | Optional only                     |
-| Baseline plus measurable AI evaluation       | High in AI Engineering sample | Lab 07                             |
-| Document extraction / RAG / tool use         | High in AI Engineering sample | Lab 07                             |
+| Pattern                                                        |      Strength in researched sample | Labs                                          |
+| -------------------------------------------------------------- | ---------------------------------: | --------------------------------------------- |
+| Existing repository / starter project                          |                          Very high | All                                           |
+| Run and understand project before coding                       |                          Very high | All                                           |
+| Tests as evaluation evidence                                   |                          Very high | All                                           |
+| Add/extend a product feature                                   |                          Very high | All                                           |
+| Explain design decisions / trade-offs                          |                          Very high | All                                           |
+| Follow-up discussion / code review / pairing                   |                          Very high | All                                           |
+| Refactoring / improve messy code                               |                               High | Lab 01, Lab 02, Lab 03                        |
+| Debugging with IDE/logs                                        |                               High | Lab 01, Lab 02, Lab 03                        |
+| REST/API behaviour                                             |                               High | Lab 01, Lab 03, Lab 04, Lab 05, Lab 06        |
+| Persistence and data modelling                                 |                               High | Lab 01, Lab 02, Lab 03, Lab 05, Lab 06        |
+| Loading/error/empty/retry frontend states                      |            High in frontend sample | Lab 03, Lab 04, Lab 05                        |
+| Async UI mutation / rollback                                   |                        Medium-high | Lab 03, Lab 04, Lab 05                        |
+| Incremental ingestion / repeated jobs                          |                High in data sample | Lab 06                                        |
+| Data quality / scale discussion                                |                High in data sample | Lab 06                                        |
+| Transactions / atomicity                                       |                        Medium-high | Lab 01, Lab 02, Lab 03, Lab 06                |
+| Time zones / scheduling                                        |                             Medium | Lab 01, Lab 06                                |
+| Production-readiness notes                                     |                               High | All                                           |
+| Algorithm puzzles as main assessment                           |        Not dominant in this sample | Optional only, deliberate exception in Lab 10 |
+| Baseline plus measurable AI evaluation                         |      High in AI Engineering sample | Lab 07                                        |
+| Document extraction / RAG / tool use                           |      High in AI Engineering sample | Lab 07                                        |
+| DP-heavy online assessment feeding live coding + system design | High in Lab 10's researched sample | Lab 10                                        |
 
 ---
 
@@ -891,6 +909,24 @@ Primary inspiration: the MoonPay assessment pattern plus AWS official technical 
 
 ---
 
+### Lab 10 — LeetCode Interview
+
+**Tracks:** Easy + Intermediate + Advanced, each shipped in two parallel language implementations (Python/pytest and Java/JUnit 5).
+
+This is the deliberate exception recorded in §4.18 and §5: the only Lab organized around an algorithmic assessment first, rather than an existing repository to debug. Original scenario-wrapped problems only — never a copied task, dataset or exact wording from either evidence source in §4.18.
+
+Easy: a Two-Sum-pattern feature (hash map, one pass) and a parsing/aggregation feature (defensive parsing, exact-decimal money), both wrapped in a payments-reconciliation scenario.
+
+Intermediate: a mandatory core of one DP/subsequence pattern (Longest Increasing Subsequence) and one BFS/graph-traversal pattern (Number-of-Islands-style flood fill), plus a fully-built optional rotation pool (Longest Bitonic Subsequence; Coin-Change-style minimum-count DP) so a repeat attempt isn't the same two problems.
+
+Advanced: a single seeded idempotency/duplicate-submit bug in a small money-transfer service, followed by a non-code Interview Simulation Script (deep-dive on a past project, a debugging discussion introducing new production evidence mid-investigation, an incremental system-design extension, and product/behavioral questions) run across eleven explicit phases from exploration through self-review. A private mentor-only companion (`INTERVIEWER_GUIDE.md` inside the Lab) carries the adaptive-questioning doctrine, a three-level hint system with usage logging, and the weighted evaluation rubric — kept separate from the candidate-facing README per this guide's rule against committing solutions.
+
+The previously deferred React/TypeScript frontend and expanded Advanced backend are now implemented. Lab 10's own README and `INTERVIEWER_GUIDE.md` are authoritative for its current architecture, scenario rotation and verification contract.
+
+Primary inspiration: the Wise and BJAK-pattern evidence in §4.18.
+
+---
+
 ## 12. SQL/PostgreSQL editorial track
 
 SQL must not be confined to one standalone quiz.
@@ -1152,12 +1188,23 @@ Lab 01 is the first Reference Lab for this standard. Lab 02 and Lab 03 will be a
 14. Data With Danny — PostgreSQL / realistic SQL case studies
     https://github.com/datawithdanny/postgresql-for-data-analytics
 
+15. Wise — Backend Pair Programming Interviews
+    https://wise.jobs/backend-pair-programming-interviews
+
+16. Wise — Backend System Design Interviews
+    https://wise.jobs/backend-system-design-interviews
+
+17. Wise — Engineering Product Round Interviews
+    https://wise.jobs/eng-product-round-interviews
+
 ### Context-only source
 
 15. Public candidate copy of a seQura backend challenge
     https://github.com/itSQualL/sequra
 
-Use source 15 only for general pattern triangulation. Do not reproduce the task/dataset/rules.
+16. Public candidate-published interview accounts describing a DP-heavy online assessment and live-coding/system-design onsite round at a Malaysia-based fintech/product company (Lab 10, §4.18)
+
+Use sources 15 and 19 only for general pattern triangulation. Do not reproduce any task, dataset or rule from either.
 
 ---
 

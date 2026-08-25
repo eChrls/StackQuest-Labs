@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+command=${1:-doctor}; level=${2:-easy}; option=${3:-}; root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd); cd "$root"
+case "$command" in
+ doctor) docker version --format '{{.Server.Version}}'; docker compose version; docker compose config --quiet; echo 'Lab 10 doctor: OK';;
+ start) echo "Use --random via lab.ps1 on Windows or choose a ticket explicitly."; if [ "$level" = advanced ]; then docker compose up --build backend frontend; else echo "./lab test $level E1|E2|E3|I1|I4|I5"; fi;;
+ test) ticket=${option:-$(if [ "$level" = easy ];then echo E1;elif [ "$level" = intermediate ];then echo I1;else echo A1;fi)}; if [ "$level" = advanced ];then case "$ticket" in A1)test=DuplicateTransferTest;;A2)test=InvalidStateTransitionTest;;esac;docker compose run --rm backend mvn test "-Dtest=$test" --no-transfer-progress;else docker compose --profile tools run --rm algorithms-java mvn test "-Dgroups=$ticket & public" --no-transfer-progress;fi;;
+ reset) docker compose down --volumes; echo 'Advanced database and containers reset.';;
+ *) echo 'Usage: ./lab doctor|start|test|reset [easy|intermediate|advanced] [ticket]' >&2;exit 2;;
+esac

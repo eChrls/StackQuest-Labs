@@ -1,0 +1,53 @@
+name: stackquest-lab-10-java
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/transfers
+    ports:
+      - "127.0.0.1:18101:8080"
+    command: ["mvn", "spring-boot:run"]
+    logging: &jsonlog
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  test:
+    profiles: [test]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/test-transfers
+    command: ["mvn", "test", "--no-transfer-progress"]
+    init: true
+    logging: *jsonlog
+
+  dev:
+    profiles: [dev]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      TRANSFER_DB_PATH: /workspace/data/transfers
+    command: ["sleep", "infinity"]
+    logging: *jsonlog
+
+volumes:
+  maven_cache:
