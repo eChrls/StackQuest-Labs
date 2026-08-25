@@ -8,6 +8,8 @@ create a second transfer.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import os
+import sqlite3
 
 from app.db import get_connection
 
@@ -16,19 +18,29 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def create_transfer(user_id: str, amount: str, idempotency_key: str) -> dict:
+def create_transfer(user_id: str, amount: str, idempotency_key: str) -> tuple[dict, bool]:
     conn = get_connection()
     try:
-        cursor = conn.execute(
-            "INSERT INTO transfers (idempotency_key, user_id, amount, created_at) "
-            "VALUES (?, ?, ?, ?)",
-            (idempotency_key, user_id, amount, _now_iso()),
-        )
+        try:
+            cursor = conn.execute(
+                "INSERT INTO transfers (idempotency_key, user_id, amount, created_at) "
+                "VALUES (?, ?, ?, ?)",
+                (idempotency_key, user_id, amount, _now_iso()),
+            )
+        except sqlite3.IntegrityError:
+            if os.environ.get("LAB_REFERENCE_MODE") != "true":
+                raise
+            row = conn.execute(
+                "SELECT * FROM transfers WHERE idempotency_key = ?", (idempotency_key,)
+            ).fetchone()
+            if row is None:
+                raise
+            return dict(row), False
         conn.commit()
         row = conn.execute(
             "SELECT * FROM transfers WHERE id = ?", (cursor.lastrowid,)
         ).fetchone()
-        return dict(row)
+        return dict(row), True
     finally:
         conn.close()
 

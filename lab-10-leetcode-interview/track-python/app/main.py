@@ -34,12 +34,12 @@ def post_transfer(
             status_code=400,
             content={"error": "Idempotency-Key header is required"},
         )
-    transfer = transfer_service.create_transfer(
+    transfer, created = transfer_service.create_transfer(
         user_id=payload.user_id,
         amount=payload.amount,
         idempotency_key=idempotency_key,
     )
-    return JSONResponse(status_code=201, content=transfer)
+    return JSONResponse(status_code=201 if created else 200, content=transfer)
 
 
 @app.get("/api/transfers")

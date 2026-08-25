@@ -1,10 +1,28 @@
 #!/usr/bin/env sh
 set -eu
-command=${1:-doctor}; level=${2:-easy}; option=${3:-}; root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd); cd "$root"
+
+command=${1:-doctor}; level=${2:-easy}; ticket=${3:-}; random=false; track=java
+for argument in "$@"; do case "$argument" in --random) random=true;; --python) track=python;; --java) track=java;; esac; done
+root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd); state="$root/.interview-state.txt"
+pool_for() { case "$1" in easy) printf '%s\n' E1 E2 E3;; intermediate) printf '%s\n' I1 I4 I5;; advanced) printf '%s\n' A1 A2;; *) return 1;; esac; }
+previous_for() { [ -f "$state" ] || return 0; awk -F= -v key="$1" '$1 == key { print $2 }' "$state"; }
+select_ticket() {
+  selected=${ticket:-}; previous=$(previous_for "$level")
+  if [ "$random" = true ] || [ -z "$selected" ]; then selected=$(pool_for "$level" | awk -v previous="$previous" 'BEGIN{srand()} $0 != previous { values[++n]=$0 } END { if (n) print values[int(rand()*n)+1] }'); fi
+  pool_for "$level" | grep -Fx "$selected" >/dev/null || { echo "Invalid $level ticket: $selected" >&2; return 2; }
+  tmp="$state.tmp"; { [ -f "$state" ] && grep -v "^${level}=" "$state" || true; printf '%s=%s\n' "$level" "$selected"; } > "$tmp"; mv "$tmp" "$state"; printf '%s\n' "$selected"
+}
+run_test() {
+  selected=$1
+  if [ "$level" = advanced ]; then case "$selected" in A1) test_class=DuplicateTransferTest;; A2) test_class=InvalidStateTransitionTest;; esac; docker compose run --rm backend mvn test "-Dtest=$test_class" --no-transfer-progress
+  elif [ "$track" = python ]; then case "$selected" in E1) file=tests/test_easy_e1_pair_transactions.py;; E2) file=tests/test_easy_e2_transaction_summary.py;; E3) file=tests/test_easy_e3_balanced_events.py;; I1) file=tests/test_intermediate_i1_growth_streak.py;; I4) file=tests/test_intermediate_i4_fraud_clusters.py;; I5) file=tests/test_intermediate_i5_scheduling.py;; esac; docker compose --profile tools run --rm python python -m pytest -q -m public "$file"
+  else docker compose --profile tools run --rm algorithms-java mvn test "-Dgroups=$selected & public" --no-transfer-progress; fi
+}
+cd "$root"
 case "$command" in
- doctor) docker version --format '{{.Server.Version}}'; docker compose version; docker compose config --quiet; echo 'Lab 10 doctor: OK';;
- start) echo "Use --random via lab.ps1 on Windows or choose a ticket explicitly."; if [ "$level" = advanced ]; then docker compose up --build backend frontend; else echo "./lab test $level E1|E2|E3|I1|I4|I5"; fi;;
- test) ticket=${option:-$(if [ "$level" = easy ];then echo E1;elif [ "$level" = intermediate ];then echo I1;else echo A1;fi)}; if [ "$level" = advanced ];then case "$ticket" in A1)test=DuplicateTransferTest;;A2)test=InvalidStateTransitionTest;;esac;docker compose run --rm backend mvn test "-Dtest=$test" --no-transfer-progress;else docker compose --profile tools run --rm algorithms-java mvn test "-Dgroups=$ticket & public" --no-transfer-progress;fi;;
- reset) docker compose down --volumes; echo 'Advanced database and containers reset.';;
- *) echo 'Usage: ./lab doctor|start|test|reset [easy|intermediate|advanced] [ticket]' >&2;exit 2;;
+  doctor) docker version --format '{{.Server.Version}}'; docker compose version; docker compose config --quiet; echo 'Lab 10 doctor: OK';;
+  start) selected=$(select_ticket); echo "Selected $level ticket: $selected"; if [ "$level" = advanced ]; then docker compose up --build backend frontend; fi;;
+  test) selected=$(select_ticket); run_test "$selected";;
+  reset) rm -f "$state"; docker compose down --volumes; echo 'Lab 10 state, containers and volumes reset.';;
+  *) echo 'Usage: ./lab doctor|start|test|reset [easy|intermediate|advanced] [ticket] [--random] [--python]' >&2; exit 2;;
 esac

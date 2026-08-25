@@ -30,12 +30,12 @@ def init_db() -> None:
             """
             CREATE TABLE IF NOT EXISTS transfers (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                idempotency_key TEXT NOT NULL,
+                idempotency_key TEXT NOT NULL {unique_key},
                 user_id TEXT NOT NULL,
                 amount TEXT NOT NULL,
                 created_at TEXT NOT NULL
             )
-            """
+            """.format(unique_key="UNIQUE" if os.environ.get("LAB_REFERENCE_MODE") == "true" else "")
         )
         conn.commit()
     finally:

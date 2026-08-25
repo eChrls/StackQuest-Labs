@@ -27,10 +27,10 @@ try {
   if($Command -eq 'doctor'){docker version --format '{{.Server.Version}}';docker compose version;docker compose config --quiet;Write-Output 'Lab 10 doctor: OK';exit}
   $selected=Select-Ticket
   if($Command -eq 'start'){Write-Output "Selected $Level ticket: $selected";if($Level -eq 'advanced'){docker compose up --build backend frontend}else{Write-Output "Run: .\lab.ps1 test $Level -Ticket $selected"};exit}
-  if($Command -eq 'reset'){if($Level -eq 'advanced'){docker compose down --volumes};Write-Output "Reset $selected; selected ticket retained in .interview-state.json";exit}
+  if($Command -eq 'reset'){Remove-Item -LiteralPath $State -Force -ErrorAction SilentlyContinue;if($Level -eq 'advanced'){docker compose down --volumes};Write-Output "Reset $Level state and resources";exit}
   if($Level -eq 'easy' -or $Level -eq 'intermediate'){
     if($Track -eq 'python'){
-      if($Reference){docker compose --profile tools run --rm python python -m pytest -q reference/test_solutions.py}
+      if($Reference){docker compose --profile tools run --rm python python -m pytest -q reference}
       else{$file=@{E1='tests/test_easy_e1_pair_transactions.py';E2='tests/test_easy_e2_transaction_summary.py';E3='tests/test_easy_e3_balanced_events.py';I1='tests/test_intermediate_i1_growth_streak.py';I4='tests/test_intermediate_i4_fraud_clusters.py';I5='tests/test_intermediate_i5_scheduling.py'}[$selected];$mark=if($Evaluator){'public or evaluator or hidden'}else{'public'};docker compose --profile tools run --rm python python -m pytest -q -m $mark $file}
     } else {
       $tag=if($Evaluator){$selected}else{"$selected & public"}

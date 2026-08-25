@@ -1,0 +1,6 @@
+.interview-state.json
+**/target/
+frontend/node_modules/
+frontend/dist/
+track-java/data/
+track-python/data/

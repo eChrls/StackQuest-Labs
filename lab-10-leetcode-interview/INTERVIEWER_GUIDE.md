@@ -16,7 +16,7 @@ This guide operationalizes the "interviewer mode" requirements: adaptive Socrati
 
 - **Level 0 — questions only.** No new information from you. You ask what they already should be asking themselves: "What evidence supports that?", "What do you know for certain versus what's still a hypothesis?", "What would prove or disprove that?" This is the default mode for the entire session, not just when someone is stuck.
 - **Level 1 — conceptual nudge.** You name a *concept* or *direction* without naming the fix: "Is there a data structure that turns your second loop into a lookup?", "What's different about the state you'd need for a decreasing run versus an increasing one?" Use this only after Level-0 questioning hasn't moved them in five or so minutes.
-- **Level 2 — explicit hint.** You name the specific technique or the specific place to look, but still not the code: "Use a hash map from value seen to its index." "The bug is that the idempotency key is never checked against existing rows before the insert." This is the ticket's own Hint 3 in `README.md` — reaching Level 2 on a ticket should visibly cost something in the final score.
+- **Level 2 — explicit hint.** You name the specific technique or the specific place to look, but still not the code: "Use a hash map from value seen to its index." "The bug is that the idempotency key is never checked against existing rows before the insert." This is the most explicit hint tier; reaching Level 2 on a ticket should visibly cost something in the final score.
 
 Never skip a level. Never give Level 2 unprompted just because time is short — a candidate who never asks for help and runs out of time is a different (and more informative) data point than one who received an unrequested answer.
 
@@ -127,7 +127,7 @@ Map the A1 ticket and the Interview Simulation Script onto these phases explicit
 
 **Good adaptive questions:** "You already have a way to find the best increasing run ending at i. What's the mirror image of that, read from the other direction?" "Why would you subtract one when combining the two halves?"
 
-### I3 — Reward combo (Coin Change / minimum coins), optional rotation
+### I3 — Reward combo (Coin Change / minimum coins), additional practice
 
 **Root cause / correct approach:** unbounded coin-change DP; `dp[amount] = 1 + min(dp[amount - c] for c in coins if c <= amount)`, `dp[0] = 0`, unreachable stays at a sentinel → `-1`.
 
