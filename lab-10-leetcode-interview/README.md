@@ -38,6 +38,10 @@ docker compose run --rm frontend npm run build
 
 UI: <http://localhost:18102>; API: <http://localhost:18101>. Optional native execution uses the same projects: `mvn test` in `algorithms-java/` or `track-java/`, `python -m pytest` in `track-python/`, and `npm install && npm test && npm run build` in `frontend/`.
 
+### VS Code without local toolchains
+
+Open `lab-10-leetcode-interview/` in VS Code and run **Dev Containers: Reopen in Container**. The TypeScript Server, Vitest and frontend run in the Compose `frontend` service; the Java/Maven backend starts as a companion service. The `algorithms-java` and `python` runners remain available with `docker compose --profile tools run --rm ...`. The host does not need Node, npm, JDK, Maven or Python installed.
+
 ## Rotation pools
 
 | Phase | Ticket | Family | Target |

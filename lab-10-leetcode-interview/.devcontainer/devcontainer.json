@@ -1,0 +1,22 @@
+{
+  "name": "StackQuest Lab 10",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "frontend",
+  "runServices": ["backend", "frontend"],
+  "workspaceFolder": "/workspaces/lab-10",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "forwardPorts": [18101, 18102],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next"
+      ],
+      "settings": {
+        "typescript.tsdk": "/workspaces/lab-10/frontend/node_modules/typescript/lib"
+      }
+    }
+  }
+}

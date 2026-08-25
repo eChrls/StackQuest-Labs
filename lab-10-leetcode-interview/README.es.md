@@ -27,6 +27,10 @@ Solo hacen falta Git, Docker y Docker Compose:
 
 Linux/macOS: `./lab doctor|start|test|reset nivel ticket`. UI: <http://localhost:18102>; API: <http://localhost:18101>. La ruta local opcional ejecuta los mismos proyectos con Maven/Java 21, Python 3.12 o Node 22.
 
+### VS Code sin toolchains locales
+
+Abre `lab-10-leetcode-interview/` en VS Code y ejecuta **Dev Containers: Reopen in Container**. El TypeScript Server, Vitest y el frontend se ejecutan en el servicio Compose `frontend`; el backend Java/Maven se inicia como servicio compañero. Los runners `algorithms-java` y `python` siguen disponibles con `docker compose --profile tools run --rm ...`. No necesitas instalar Node, npm, JDK, Maven ni Python en el host.
+
 ## Pools
 
 - Easy: E1 Pair transactions (hash map, O(n)); E2 Transaction summary (parsing/decimal); E3 Balanced events (stack, O(n)).

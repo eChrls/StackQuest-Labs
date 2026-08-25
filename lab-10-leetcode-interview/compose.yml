@@ -18,7 +18,8 @@ services:
     command: ["mvn","spring-boot:run","--no-transfer-progress"]
   frontend:
     build: ./frontend
-    volumes: ["./frontend:/workspace", "frontend_modules:/workspace/node_modules"]
+    working_dir: /workspaces/lab-10/frontend
+    volumes: [".:/workspaces/lab-10", "frontend_modules:/workspaces/lab-10/frontend/node_modules"]
     ports: ["127.0.0.1:18102:5173"]
     depends_on: [backend]
 volumes:
