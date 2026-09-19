@@ -4,7 +4,7 @@ set -eu
 command=${1:-doctor}; level=${2:-easy}; ticket=${3:-}; random=false; track=java
 for argument in "$@"; do case "$argument" in --random) random=true;; --python) track=python;; --java) track=java;; esac; done
 root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd); state="$root/.interview-state.txt"
-pool_for() { case "$1" in easy) printf '%s\n' E1 E2 E3;; intermediate) printf '%s\n' I1 I4 I5;; advanced) printf '%s\n' A1 A2;; *) return 1;; esac; }
+pool_for() { case "$1" in easy) printf '%s\n' E1 E2 E3;; intermediate) printf '%s\n' I1 I4 I5 I6 I7;; advanced) printf '%s\n' A1 A2;; *) return 1;; esac; }
 previous_for() { [ -f "$state" ] || return 0; awk -F= -v key="$1" '$1 == key { print $2 }' "$state"; }
 select_ticket() {
   selected=${ticket:-}; previous=$(previous_for "$level")
@@ -15,7 +15,7 @@ select_ticket() {
 run_test() {
   selected=$1
   if [ "$level" = advanced ]; then case "$selected" in A1) test_class=DuplicateTransferTest;; A2) test_class=InvalidStateTransitionTest;; esac; docker compose run --rm backend mvn test "-Dtest=$test_class" --no-transfer-progress
-  elif [ "$track" = python ]; then case "$selected" in E1) file=tests/test_easy_e1_pair_transactions.py;; E2) file=tests/test_easy_e2_transaction_summary.py;; E3) file=tests/test_easy_e3_balanced_events.py;; I1) file=tests/test_intermediate_i1_growth_streak.py;; I4) file=tests/test_intermediate_i4_fraud_clusters.py;; I5) file=tests/test_intermediate_i5_scheduling.py;; esac; docker compose --profile tools run --rm python python -m pytest -q -m public "$file"
+  elif [ "$track" = python ]; then case "$selected" in E1) file=tests/test_easy_e1_pair_transactions.py;; E2) file=tests/test_easy_e2_transaction_summary.py;; E3) file=tests/test_easy_e3_balanced_events.py;; I1) file=tests/test_intermediate_i1_growth_streak.py;; I4) file=tests/test_intermediate_i4_fraud_clusters.py;; I5) file=tests/test_intermediate_i5_scheduling.py;; *) echo "Ticket $selected is only available in the Java track" >&2; return 2;; esac; docker compose --profile tools run --rm python python -m pytest -q -m public "$file"
   else docker compose --profile tools run --rm algorithms-java mvn test "-Dgroups=$selected & public" --no-transfer-progress; fi
 }
 cd "$root"

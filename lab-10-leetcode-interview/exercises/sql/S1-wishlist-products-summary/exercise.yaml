@@ -1,0 +1,9 @@
+id: S1
+title: Wishlist Products Summary for E-commerce Dashboard
+level: beginner-intermediate
+family: sql/join/grouping/aggregation
+languages: [sql]
+database: mysql
+expected_complexity: {time: database-dependent, space: database-dependent}
+rotation: {enabled: false}
+evaluation: {hints: true, verbalization: true, evaluator_tests: false, reference_solution: true}

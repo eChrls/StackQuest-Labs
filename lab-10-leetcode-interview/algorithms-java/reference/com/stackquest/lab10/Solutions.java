@@ -16,4 +16,21 @@ public final class Solutions {
     public static int minRewards(int[]coins,int target){int[]dp=new int[target+1];Arrays.fill(dp,target+1);dp[0]=0;for(int amount=1;amount<=target;amount++)for(int coin:coins)if(coin<=amount)dp[amount]=Math.min(dp[amount],dp[amount-coin]+1);return dp[target]>target?-1:dp[target];}
     public static int fraudClusters(char[][]g){if(g.length==0)return 0;boolean[][]v=new boolean[g.length][];for(int r=0;r<g.length;r++)v[r]=new boolean[g[r].length];int n=0;int[][]ds={{1,0},{-1,0},{0,1},{0,-1}};for(int r=0;r<g.length;r++)for(int c=0;c<g[r].length;c++)if(g[r][c]=='1'&&!v[r][c]){n++;Deque<int[]>q=new ArrayDeque<>();q.add(new int[]{r,c});v[r][c]=true;while(!q.isEmpty()){int[]x=q.remove();for(int[]d:ds){int nr=x[0]+d[0],nc=x[1]+d[1];if(nr>=0&&nr<g.length&&nc>=0&&nc<g[nr].length&&g[nr][nc]=='1'&&!v[nr][nc]){v[nr][nc]=true;q.add(new int[]{nr,nc});}}}}return n;}
     public static int maxNonOverlapping(int[][]w){Arrays.sort(w,Comparator.comparingInt(x->x[1]));int count=0,end=Integer.MIN_VALUE;for(int[]x:w)if(x[0]>=end){count++;end=x[1];}return count;}
+    public static List<String> getRecommendations(List<String> watchedCategories,List<Integer> watchedCategoryRelevance,List<String> availableVideoTitles,List<String> availableVideoCategories){
+        Map<String,Integer> relevanceByCategory=new HashMap<>();
+        for(int i=0;i<watchedCategories.size();i++)relevanceByCategory.put(watchedCategories.get(i),watchedCategoryRelevance.get(i));
+        Map<String,List<String>> titlesByCategory=new HashMap<>();
+        for(int i=0;i<availableVideoTitles.size();i++)titlesByCategory.computeIfAbsent(availableVideoCategories.get(i),ignored->new ArrayList<>()).add(availableVideoTitles.get(i));
+        List<String> categories=new ArrayList<>(titlesByCategory.keySet());
+        categories.sort((left,right)->{
+            Integer leftRelevance=relevanceByCategory.get(left),rightRelevance=relevanceByCategory.get(right);
+            if(leftRelevance!=null&&rightRelevance!=null)return Integer.compare(rightRelevance,leftRelevance);
+            if(leftRelevance!=null)return -1;
+            if(rightRelevance!=null)return 1;
+            return left.compareTo(right);
+        });
+        List<String> recommendations=new ArrayList<>(availableVideoTitles.size());
+        for(String category:categories){List<String> titles=titlesByCategory.get(category);titles.sort(String::compareTo);recommendations.addAll(titles);}
+        return recommendations;
+    }
 }

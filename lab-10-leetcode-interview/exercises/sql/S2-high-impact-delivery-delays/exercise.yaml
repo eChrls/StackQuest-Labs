@@ -1,0 +1,9 @@
+id: S2
+title: Identifying High-Impact Delays in Order Fulfillment
+level: intermediate
+family: sql/cte/date-functions/aggregation/filtering
+languages: [sql]
+database: mysql
+expected_complexity: {time: database-dependent, space: database-dependent}
+rotation: {enabled: false}
+evaluation: {hints: true, verbalization: true, evaluator_tests: false, reference_solution: true}

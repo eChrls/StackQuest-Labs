@@ -15,5 +15,12 @@ public final class Solutions {
     public static int minRewards(int[] values, int target) { throw pending("I3"); }
     public static int fraudClusters(char[][] grid) { throw pending("I4"); }
     public static int maxNonOverlapping(int[][] windows) { throw pending("I5"); }
+    public static List<String> getRecommendations(
+            List<String> watchedCategories,
+            List<Integer> watchedCategoryRelevance,
+            List<String> availableVideoTitles,
+            List<String> availableVideoCategories) {
+        throw pending("I6");
+    }
     private static UnsupportedOperationException pending(String id) { return new UnsupportedOperationException("Implement " + id); }
 }

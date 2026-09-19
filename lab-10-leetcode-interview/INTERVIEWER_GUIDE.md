@@ -143,6 +143,26 @@ Map the A1 ticket and the Interview Simulation Script onto these phases explicit
 
 **Good adaptive questions:** "Are two diagonally touching suspicious cells the same cluster here? Why or why not?" "What happens to a recursive solution on a much bigger grid?"
 
+### I6 — Content Recommendation
+
+**Root cause / correct approach:** build a hash map from watched category to relevance and another from available category to its titles. Sort the distinct available categories with watched categories first (descending relevance) and unwatched categories second (alphabetical), then sort each title group and flatten it. Expected time is O(w + v + c log c + v log v) in the worst case and space is O(w + v), where w is watched categories, v is videos and c is distinct available categories.
+
+**Common errors:** repeatedly calling `watchedCategories.indexOf` from a comparator (quadratic at scale); ordering unwatched videos by title without first ordering their categories; relying on hash-map iteration order; reversing the alphabetical order inside a category; returning categories along with titles.
+
+**Hints:** Level 0 asks what facts are needed per category before sorting. Level 1 suggests associating relevance and grouped titles with keys. Level 2 explicitly suggests two maps, category sorting, per-group title sorting and flattening, without supplying code.
+
+**Follow-up:** ask about complexity, the map choice, 200,000 inputs, a single global comparator, and deterministic tie-breakers if relevance values repeat. Repeated titles remain repeated unless the product contract introduces deduplication.
+
+### I7 — Shuffle Playlist
+
+**Correct approach:** group songs into FIFO queues by artist, record each artist's first input position, and maintain selectable artists in a priority queue ordered by remaining count descending then first position ascending. If the best artist matches the previous artist and another is available, temporarily hold the best, select the next artist, and reinsert both as appropriate. Poll before mutating a count and reinsert afterward so the heap never contains a mutable key in the wrong position. Expected O(n log a) time and O(n + a) space for a artists.
+
+**Common errors:** globally sorting once despite dynamic counts; losing within-artist order; choosing the same artist twice while an alternative remains; incorrect tie order; mutating an element while it remains in a priority queue; or keeping stale duplicate heap entries without validation.
+
+**Hints:** Level 0 asks what state belongs to each artist. Level 1 suggests FIFO grouping. Level 2 names a priority queue ordered by remaining count/first appearance and temporarily holding out the previous artist, without giving code.
+
+**Follow-up:** request a greedy justification; complexity at 200,000 songs; an explanation of heap updates; and how always allowing repeats or globally minimizing adjacency would change the problem.
+
 ### A1 — Duplicate Transfer
 
 **Architecture:** client → `POST /api/transfers` (Idempotency-Key header + JSON body) → service → single `transfers` table (SQLite in the Python track, H2 in the Java track). No queue, no external provider call in the seeded baseline.
@@ -173,8 +193,8 @@ Map the A1 ticket and the Interview Simulation Script onto these phases explicit
 ### Intermediate (per ticket)
 
 - **Pass:** correct DP/algorithmic recurrence identified with at most a Level-1 hint; public example and most hidden cases pass.
-- **Good candidate:** reaches the target complexity for the selected ticket without a Level-2 hint, handles every evaluator edge case, and can justify that complexity (I1 O(n²), I4 O(rows × cols), I5 O(n log n)).
-- **Excellent candidate:** as above, and can explain *why* a naive/greedy alternative fails with a concrete counterexample (I3), or explains the O(n log n) direction for I1 without being asked to reach it.
+- **Good candidate:** reaches the target complexity for the selected ticket without a Level-2 hint, handles every evaluator edge case, and can justify that complexity (I1 O(n²), I4 O(rows × cols), I5 O(n log n), I6 O(w + v + c log c + v log v), I7 O(n log a)).
+- **Excellent candidate:** as above, and can explain *why* a naive/greedy alternative fails with a concrete counterexample (I3), explains the O(n log n) direction for I1 without being asked to reach it, or for I6 compares grouped sorting with a single global comparator and defines deterministic tie behavior.
 
 ### Advanced (weighted, out of 100)
 
@@ -213,7 +233,7 @@ A1 evidence is `interviewer/evidence/A1-504-timeout.md`; A2 evidence is `intervi
 
 ## Rotation, phase results and overall decision
 
-Main pools are E1/E2/E3, I1/I4/I5 and A1/A2. I2/I3 are extra practice. On FAIL, select a different ticket; never immediately repeat the previous one. The runner exposes the selected ticket to the interviewer and stores only local non-sensitive state.
+Main pools are E1/E2/E3, I1/I4/I5/I6/I7 and A1/A2. I2/I3 are extra practice. I6 and I7 are Java-only. On FAIL, select a different ticket; never immediately repeat the previous one. The runner exposes the selected ticket to the interviewer and stores only local non-sensitive state.
 
 For Easy and Intermediate, record PASS/GOOD/EXCELLENT and separately `PHASE RESULT: PASS|FAIL`. Level 1 does not automatically fail; Level 2 materially caps the rating. For Advanced, record PASS/FAIL for all eleven phases. Overall Advanced PASS requires at least 70/100, at least 8/11 phase passes, and PASS in Root Cause, Implementation and Testing. An excellent but incomplete investigation can still outscore unexplained working code, but cannot satisfy the required implementation/testing gates.
 

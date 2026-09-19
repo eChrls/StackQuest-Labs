@@ -1,0 +1,8 @@
+id: I6
+title: Content Recommendation
+level: intermediate
+family: grouping/maps/multi-criteria-sorting
+languages: [java]
+expected_complexity: {time: O(w + v + c log c + v log v), space: O(w + v)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

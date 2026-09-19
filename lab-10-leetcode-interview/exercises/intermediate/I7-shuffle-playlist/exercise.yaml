@@ -1,0 +1,8 @@
+id: I7
+title: Shuffle Playlist
+level: intermediate
+family: greedy/hash-map/queue/scheduling
+languages: [java]
+expected_complexity: {time: O(n log a), space: O(n + a)}
+rotation: {enabled: true}
+evaluation: {hints: true, verbalization: true, evaluator_tests: true, reference_solution: true}

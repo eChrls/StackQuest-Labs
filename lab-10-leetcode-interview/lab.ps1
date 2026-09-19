@@ -11,7 +11,7 @@ param(
 $ErrorActionPreference='Stop'
 $Root=$PSScriptRoot
 $State=Join-Path $Root '.interview-state.json'
-$Pools=@{easy=@('E1','E2','E3');intermediate=@('I1','I4','I5');advanced=@('A1','A2')}
+$Pools=@{easy=@('E1','E2','E3');intermediate=@('I1','I4','I5','I6','I7');advanced=@('A1','A2')}
 function Select-Ticket {
   $pool=$Pools[$Level]; $selected=if($Ticket){$Ticket}elseif($Scenario){$Scenario}else{$pool[0]}
   $previous=$null;if(Test-Path $State){$saved=Get-Content $State -Raw|ConvertFrom-Json;$previous=$saved.$Level}
@@ -31,7 +31,7 @@ try {
   if($Level -eq 'easy' -or $Level -eq 'intermediate'){
     if($Track -eq 'python'){
       if($Reference){docker compose --profile tools run --rm python python -m pytest -q reference}
-      else{$file=@{E1='tests/test_easy_e1_pair_transactions.py';E2='tests/test_easy_e2_transaction_summary.py';E3='tests/test_easy_e3_balanced_events.py';I1='tests/test_intermediate_i1_growth_streak.py';I4='tests/test_intermediate_i4_fraud_clusters.py';I5='tests/test_intermediate_i5_scheduling.py'}[$selected];$mark=if($Evaluator){'public or evaluator or hidden'}else{'public'};docker compose --profile tools run --rm python python -m pytest -q -m $mark $file}
+      else{$file=@{E1='tests/test_easy_e1_pair_transactions.py';E2='tests/test_easy_e2_transaction_summary.py';E3='tests/test_easy_e3_balanced_events.py';I1='tests/test_intermediate_i1_growth_streak.py';I4='tests/test_intermediate_i4_fraud_clusters.py';I5='tests/test_intermediate_i5_scheduling.py'}[$selected];if(-not $file){throw "Ticket $selected is only available in the Java track"};$mark=if($Evaluator){'public or evaluator or hidden'}else{'public'};docker compose --profile tools run --rm python python -m pytest -q -m $mark $file}
     } else {
       $tag=if($Evaluator){$selected}else{"$selected & public"}
       $mvn=@('mvn','test',"-Dgroups=$tag",'--no-transfer-progress');if($Reference){$mvn+=@('-Preference')}
