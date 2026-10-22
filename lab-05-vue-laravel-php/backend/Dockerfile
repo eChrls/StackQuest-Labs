@@ -1,9 +1,12 @@
 FROM composer:2.10 AS composer
-FROM php:8.3.36-cli
+FROM php:8.3.36-cli-alpine
 WORKDIR /var/www
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN apt-get update && apt-get install -y --no-install-recommends libzip-dev unzip && docker-php-ext-install pdo_mysql zip && rm -rf /var/lib/apt/lists/*
-RUN pecl install xdebug-3.5.3 && docker-php-ext-enable xdebug
+RUN apk add --no-cache libzip unzip \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libzip-dev linux-headers \
+    && docker-php-ext-install pdo_mysql zip \
+    && pecl install xdebug-3.5.3 && docker-php-ext-enable xdebug \
+    && apk del .build-deps
 COPY xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
 COPY composer.json composer.lock ./
 RUN composer install --no-interaction --prefer-dist --no-progress
