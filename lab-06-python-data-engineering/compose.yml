@@ -2,7 +2,7 @@ name: stackquest-lab-06
 
 services:
   postgres:
-    image: postgres:17.5-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: lab6
       POSTGRES_USER: lab6
@@ -64,7 +64,7 @@ services:
 
   postgres-test:
     profiles: [test]
-    image: postgres:17.5-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: lab6_test
       POSTGRES_USER: lab6
