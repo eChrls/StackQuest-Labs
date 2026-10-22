@@ -3,6 +3,16 @@
 set -e
 node tools/security/check-php-versions.mjs
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
-  docker run --rm -v "$(pwd):/repo:ro" zricethezav/gitleaks:latest protect --staged --no-banner --redact -s /repo >/dev/null 2>&1 \
-    || { echo "gitleaks: possible secret in staged changes (run gitleaks protect --staged for details)"; exit 1; }
+  # Git Bash on Windows rewrites /repo-style arguments; disable that for the container paths.
+  MSYS_NO_PATHCONV=1
+  export MSYS_NO_PATHCONV
+  rc=0
+  out=$(docker run --rm -v "$(pwd):/repo:ro" zricethezav/gitleaks:latest protect --staged --no-banner --redact -s /repo 2>&1) || rc=$?
+  if [ "$rc" -eq 1 ]; then
+    echo "gitleaks: possible secret in staged changes:"; echo "$out" | tail -20; exit 1
+  elif [ "$rc" -ne 0 ]; then
+    echo "gitleaks: scanner error (exit $rc), refusing to commit unchecked:"; echo "$out" | tail -5; exit 1
+  fi
+else
+  echo "pre-commit: Docker is not running, secret scan skipped (CI still enforces it)" >&2
 fi
