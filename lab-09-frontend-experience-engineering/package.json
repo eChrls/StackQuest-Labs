@@ -15,5 +15,8 @@
     "qa:intermediate": "npm run test:intermediate --workspace qa/playwright",
     "qa:advanced": "npm run test:advanced --workspace qa/playwright",
     "qa:all": "npm run test:all --workspace qa/playwright"
+  },
+  "overrides": {
+    "vite": "8.3.5"
   }
 }
