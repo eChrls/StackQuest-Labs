@@ -1,5 +1,5 @@
-FROM composer:2.8 AS composer
-FROM php:8.3-cli
+FROM composer:2.10 AS composer
+FROM php:8.3.36-cli
 WORKDIR /var/www
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apt-get update && apt-get install -y --no-install-recommends libzip-dev unzip && docker-php-ext-install pdo_mysql zip && rm -rf /var/lib/apt/lists/*
