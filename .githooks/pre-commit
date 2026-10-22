@@ -1,0 +1,8 @@
+#!/bin/sh
+# Enable with: git config core.hooksPath .githooks
+set -e
+node tools/security/check-php-versions.mjs
+if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+  docker run --rm -v "$(pwd):/repo:ro" zricethezav/gitleaks:latest protect --staged --no-banner --redact -s /repo >/dev/null 2>&1 \
+    || { echo "gitleaks: possible secret in staged changes (run gitleaks protect --staged for details)"; exit 1; }
+fi

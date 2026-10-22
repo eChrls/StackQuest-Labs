@@ -1,0 +1,30 @@
+name: security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 5 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: PHP runtime guard (CVE-2026-109618 / CVE-2026-109619)
+        run: node tools/security/check-php-versions.mjs
+      - name: Secret scan
+        run: docker run --rm -v "$PWD:/repo:ro" zricethezav/gitleaks:latest detect --no-banner --redact -s /repo
+      - name: Dependency scan (HIGH/CRITICAL with a fix available block the build)
+        run: |
+          docker run --rm -v "$PWD:/src:ro" aquasec/trivy:latest fs /src             --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1             --skip-dirs node_modules --skip-dirs .git
+      # Informational until the lab containers drop root (bind-mounted caches such as /root/.m2 need a migration first).
+      - name: Dockerfile hardening report (non-blocking)
+        run: |
+          docker run --rm -v "$PWD:/src:ro" aquasec/trivy:latest fs /src             --scanners misconfig --misconfig-scanners dockerfile --severity HIGH,CRITICAL --exit-code 0             --skip-dirs node_modules --skip-dirs .git
