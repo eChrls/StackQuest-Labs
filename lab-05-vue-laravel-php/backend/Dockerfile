@@ -1,5 +1,5 @@
 FROM composer:2.10 AS composer
-FROM php:8.3.36-cli-alpine
+FROM php:8.5.11-cli-alpine
 WORKDIR /var/www
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apk add --no-cache libzip unzip \
